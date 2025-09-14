@@ -1,0 +1,149 @@
+@font-face {
+    font-family: "Press Start 2P";
+    src: url(../../assets/fonts/PressStart2P-1.ttf);
+}
+
+@font-face {
+    font-family: "pxfont";
+    src: url(../../assets/fonts/HYPixel11pxU-2.ttf);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', 'Courier New', "pxfont";
+    min-height: 100vh;
+    padding: 20px;
+    background-image: url(../../assets/images/continueBg.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: black;
+}
+
+.header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.saves-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.save-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.save-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+
+#auto-save {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 280px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    /* 位于页面正中央 */
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#auto-save:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.load-save-btn {
+    background: #fff;
+    color: rgb(250,165, 75);
+    border: 1px solid rgb(250,165, 75);
+    font-family: 'Press Start 2P', 'Courier New', "pxfont";
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.load-save-btn:hover {
+    background: rgb(250,165, 75);
+    color: white;
+}
+
+.delete-save-btn {
+    background: #fff;
+    color: #e53e3e;
+    border: 1px solid #e53e3e;
+    font-family: 'Press Start 2P', 'Courier New', "pxfont";
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delete-save-btn:hover {
+    background: #e53e3e;
+    color: white;
+}
+
+
+#noSavesMessage {
+    /* 置于页面中央 */
+    text-align: center;
+    width: 100%;
+    color: black;
+    font-size: 18px;
+    margin-top: 50px;
+    animation: pulse 2s infinite;
+}

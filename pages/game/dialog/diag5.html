@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Shortcut Icon" href="../../../assets/ico/ico.png">
+    <title>Beyond Tale</title>
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        @font-face {
+            font-family: "pxfont";
+            src: url(../../../assets/fonts/HYPixel11pxU-2.ttf);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', 'Courier New', 'pxfont';
+        }
+
+        /* 音乐播放器样式 */
+        #music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(20, 20, 35, 0.85);
+            border: 2px solid #6c5b95;
+            border-radius: 50px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #toggle-music {
+            background: rgba(108, 91, 149, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        #toggle-music:hover {
+            background: rgba(108, 91, 149, 1);
+            transform: scale(1.1);
+        }
+
+        #volume-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #volume-control input {
+            width: 80px;
+            cursor: pointer;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Press Start 2P', 'Courier New', 'pxfont';
+            padding: 20px;
+            overflow: hidden;
+            cursor: pointer; /* 添加指针光标 */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #game-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 3px solid #6c5b95;
+        }
+
+        #background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+        }
+
+        #character {
+            position: absolute;
+            height: 85%;
+            bottom: 0;
+            left: 5%;
+            z-index: 2;
+            transition: all 0.5s ease;
+            filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.7));
+            /* 移除紫色背景相关样式 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #dialog-container {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            width: 60%;
+            min-height: 30%;
+            max-height: 60%;
+            background: rgba(20, 20, 35, 0.85);
+            border: 2px solid #6c5b95;
+            border-radius: 12px;
+            z-index: 5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #character-name {
+            color: #e2b86f;
+            font-size: 1.8rem;
+            margin-bottom: 5px; /* 减少底部边距 */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            padding-left: 10px;
+            border-left: 4px solid #e2b86f;
+        }
+
+        #dialog-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 0; /* 移除底部边距 */
+            min-height: 0; /* 移除最小高度 */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            background: rgba(40, 40, 60, 0.3);
+            border-radius: 8px;
+            overflow-y: auto;
+            display: none; /* 默认隐藏 */
+        }
+
+        #player-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* 减少选项间距 */
+            margin-top: 15px; /* 增加顶部边距 */
+        }
+
+        .option {
+            background: linear-gradient(to right, rgba(60, 50, 90, 0.8), rgba(40, 35, 60, 0.8));
+            border: 1px solid #8c7ae6;
+            border-radius: 8px;
+            padding: 12px 15px; /* 减少内边距 */
+            font-size: 1.1rem; /* 稍微减小字体 */
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            line-height: 1.4; /* 调整行高 */
+        }
+
+        .option:hover {
+            background: linear-gradient(to right, rgba(80, 65, 120, 0.9), rgba(60, 50, 90, 0.9));
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #next-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(60, 50, 90, 0.8);
+            border: 1px solid #6c5b95;
+            border-radius: 50%;
+            color: #e0e0e0;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        #next-btn:hover {
+            background: rgba(80, 65, 120, 0.9);
+            transform: scale(1.1);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            #game-container {
+                height: 500px;
+            }
+
+            #dialog-container {
+                width: 65%;
+            }
+            
+            #player-options {
+                max-height: 120px; /* 调整移动设备上的选项高度 */
+            }
+            
+            .option {
+                padding: 10px 12px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #game-container {
+                height: 400px;
+            }
+
+            #dialog-container {
+                width: 80%;
+                padding: 15px;
+            }
+
+            #character-name {
+                font-size: 1.5rem;
+            }
+
+            #dialog-text {
+                font-size: 1.1rem;
+                margin-bottom: 0;
+            }
+
+            .option {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            
+            #player-options {
+                max-height: 100px;
+                gap: 6px;
+            }
+        }
+
+        /* Esc 菜单 */
+        #escMenu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .menu-content {
+            background-color: #333;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-family: 'Press Start 2P', 'Courier New', 'pxfont';
+        }
+
+
+        .menu-content button {
+            border: 5px solid #2c3e50;
+            color: #2c3e50;
+            background-color: #fff;
+            display: block;
+            font-family: 'Press Start 2P', 'Courier New', 'pxfont';
+            font-size: 15px;
+            letter-spacing: 0.1rem;
+            padding: 1rem;
+            margin: 30px auto;
+            position: relative;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .menu-content button::before {
+            content: "";
+            box-shadow: 1px 1px 0 #E26A6A,
+                3px 3px 0 #F1C40F,
+                5px 5px 0 #3498DB;
+            position: absolute;
+            left: 0.25rem;
+            top: 0.5rem;
+            height: 102%;
+            width: 102%;
+            transition: all 0.4s ease;
+            border-radius: 0.5rem;
+        }
+
+        .menu-content button:hover::before {
+            box-shadow: none;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="game-container">
+            <!-- 背景图片 - 替换为您的背景图片路径 -->
+            <img id="background" src="../picture/背景5.png" alt="背景">
+
+            <!-- 角色图片 - 替换为您的角色图片路径 -->
+            <img id="character" src="../picture/杰洛特.webp" alt="神秘角色">
+
+            <!-- 对话框 -->
+            <div id="dialog-container">
+                <div id="character-name">???</div>
+                <div id="dialog-text"></div>
+
+                <!-- 玩家选项 -->
+                <div id="player-options">
+                    <!-- 选项将在JavaScript中动态生成 -->
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+    <!-- 音乐播放器 -->
+    <div id="music-player">
+        <button id="toggle-music">🔊</button>
+        <div id="volume-control">
+            <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
+        </div>
+    </div>
+
+    <!-- Esc菜单 - 默认隐藏 -->
+    <div id="escMenu" class="hidden">
+        <div class="menu-content">
+            <button id="continueBtn">Continue</button>
+            <button id="saveBtn">Save</button>
+            <button id="mainMenuBtn">Return to Main Menu</button>
+        </div>
+    </div>
+    
+    <!-- 音频元素 - 替换src为您的音乐文件路径 -->
+    <audio id="background-music" loop>
+        <source src="../music/undertale.mp3" type="audio/mp3">
+        您的浏览器不支持音频元素。
+    </audio>
+    
+    
+    <script>
+        // ===================== 对话数据配置区域 =====================
+        // 在这里修改对话内容、角色名称和选项
+
+        // 页面1: 角色对话1
+        const page1 = {
+            type: "character",
+            name: "杰洛特", // 修改角色名称
+            content: "说明你的来意，或者亮出你的武器。" // 修改对话内容
+        };
+
+        // 页面2: 角色对话2
+        const page2 = {
+            type: "character",
+            name: "杰洛特", // 修改角色名称
+            content: "（凝视Frisk）你的‘决心’。不是诅咒，但…往往比诅咒更致命。" // 修改对话内容
+        };
+
+        // 页面3: 玩家选项
+        const page3 = {
+            type: "player",
+            options: [
+                { text: "我会书写英雄史诗", next: 3 },
+                { text: "等着看我战胜龙", next: 3 },
+                { text: "致的是敌人的命", next: 3 }
+            ]
+        };
+
+        // 页面4: 共用回应
+        const page4 = {
+            type: "character",
+            name: "杰洛特",
+            content: " 记住猎魔人的守则：两害相权…有时你必须选择那个更能承受的。以及，给你个忠告，不要从高处跳下来。  （对话结束，按Q退出）"
+        };
+
+        // 页面序列 - 注意索引从0开始
+        const pages = [page1, page2, page3, page4];
+        // ===================== 配置区域结束 =====================
+
+        // 当前页面索引
+        let currentPageIndex = 0;
+        // 标记是否正在显示选项
+        let isShowingOptions = false;
+
+        // DOM元素
+        const characterNameEl = document.getElementById('character-name');
+        const dialogTextEl = document.getElementById('dialog-text');
+        const playerOptionsEl = document.getElementById('player-options');
+        
+        const gameContainerEl = document.getElementById('game-container');
+
+        // 初始化游戏
+        function initGame() {
+            // 直接加载第一个对话页面
+            loadPage(currentPageIndex);
+
+        
+            // 添加全局点击事件监听器
+            document.addEventListener('click', handleGlobalClick);
+        }
+
+        // 处理全局点击事件
+        function handleGlobalClick(e) {
+            // 如果正在显示选项，则不处理全局点击
+            if (isShowingOptions) return;
+            
+            // 如果点击的是选项按钮，也不处理
+            if (e.target.closest('.option')) return;
+            
+            
+            
+            // 如果点击的是音乐播放器，不处理
+            if (e.target.closest('#music-player')) return;
+            
+            // 如果点击的是ESC菜单，不处理
+            if (e.target.closest('#escMenu')) return;
+            
+            // 否则推进对话
+            goToNextPage();
+        }
+
+        // 加载页面
+        function loadPage(index) {
+            // 确保索引在有效范围内
+            if (index < 0 || index >= pages.length) {
+                console.error("页面索引超出范围:", index);
+                return;
+            }
+
+            const page = pages[index];
+
+            if (page.type === "character") {
+                // 角色对话页面
+                isShowingOptions = false;
+                characterNameEl.textContent = page.name;
+                dialogTextEl.style.display = "block"; // 显示对话文本
+
+                // 逐字显示效果
+                const text = page.content;
+                let i = 0;
+                dialogTextEl.textContent = "";
+
+                // 清除之前的定时器
+                if (window.typeWriter) {
+                    clearInterval(window.typeWriter);
+                }
+
+                window.typeWriter = setInterval(() => {
+                    if (i < text.length) {
+                        dialogTextEl.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(window.typeWriter);
+
+                        
+                    }
+                }, 50);
+
+                // 隐藏玩家选项
+                playerOptionsEl.style.display = "none";
+
+            } else if (page.type === "player") {
+                // 玩家选项页面
+                isShowingOptions = true;
+                characterNameEl.textContent = "请选择回应";
+                dialogTextEl.style.display = "none"; // 隐藏对话文本
+
+                // 显示玩家选项
+                playerOptionsEl.style.display = "flex";
+
+                
+
+                // 清空现有选项
+                playerOptionsEl.innerHTML = "";
+
+                // 添加新选项
+                page.options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.textContent = option.text;
+                    optionElement.setAttribute('data-next', option.next);
+
+                    optionElement.addEventListener('click', () => {
+                        // 根据选项跳转到指定页面
+                        currentPageIndex = option.next;
+                        loadPage(currentPageIndex);
+                    });
+
+                    playerOptionsEl.appendChild(optionElement);
+                });
+            }
+        }
+
+        // 前往下一页
+        function goToNextPage() {
+            if (currentPageIndex < pages.length - 1) {
+                currentPageIndex++;
+                loadPage(currentPageIndex);
+            }
+        }
+
+        // 初始化游戏
+        window.onload = initGame;
+        // =============== 背景音乐控制功能 ===============
+        const audio = document.getElementById('background-music');
+        const toggleMusicBtn = document.getElementById('toggle-music');
+        const volumeControl = document.getElementById('volume');
+
+        // 尝试自动播放音乐
+        function tryAutoplay() {
+            // 由于浏览器策略，需要用户交互后才能自动播放
+            const promise = audio.play();
+
+            if (promise !== undefined) {
+                promise.then(() => {
+                    // 自动播放成功
+                    toggleMusicBtn.textContent = '🔊';
+                }).catch(error => {
+                    // 自动播放失败，需要用户手动启动
+                    toggleMusicBtn.textContent = '🔇';
+                    console.log('自动播放受阻，需要用户交互');
+                });
+            }
+        }
+
+        // 切换播放/暂停
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                toggleMusicBtn.textContent = '🔊';
+            } else {
+                audio.pause();
+                toggleMusicBtn.textContent = '🔇';
+            }
+        }
+
+        // 设置音量
+        function setVolume() {
+            audio.volume = volumeControl.value;
+        }
+
+        // 事件监听器
+        document.addEventListener('click', function () {
+            // 用户首次交互后尝试自动播放
+            if (audio.paused) {
+                tryAutoplay();
+            }
+        }, { once: true });
+
+        toggleMusicBtn.addEventListener('click', toggleMusic);
+        volumeControl.addEventListener('input', setVolume);
+
+        // 初始化音量
+        audio.volume = volumeControl.value;
+        // =============== 音乐控制功能结束 ===============
+
+// ===============================
+        // 新增：监听 Q 键退出对话，通知父页面
+        // ===============================
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "q" || e.key === "Q") {
+            if (parent && parent.closeNpcDialog) {
+              parent.closeNpcDialog();
+            }
+          }
+        });
+    </script>
+    <script src="save.js"></script>
+    <script src=""></script>
+    <!-- Esc菜单功能需要 -->
+    <script src="Esc.js"></script>
+</body>
+
+</html>

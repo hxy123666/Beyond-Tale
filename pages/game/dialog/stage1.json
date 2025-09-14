@@ -1,0 +1,17 @@
+{
+    "dialogues": [
+        {
+            "id": 1,
+            "background": "../../../assets/images/backgroundBlack.png",
+            "characters": [
+                {
+                    "position": "center",
+                    "image": "../../../assets/images/somebodyUnknown.png",
+                    "active": true
+                }
+            ],
+            "name": "???",
+            "content": "勇者啊，你为何仍在沉睡？"
+        }
+    ]
+}

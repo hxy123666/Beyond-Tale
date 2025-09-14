@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="Shortcut Icon" href="assets/ico/ico.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 隐藏音频元素 */
+        #backgroundMusic {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 背景音乐元素 -->
+    <!-- 注意：请将下面的音乐文件地址替换为您自己的音乐文件 -->
+    <audio id="backgroundMusic" loop autoplay>
+        <!-- 音乐文件地址示例（需要替换） -->
+        <source src="../version-1.0/pages/game/music/undertale.mp3" type="audio/mpeg">
+        <source src="your-music-file.ogg" type="audio/ogg">
+        您的浏览器不支持音频元素。
+    </audio>
+
+    <div class="loginContainer" id="signinContainer" style="display: block;">
+        <p class="loginTitle">Login</p>
+        <div class="loginForm">
+            <input type="text" id="username" placeholder="Username">
+            <br>
+            <input type="password" id="password" placeholder="Password">
+            <br>
+            <button class="loginButton" id="signinButton">Sign in</button>
+            <p class="link">
+                No account?
+                <a href="./pages/login/Signup.html" id="showSignup">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 登录进去的主页面 -->
+    <div id="mainContainer" style="display: none;">
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+        <p id="welcome">Welcome, <span id="usernameDisplay"></span>!</p>
+        <h1 class="title">Beyond Tale</h1>
+        <div id="selectContainer">
+            <div class="buttonContainer">
+                <a class="selectButton" id="newGame" href="./pages/introduction/introduce.html">New Game</a>
+                <br>
+                <a class="selectButton" href="./pages/continue/index.html">Continue</a>
+                <br>
+                <a class="selectButton" href="./pages/achievement/index.html">Achievement</a>
+                <br>
+                <a class="selectButton" href="./pages/about-us/index.html">About Us</a>
+                <br>
+                <a class="selectButton" href="pages/promo-video/index.html">Promo Video</a>
+                <br>
+                <a class="selectButton" id="logoutButton">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+
+    <script>
+        // 背景音乐自动播放功能
+        document.addEventListener('DOMContentLoaded', function () {
+            const music = document.getElementById('backgroundMusic');
+
+            // 自动播放音乐（不等待用户交互）
+            const playMusic = function () {
+                music.play().catch(error => {
+                    console.log('自动播放音乐:', error);
+                    // 如果自动播放失败，设置一个定时器重试
+                    setTimeout(playMusic, 1000);
+                });
+            };
+
+            // 页面加载后立即尝试播放
+            playMusic();
+        });
+    </script>
+
+    <script src="script.js"></script>
+    <p class="footerText">© 2025 Beyond Tale 保留所有权利</p>
+</body>
+
+</html>

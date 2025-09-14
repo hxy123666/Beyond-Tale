@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="Shortcut Icon" href="../../../assets/ico/ico.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Tale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <audio src="../music/Toby Fox-Battle Against A True Hero.mp3" id="dd" loop="loop"></audio>
+    <canvas id="gameCanvas" width="840" height="480"></canvas>
+    <!-- Canvas尺寸调整为 70 * 12 = 840, 20 * 12 = 240，为了演示方便，这里扩大了一倍 -->
+
+    <!-- Esc菜单 - 默认隐藏 -->
+    <div id="escMenu" class="hidden">
+        <div class="menu-content">
+            <button id="continueBtn">Continue</button>
+            <button id="saveBtn">Save</button>
+            <button id="mainMenuBtn">Return to Main Menu</button>
+        </div>
+    </div>
+   
+
+    <script src="gameState.js"></script>
+    <script src="../../../script/achievement.js"></script>
+    <script src="script8.js"></script>      <!--一定要先导入scriptn(n为数字).js再导入script.js,否则地图无法加载！-->
+    <script src="second_boss.js"></script>
+    <script src="../../../script/save.js"></script>
+    <script src="../../../script/Esc.js"></script>
+</body>
+
+</html>

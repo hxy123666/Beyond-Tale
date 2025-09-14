@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="Shortcut Icon" href="../../assets/ico/ico.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game save</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Game save</h1>
+            <p>Choose a game save to continue your adventure</p>
+        </div>
+        <!-- 自动存档区 -->
+        <div id="auto-save">
+            <h2>Auto save</h2>
+            <div class="auto-save-grid" id="autoSaveGrid">
+            </div>
+        </div>
+        <!-- 手动存档区 -->
+        <div>
+            <div class="saves-grid" id="savesGrid">
+                <!-- 存档卡片将在这里动态生成 -->
+            </div>
+        </div>
+
+        <!-- 删除确认模态框 -->
+        <!-- <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>确认删除</h2>
+            </div>
+            <div class="modal-body">
+                <p>确定要删除这个存档吗？此操作无法撤销。</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-delete" onclick="confirmDelete()">确认删除</button>
+                <button class="btn btn-load" onclick="closeModal()">取消</button>
+            </div>
+        </div>
+    </div> -->
+
+        <script src="../../script/save.js"></script>
+        <script src="script.js"></script>
+</body>
+
+</html>

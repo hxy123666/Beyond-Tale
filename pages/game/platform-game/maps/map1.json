@@ -1,0 +1,545 @@
+{ "compressionlevel":-1,
+ "height":16,
+ "infinite":false,
+ "layers":[
+        {
+         "id":3,
+         "image":"../Backgrounds/Sky.png",
+         "imageheight":320,
+         "imagewidth":320,
+         "name":"Sky",
+         "opacity":1,
+         "parallaxx":0.05,
+         "repeatx":true,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":2,
+         "image":"../Backgrounds/Clouds.png",
+         "imageheight":320,
+         "imagewidth":320,
+         "name":"Clouds",
+         "offsetx":-32,
+         "offsety":64,
+         "opacity":1,
+         "parallaxx":0.2,
+         "repeatx":true,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":4,
+         "image":"../Backgrounds/Grass Mountains.png",
+         "imageheight":320,
+         "imagewidth":320,
+         "name":"Mountains",
+         "offsetx":0,
+         "offsety":128,
+         "opacity":1,
+         "parallaxx":0.5,
+         "repeatx":true,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67,
+            56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 0, 0, 0, 0, 0, 0, 0, 67, 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 67, 67, 67, 0, 0, 0, 0, 0, 0, 0, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67,
+            110, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 116, 116, 67, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67, 0, 0, 0, 0, 0, 0, 0, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67,
+            110, 67, 67, 67, 67, 67, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 116, 116, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 0, 116, 116, 116, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67,
+            110, 67, 67, 67, 67, 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 0, 116, 116, 116, 0, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67],
+         "height":16,
+         "id":5,
+         "name":"Back",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":60,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 131, 0, 0, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 139, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 162, 0, 0, 0, 0, 0, 142, 0, 0, 0, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 132, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 119, 124, 132, 0, 0, 0, 0, 0, 156, 0, 0, 0, 138, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":16,
+         "id":6,
+         "name":"Decoration",
+         "opacity":0.9,
+         "type":"tilelayer",
+         "visible":true,
+         "width":60,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 57, 57, 57, 57, 57, 57, 57, 57, 57,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 102, 57, 57, 57, 58, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 88, 88, 88, 88, 88, 88, 88, 88, 88, 106, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 108, 88, 88, 88, 88, 88, 88, 88, 89, 0, 0, 0, 56, 57, 57, 57, 57, 57, 112, 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 0, 56, 57, 57, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 109, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 91, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":16,
+         "id":1,
+         "name":"Collision",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":60,
+         "x":0,
+         "y":0
+        },
+        {
+  "draworder": "topdown",
+  "id": 7,
+  "name": "NPCs",
+  "objects": [
+    {
+      "gid": 218,
+      "height": 32,
+      "width": 32,
+      "id": 1,
+      "name": "npc_villager",
+      "type": "npc",
+      "visible": true,
+      "x": 1320,
+      "y": 355,
+      "properties": [
+        { "name": "dialogPage", "type": "string", "value": "../dialog/diag1.html" }
+      ]
+    }
+  ],
+  "opacity": 1,
+  "type": "objectgroup",
+  "visible": true,
+  "x": 0,
+  "y": 0
+}
+      ],
+ "nextlayerid":7,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.11.2",
+ "tileheight":32,
+ "tilesets":[
+        {
+         "columns":11,
+         "firstgid":1,
+         "image":"../Tiles/Tileset Inside.png",
+         "imageheight":160,
+         "imagewidth":352,
+         "margin":0,
+         "name":"Earth_inside",
+         "spacing":0,
+         "tilecount":55,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":10,
+         "firstgid":56,
+         "image":"../free-swamp-game-tileset-pixel-art/1 Tiles/Tileset.png",
+         "imageheight":192,
+         "imagewidth":320,
+         "margin":0,
+         "name":"Earth",
+         "spacing":0,
+         "tilecount":60,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":0,
+         "firstgid":116,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
+         "margin":0,
+         "name":"Others",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":44,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"../Tiles/other_tile.png",
+                 "imageheight":44,
+                 "imagewidth":46
+                }],
+         "tilewidth":46
+        }, 
+        {
+         "columns":0,
+         "firstgid":117,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
+         "margin":0,
+         "name":"Decoration",
+         "spacing":0,
+         "tilecount":46,
+         "tileheight":183,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Boxes/4.png",
+                 "imageheight":26,
+                 "imagewidth":33
+                }, 
+                {
+                 "id":1,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Boxes/2.png",
+                 "imageheight":27,
+                 "imagewidth":34
+                }, 
+                {
+                 "id":2,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/9.png",
+                 "imageheight":25,
+                 "imagewidth":61
+                }, 
+                {
+                 "id":3,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/1.png",
+                 "imageheight":15,
+                 "imagewidth":31
+                }, 
+                {
+                 "id":4,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/2.png",
+                 "imageheight":10,
+                 "imagewidth":30
+                }, 
+                {
+                 "id":5,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/3.png",
+                 "imageheight":15,
+                 "imagewidth":29
+                }, 
+                {
+                 "id":6,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/4.png",
+                 "imageheight":21,
+                 "imagewidth":31
+                }, 
+                {
+                 "id":7,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/5.png",
+                 "imageheight":28,
+                 "imagewidth":63
+                }, 
+                {
+                 "id":8,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/6.png",
+                 "imageheight":26,
+                 "imagewidth":31
+                }, 
+                {
+                 "id":9,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/7.png",
+                 "imageheight":24,
+                 "imagewidth":61
+                }, 
+                {
+                 "id":10,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Bushes/8.png",
+                 "imageheight":27,
+                 "imagewidth":63
+                }, 
+                {
+                 "id":11,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/8.png",
+                 "imageheight":14,
+                 "imagewidth":8
+                }, 
+                {
+                 "id":12,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/9.png",
+                 "imageheight":8,
+                 "imagewidth":6
+                }, 
+                {
+                 "id":13,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/10.png",
+                 "imageheight":11,
+                 "imagewidth":9
+                }, 
+                {
+                 "id":14,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/1.png",
+                 "imageheight":18,
+                 "imagewidth":17
+                }, 
+                {
+                 "id":15,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/2.png",
+                 "imageheight":16,
+                 "imagewidth":17
+                }, 
+                {
+                 "id":16,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/3.png",
+                 "imageheight":16,
+                 "imagewidth":14
+                }, 
+                {
+                 "id":17,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/4.png",
+                 "imageheight":12,
+                 "imagewidth":12
+                }, 
+                {
+                 "id":18,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/5.png",
+                 "imageheight":13,
+                 "imagewidth":11
+                }, 
+                {
+                 "id":19,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/6.png",
+                 "imageheight":9,
+                 "imagewidth":11
+                }, 
+                {
+                 "id":20,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Grass/7.png",
+                 "imageheight":14,
+                 "imagewidth":7
+                }, 
+                {
+                 "id":21,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/7.png",
+                 "imageheight":21,
+                 "imagewidth":13
+                }, 
+                {
+                 "id":22,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/8.png",
+                 "imageheight":21,
+                 "imagewidth":11
+                }, 
+                {
+                 "id":23,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/1.png",
+                 "imageheight":21,
+                 "imagewidth":16
+                }, 
+                {
+                 "id":24,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/2.png",
+                 "imageheight":21,
+                 "imagewidth":16
+                }, 
+                {
+                 "id":25,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/3.png",
+                 "imageheight":21,
+                 "imagewidth":13
+                }, 
+                {
+                 "id":26,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/4.png",
+                 "imageheight":21,
+                 "imagewidth":13
+                }, 
+                {
+                 "id":27,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/5.png",
+                 "imageheight":21,
+                 "imagewidth":13
+                }, 
+                {
+                 "id":28,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Pointers/6.png",
+                 "imageheight":21,
+                 "imagewidth":13
+                }, 
+                {
+                 "id":29,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Ridges/5.png",
+                 "imageheight":29,
+                 "imagewidth":81
+                }, 
+                {
+                 "id":30,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Ridges/6.png",
+                 "imageheight":55,
+                 "imagewidth":47
+                }, 
+                {
+                 "id":31,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Ridges/1.png",
+                 "imageheight":26,
+                 "imagewidth":89
+                }, 
+                {
+                 "id":32,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Ridges/2.png",
+                 "imageheight":28,
+                 "imagewidth":40
+                }, 
+                {
+                 "id":33,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Ridges/3.png",
+                 "imageheight":41,
+                 "imagewidth":109
+                }, 
+                {
+                 "id":34,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Ridges/4.png",
+                 "imageheight":61,
+                 "imagewidth":65
+                }, 
+                {
+                 "id":35,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Stones/5.png",
+                 "imageheight":31,
+                 "imagewidth":31
+                }, 
+                {
+                 "id":36,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Stones/1.png",
+                 "imageheight":59,
+                 "imagewidth":63
+                }, 
+                {
+                 "id":37,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Stones/2.png",
+                 "imageheight":57,
+                 "imagewidth":47
+                }, 
+                {
+                 "id":38,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Stones/3.png",
+                 "imageheight":63,
+                 "imagewidth":52
+                }, 
+                {
+                 "id":39,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Stones/4.png",
+                 "imageheight":30,
+                 "imagewidth":57
+                }, 
+                {
+                 "id":40,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Trees/3.png",
+                 "imageheight":150,
+                 "imagewidth":123
+                }, 
+                {
+                 "id":41,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Trees/1.png",
+                 "imageheight":103,
+                 "imagewidth":101
+                }, 
+                {
+                 "id":42,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Trees/2.png",
+                 "imageheight":132,
+                 "imagewidth":104
+                }, 
+                {
+                 "id":43,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Willows/3.png",
+                 "imageheight":183,
+                 "imagewidth":199
+                }, 
+                {
+                 "id":44,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Willows/1.png",
+                 "imageheight":135,
+                 "imagewidth":104
+                }, 
+                {
+                 "id":45,
+                 "image":"../free-swamp-game-tileset-pixel-art/3 Objects/Willows/2.png",
+                 "imageheight":168,
+                 "imagewidth":141
+                }],
+         "tilewidth":199
+        }, 
+        {
+         "columns":11,
+         "firstgid":163,
+         "image":"../Tiles/Tileset Outside.png",
+         "imageheight":160,
+         "imagewidth":352,
+         "margin":0,
+         "name":"Earth_outside",
+         "spacing":0,
+         "tilecount":55,
+         "tileheight":32,
+         "tilewidth":32
+        },
+        {
+  "columns": 0,
+  "firstgid": 218,
+  "grid": { "height": 1, "orientation": "orthogonal", "width": 1 },
+  "margin": 0,
+  "name": "NPCs",
+  "spacing": 0,
+  "tilecount": 1,
+  "tileheight": 32,
+  "tiles": [
+    {
+      "id": 0,
+      "image": "../assets/flower.png",
+      "imageheight": 32,
+      "imagewidth": 32
+    }
+  ],
+  "tilewidth": 24
+}
+      ],
+ "tilewidth":32,
+ "type":"map",
+ "version":"1.10",
+ "width":60
+}

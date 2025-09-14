@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="Shortcut Icon" href="../../../assets/ico/ico.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Tale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="visual-novel-container">
+        <!-- 背景图片 -->
+        <div class="background-container">
+            <img id="background-image" src="../../../assets/images/backgroundBlack.png" alt="背景">
+        </div>
+
+        <!-- 人物容器 -->
+        <div class="characters-container">
+            <div class="character" id="character-center">
+                <img src="../../../assets/images/SomebodyUnknown.png" alt="中间人物" class="character-image">
+            </div>
+        </div>
+
+        <!-- 对话框 -->
+        <div class="dialog-container">
+            <div class="dialog-box">
+                <div class="dialog-name" id="dialog-name">???</div>
+                <div class="dialog-content" id="dialog-content">勇者啊，你为何仍在沉睡？</div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 游戏画布 -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Esc菜单 - 默认隐藏 -->
+    <div id="escMenu" class="hidden">
+        <div class="menu-content">
+            <button id="continueBtn">Continue</button>
+            <button id="saveBtn">Save</button>
+            <button id="mainMenuBtn">Return to Main Menu</button>
+        </div>
+    </div>
+
+
+
+    <script src="script.js"></script>
+    <script src="../../../script/Esc.js"></script>
+    <script src="../../../script/save.js"></script>
+</body>
+
+</html>

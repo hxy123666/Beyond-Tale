@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="Shortcut Icon" href="../../assets/ico/ico.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>传说之上 - 背景故事</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            height: 100%;
+            font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+            overflow: hidden;
+            color: #fff;
+        }
+        
+        /* 视频容器 - 覆盖整个页面 */
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        #story-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 控制按钮 */
+        #controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .control-btn img {
+            width: 100px;
+            height: 100px;
+            pointer-events: none; /* 防止图片干扰按钮点击 */
+        }
+        
+        /* 加载和错误状态 */
+        #loading, #error {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 200;
+        }
+        
+        #error {
+            display: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 204, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: #ffcc00;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #ffcc00;
+        }
+        
+        .error-text {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        .retry-btn {
+            padding: 10px 20px;
+            background: #ffcc00;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .retry-btn:hover {
+            background: #ffaa00;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .control-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .control-btn img {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 视频容器 -->
+    <div id="video-container">
+        <video id="story-video" muted>
+            <source src="../../assets/videos/introduction.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
+        </video>
+    </div>
+    
+    <!-- 控制按钮 -->
+    <div id="controls">
+        <button id="silence-btn" class="control-btn">
+            <img src="images/volume_muted_icon.png" alt="静音" id="sound-icon">
+        </button>
+        <button id="skip-btn" class="control-btn">
+            <img src="images/skip.png" alt="跳过">
+        </button>
+    </div>
+    
+    <!-- 加载状态 -->
+    <div id="loading">
+        <div class="spinner"></div>
+        <p class="loading-text">视频加载中...</p>
+    </div>
+    
+    <!-- 错误状态 -->
+    <div id="error">
+        <p class="error-text">视频加载失败，请检查网络连接或视频文件路径</p>
+        <button class="retry-btn" id="retry-btn">重试</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取元素
+            const silenceBtn = document.getElementById('silence-btn');
+            const skipBtn = document.getElementById('skip-btn');
+            const video = document.getElementById('story-video');
+            const soundIcon = document.getElementById('sound-icon');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const retryBtn = document.getElementById('retry-btn');
+            
+            const soundOnIcon = "images/volume_icon.png"; // 有声音图标路径
+            const soundOffIcon = "images/volume_muted_icon.png"; // 静音图标路径
+            
+            // 预加载图标
+            preloadImages([soundOnIcon, soundOffIcon]);
+            
+            // 静音状态
+            let isMuted = true; // 初始状态为静音
+            
+            // 视频加载事件
+            video.addEventListener('loadeddata', function() {
+                loading.style.display = 'none';
+                video.play().catch(e => {
+                    console.error('自动播放失败:', e);
+                    error.style.display = 'flex';
+                });
+            });
+            
+            video.addEventListener('error', function() {
+                loading.style.display = 'none';
+                error.style.display = 'flex';
+            });
+            
+            // 视频结束事件 - 直接跳转
+            video.addEventListener('ended', function() {
+                redirectToGame();
+            });
+            
+            // 重试按钮功能
+            retryBtn.addEventListener('click', function() {
+                error.style.display = 'none';
+                loading.style.display = 'flex';
+                video.load();
+            });
+            
+            // 静音按钮功能
+            silenceBtn.addEventListener('click', function() {
+                isMuted = !isMuted;
+                video.muted = isMuted;
+                
+                // 更换图标
+                updateSoundIcon();
+            });
+            
+            // 更新声音图标函数
+            function updateSoundIcon() {
+                try {
+                    if (isMuted) {
+                        // 使用try-catch确保图标路径错误不会破坏整个功能
+                        soundIcon.src = soundOffIcon;
+                        soundIcon.alt = "取消静音";
+                    } else {
+                        soundIcon.src = soundOnIcon;
+                        soundIcon.alt = "静音";
+                    }
+                } catch (error) {
+                    console.error("图标路径错误:", error);
+                    // 如果图标路径有问题，使用base64编码的备用图标
+                    if (isMuted) {
+                        soundIcon.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiIHdpZHRoPSIzMHB4IiBoZWlnaHQ9IjMwcHgiPjxwYXRoIGQ9Ik0xNi41IDEyYzAtMS43Ny0xLjAyLTMuMjktMi41LTQuMDN2OC4wNWMxLjQ4LS43MyAyLjUtMi4yNSAyLjUtNC4wMnpNMTkgMTJjMCAzLjI3LTIuMTkgNS45OC01LjIxIDYuODl2LTIuMDNjMS.59LS42IDIuNzgtMi4wMyAyLjc4LTMuODZzLTEuMTktMy4yNi0yLjc4LTMuODZ2LTIuMDNjMy4wMi45MSA1LjIxIDMuNjIgNS4yMSA2Ljg4eiIvPjxwYXRoIGQ9Ik0zIDl2Nmg0bDUgNVY0TDcgOUgzem0xMS41IDNjMC0xLjc3LTEuMDItMy4yOS0yLjUtNC4wM3Y4LjA1YzEuNDgtLjczIDIuNS0yLjI1IDIuNS00LjAyeiIvPjwvc3ZnPg==";
+                    } else {
+                        soundIcon.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiIHdpZHRoPSIzMHB4IiBoZWlnaHQ9IjMwcHgiPjxwYXRoIGQ9Ik0zIDl2Nmg0bDUgNVY0TDcgOUgzem0xMy41IDNjMC0xLjc3LTEuMDItMy4yOS0yLjUtNC4wM3Y4LjA1YzEuNDgtLjczIDIuNS0yLjI1IDIuNS00LjAyek0xNCAzLjIzdjIuMDZjMi44OS44NiA1IDMuNTQgNSA2Ljcxcy0yLjExIDUuODUtNSA2LjcxdjIuMDZjNC4wMS0uOTEgNy00LjQ5IDctOC43N3MtMi45OS03Ljg2LTctOC43N3oiLz48L3N2Zz4=";
+                    }
+                }
+            }
+            
+            // 跳过按钮功能
+            skipBtn.addEventListener('click', function() {
+                // 直接跳转到游戏页面
+                redirectToGame();
+            });
+            
+            // 跳转到游戏页面
+            function redirectToGame() {
+                window.location.href = "../../pages/game/first stage/first_stage.html";
+            }
+            
+            // 预加载图片函数
+            function preloadImages(urls) {
+                urls.forEach(url => {
+                    const img = new Image();
+                    img.src = url;
+                });
+            }
+            
+            // 尝试自动播放
+            video.muted = true; // 静音以允许自动播放
+            video.play().then(() => {
+                // 自动播放成功
+                loading.style.display = 'none';
+            }).catch(e => {
+                // 自动播放失败，显示提示
+                console.error('自动播放失败:', e);
+                loading.querySelector('.loading-text').textContent = '点击视频开始播放';
+                loading.style.cursor = 'pointer';
+                loading.onclick = function() {
+                    video.play().then(() => {
+                        loading.style.display = 'none';
+                    }).catch(e => {
+                        error.style.display = 'flex';
+                        loading.style.display = 'none';
+                    });
+                };
+            });
+        });
+    </script>
+</body>
+</html>

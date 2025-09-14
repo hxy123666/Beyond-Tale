@@ -1,0 +1,118 @@
+1. 在<head>部分添加CSS样式（在</style>结束标签前添加）
+html
+        /* 音乐播放器样式 */
+        #music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(20, 20, 35, 0.85);
+            border: 2px solid #6c5b95;
+            border-radius: 50px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        #toggle-music {
+            background: rgba(108, 91, 149, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        #toggle-music:hover {
+            background: rgba(108, 91, 149, 1);
+            transform: scale(1.1);
+        }
+        
+        #volume-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        #volume-control input {
+            width: 80px;
+            cursor: pointer;
+        }
+        
+2. 在<body>部分添加音乐播放器HTML（在</div>结束标签后添加）
+html
+    <!-- 音乐播放器 -->
+    <div id="music-player">
+        <button id="toggle-music">🔊</button>
+        <div id="volume-control">
+            <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
+        </div>
+    </div>
+    
+    <!-- 音频元素 - 替换src为您的音乐文件路径 -->
+    <audio id="background-music" loop>
+        <source src="您的音乐文件.mp3" type="audio/mp3">
+        您的浏览器不支持音频元素。
+    </audio>
+3. 在JavaScript部分添加音乐控制功能（在</script>结束标签前添加）
+javascript
+        // =============== 背景音乐控制功能 ===============
+        const audio = document.getElementById('background-music');
+        const toggleMusicBtn = document.getElementById('toggle-music');
+        const volumeControl = document.getElementById('volume');
+        
+        // 尝试自动播放音乐
+        function tryAutoplay() {
+            // 由于浏览器策略，需要用户交互后才能自动播放
+            const promise = audio.play();
+            
+            if (promise !== undefined) {
+                promise.then(() => {
+                    // 自动播放成功
+                    toggleMusicBtn.textContent = '🔊';
+                }).catch(error => {
+                    // 自动播放失败，需要用户手动启动
+                    toggleMusicBtn.textContent = '🔇';
+                    console.log('自动播放受阻，需要用户交互');
+                });
+            }
+        }
+        
+        // 切换播放/暂停
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                toggleMusicBtn.textContent = '🔊';
+            } else {
+                audio.pause();
+                toggleMusicBtn.textContent = '🔇';
+            }
+        }
+        
+        // 设置音量
+        function setVolume() {
+            audio.volume = volumeControl.value;
+        }
+        
+        // 事件监听器
+        document.addEventListener('click', function() {
+            // 用户首次交互后尝试自动播放
+            if (audio.paused) {
+                tryAutoplay();
+            }
+        }, { once: true });
+        
+        toggleMusicBtn.addEventListener('click', toggleMusic);
+        volumeControl.addEventListener('input', setVolume);
+        
+        // 初始化音量
+        audio.volume = volumeControl.value;
+        // =============== 音乐控制功能结束 ===============

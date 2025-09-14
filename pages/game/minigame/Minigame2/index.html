@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Shortcut Icon" href="../../../../assets/ico/ico.png">
+    <title>Beyond Tale</title>
+    <style>
+        @font-face {
+        font-family: "Press Start 2P";
+        src: url(../../../../assets/fonts/PressStart2P-1.ttf);
+        }
+
+        @font-face {
+        font-family: "pxfont";
+        src: url(../../../../assets/fonts/HYPixel11pxU-2.ttf);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:"Press Start 2P","pxfont";
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background:black;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 60vw;
+            height: 60vh;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 4px solid white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .battle-ui {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .images-container {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 640px;
+            height: 200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .image-slot {
+            width: 70px;
+            height: 180px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-slot.shake {
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .image-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .meter {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 3px solid #fff;
+            overflow: hidden;
+        }
+        
+        .pointer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 40px;
+            background-color:white;
+            transition: transform 0.1s linear;
+        }
+        
+        .target-zone {
+            position: absolute;
+            top: 0;
+            height: 40px;
+            background-color: black;
+            border: 2px dashed white; 
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 20px;
+            color: white;
+        }
+        
+        .score {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 24px;
+            color: #fff;
+        }
+        
+        .message {
+            position: absolute;
+            top: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        .top-left-image {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100px;
+            height: auto;
+            z-index: 10;
+        }
+
+        .dialog{
+            position: fixed;
+            top:30px;
+            left:70px;
+            float:left;
+        }
+
+    </style>
+</head>
+<body>
+    <p class="dialog">这个未来道具9号机可以让你窥见这个世界的真面目：是的，之前你发现你可以悬浮在一些斜坡上以及向左走会穿过“陆地”掉出世界的原因其实是因为你之前所见的都不是这个世界的真面目。戴上9号机之后，你便可以看到这个世界的真面目，从而不会再掉到莫名其妙的坑里了，并且按下shift可以看见虚拟网格，再次按下后网格消失。</p>
+    <div class="game-container">
+        <img class="top-left-image" src="../../platform-game/assets/baidagua.png" alt="Top left Image">
+        <div class="battle-ui">
+            <div class="images-container">
+                <div class="image-slot" id="slot0">
+                    <img src="image1.jpg" alt="Image 1">
+                </div>
+                <div class="image-slot" id="slot1">
+                    <img src="image2.jpg" alt="Image 2">
+                </div>
+                <div class="image-slot" id="slot2">
+                    <img src="image3.jpg" alt="Image 3">
+                </div>
+                <div class="image-slot" id="slot3">
+                    <img src="image4.jpg" alt="Image 4">
+                </div>
+                <div class="image-slot" id="slot4">
+                    <img src="image5.jpg" alt="Image 5">
+                </div>
+                <div class="image-slot" id="slot5">
+                    <img src="image6.jpg" alt="Image 6">
+                </div>
+                <div class="image-slot" id="slot6">
+                    <img src="image7.jpg" alt="Image 7">
+                </div>
+                <div class="image-slot" id="slot7">
+                    <img src="image8.jpg" alt="Image 8">
+                </div>
+            </div>
+            <div class="meter">
+                <div class="center-line"></div>
+                <div class="target-zone" id="targetZone"></div>
+                <div class="pointer" id="pointer"></div>
+            </div>
+            <div class="instructions">当指针在虚线区域内时按下空格键！</div>
+            <div class="score" id="score">成功: 0/3</div>
+            <div class="message" id="message">成功！</div>
+            <div class="controls">按空格键进行判定 | R键重新开始</div>
+        </div>
+    </div>
+
+    <script>
+        // ===== 可自定义的配置参数 =====
+        const CONFIG = {
+            pointerSpeed: 3,          // 指针移动速度（像素/帧）
+            targetMinWidth: 80,       // 判定区间最小宽度（像素）
+            targetMaxWidth: 120,      // 判定区间最大宽度（像素）
+            targetCenterRange: 150,   // 判定区间中心点随机范围（像素）     
+            requiredHits: 8,          // 通关需要的连续成功次数
+            nextPageUrl: '../../platform-game/game3.html'  // 通关后要跳转的页面URL
+        };
+        // =============================
+
+        // 图片路径配置
+        const originalImages = [
+            'image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg',
+            'image5.jpg', 'image6.jpg', 'image7.jpg', 'image8.jpg'
+        ];
+        
+        const replacementImages = [
+            'new_image1.jpg', 'new_image2.jpg', 'new_image3.jpg', 'new_image4.jpg',
+            'new_image5.jpg', 'new_image6.jpg', 'new_image7.jpg', 'new_image8.jpg'
+        ];
+
+        // 获取DOM元素
+        const pointer = document.getElementById('pointer');
+        const targetZone = document.getElementById('targetZone');
+        const scoreDisplay = document.getElementById('score');
+        const message = document.getElementById('message');
+
+        // 创建音频元素
+        const successSound = new Audio();
+        successSound.src = 'success.wav'; // 成功音效
+        
+        const failureSound = new Audio();
+        failureSound.src = 'fail.mp3'; // 失败音效
+
+        // 游戏状态
+        let gameState = {
+            pointerPosition: 0,
+            pointerDirection: -1, // -1 表示向左，1 表示向右
+            targetZonePosition: 0,
+            targetZoneWidth: 0,
+            successfulHits: 0,
+            gameActive: true,
+            totalSuccessCount: 0  // 记录总成功次数，用于替换图片
+        };
+
+        // 初始化游戏
+        function initGame() {
+            gameState = {
+                pointerPosition: 600, // 从右侧开始
+                pointerDirection: -1,
+                successfulHits: 0,
+                gameActive: true,
+                totalSuccessCount: 0
+            };
+            
+            // 重置所有图片为原始图片
+            resetAllImages();
+            
+            // 设置随机判定区间
+            setRandomTargetZone();
+            
+            // 更新显示
+            updateScore();
+            hideMessage();
+            
+            // 开始游戏循环
+            requestAnimationFrame(gameLoop);
+        }
+
+        // 重置所有图片为原始图片
+        function resetAllImages() {
+            for (let i = 0; i < 8; i++) {
+                const slot = document.getElementById(`slot${i}`);
+                slot.innerHTML = `<img src="${originalImages[i]}" alt="Image ${i + 1}">`;
+                slot.classList.remove('shake');
+            }
+        }
+
+        // 添加震动效果到所有图片
+        function shakeAllImages() {
+            for (let i = 0; i < 8; i++) {
+                const slot = document.getElementById(`slot${i}`);
+                slot.classList.add('shake');
+                setTimeout(() => {
+                    slot.classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        // 设置随机的判定区间
+        function setRandomTargetZone() {
+            // 随机宽度
+            const width = Math.random() * (CONFIG.targetMaxWidth - CONFIG.targetMinWidth) + CONFIG.targetMinWidth;
+            gameState.targetZoneWidth = width;
+            
+            // 随机位置（在中间附近）
+            const center = 300; // 仪表盘中心
+            const randomOffset = (Math.random() - 0.5) * CONFIG.targetCenterRange;
+            gameState.targetZonePosition = center + randomOffset - width / 2;
+            
+            // 更新DOM
+            targetZone.style.width = `${width}px`;
+            targetZone.style.left = `${gameState.targetZonePosition}px`;
+        }
+
+        // 游戏主循环
+        function gameLoop() {
+            if (!gameState.gameActive) return;
+            
+            // 更新指针位置
+            gameState.pointerPosition += CONFIG.pointerSpeed * gameState.pointerDirection;
+            
+            // 检测边界碰撞
+            if (gameState.pointerPosition <= 0) {
+                gameState.pointerPosition = 0;
+                gameState.pointerDirection = 1; // 向右
+            } else if (gameState.pointerPosition >= 580) { // 600px - 20px指针宽度
+                gameState.pointerPosition = 580;
+                gameState.pointerDirection = -1; // 向左
+            }
+            
+            // 更新指针位置
+            pointer.style.left = `${gameState.pointerPosition}px`;
+            
+            // 继续游戏循环
+            requestAnimationFrame(gameLoop);
+        }
+
+        // 替换图片
+        function replaceImage(index) {
+            if (index < 8) {
+                const slot = document.getElementById(`slot${index}`);
+                slot.innerHTML = `<img src="${replacementImages[index]}" alt="New Image ${index + 1}">`;
+            }
+        }
+
+        // 检查是否命中判定区间
+        function checkHit() {
+            if (!gameState.gameActive) return false;
+            
+            const pointerLeft = gameState.pointerPosition;
+            const pointerRight = pointerLeft + 20; // 指针宽度
+            
+            const targetLeft = gameState.targetZonePosition;
+            const targetRight = targetLeft + gameState.targetZoneWidth;
+            
+            // 检查指针是否在判定区间内
+            const hit = pointerLeft >= targetLeft && pointerRight <= targetRight;
+            
+            if (hit) {
+                // 命中
+                gameState.successfulHits++;
+                
+                // 替换对应的图片
+                replaceImage(gameState.totalSuccessCount);
+                gameState.totalSuccessCount++;
+                
+                updateScore();
+                showMessage("成功！", "#FFFFFF");
+                
+                // 播放成功音效
+                successSound.currentTime = 0;
+                successSound.play();
+                
+                // 检查是否通关
+                if (gameState.successfulHits >= CONFIG.requiredHits) {
+                    gameState.gameActive = false;
+                    showMessage("通关！", "#FFFFFF");
+                    
+                    // 通关后跳转到下一个页面
+                    setTimeout(() => {
+                        window.location.href = CONFIG.nextPageUrl;
+                    }, 2000); // 2秒后跳转
+                } else {
+                    // 生成新的判定区间
+                    setRandomTargetZone();
+                }
+            } else {
+                // 未命中 - 失败时重置所有进度
+                gameState.successfulHits = 0;
+                gameState.totalSuccessCount = 0;  // 重置图片替换进度
+                
+                // 重置所有图片为原始图片，并添加震动效果
+                resetAllImages();
+                shakeAllImages();
+                
+                updateScore();
+                showMessage("失误！进度已重置", "#FF6666");
+                
+                // 播放失败音效
+                failureSound.currentTime = 0;
+                failureSound.play();
+                
+                // 生成新的判定区间
+                setRandomTargetZone();
+            }
+            
+            return hit;
+        }
+
+        // 更新分数显示
+        function updateScore() {
+            scoreDisplay.textContent = `成功: ${gameState.successfulHits}/${CONFIG.requiredHits}`;
+        }
+
+        // 显示消息
+        function showMessage(text, color) {
+            message.textContent = text;
+            message.style.color = color;
+            message.style.opacity = 1;
+            
+            setTimeout(hideMessage, 1000);
+        }
+
+        // 隐藏消息
+        function hideMessage() {
+            message.style.opacity = 0;
+        }
+
+        // 键盘事件监听
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                checkHit();
+            } else if (event.code === 'KeyR') {
+                event.preventDefault();
+                initGame();
+            }
+        });
+
+        // 初始化游戏
+        initGame();
+    </script>
+</body>
+</html>
