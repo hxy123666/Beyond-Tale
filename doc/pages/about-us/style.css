@@ -1,0 +1,290 @@
+@font-face {
+    font-family: "Press Start 2P";
+    src: url(../../assets/fonts/PressStart2P-1.ttf);
+}
+
+@font-face {
+    font-family: "pxfont";
+    src: url(../../assets/fonts/HYPixel11pxU-2.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    background-image: url(images/bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    min-height: 100vh;
+    /* 字体：像素风格 */
+    font-family: 'Press Start 2P', 'Courier New', "pxfont";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+/* 主容器 */
+.container {
+    position: relative;
+    width: 90vw;
+    max-width: 800px;
+    height: 90vh;
+    max-height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 圆形容器 */
+.circle-container {
+    position: relative;
+    width: 550px;
+    height: 550px;
+    animation: rotate 30s linear infinite;
+    /* 完全透明 */
+    background: rgba(255, 255, 255, 0);
+    border-radius: 50%;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 成员卡片 */
+.member {
+    position: absolute;
+    width: 140px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: counter-rotate 30s linear infinite;
+}
+
+@keyframes counter-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.member:hover {
+    transform: scale(1.2);
+    z-index: 10;
+}
+
+/* 成员头像 */
+.member-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.member:hover .member-avatar {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: #ffd700;
+}
+
+/* 成员名字 */
+.member-name {
+    margin-top: 10px;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 六个位置 */
+.member:nth-child(1) {
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.member:nth-child(2) {
+    top: 15%;
+    right: -5%;
+}
+
+.member:nth-child(3) {
+    bottom: 10%;
+    right: -5%;
+}
+
+.member:nth-child(4) {
+    bottom: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.member:nth-child(5) {
+    bottom: 15%;
+    left: -5%;
+}
+
+.member:nth-child(6) {
+    top: 15%;
+    left: -5%;
+}
+
+
+/* 中心标志 */
+.center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    z-index: 5;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .team-title {
+        font-size: 1.8rem;
+    }
+
+    .circle-container {
+        width: 350px;
+        height: 350px;
+    }
+
+    .member {
+        width: 80px;
+        height: 80px;
+    }
+
+    .member-avatar {
+        width: 85px;
+        height: 85px;
+        font-size: 1.8rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .member-name {
+        font-size: 0.9rem;
+    }
+
+    .center-logo {
+        width: 100px;
+        height: 100px;
+        font-size: 2rem;
+    }
+}
+
+/* 头像图片 */
+.member:nth-child(1) .member-avatar {
+    background-image: url(images/hxy.jpg);
+    /* 适配头像框 */
+    background-size: cover;
+    background-position: center;
+}
+
+.member:nth-child(2) .member-avatar {
+    background-image: url(images/hzh.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.member:nth-child(3) .member-avatar {
+    background-image: url(images/jhn.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.member:nth-child(4) .member-avatar {
+    background-image: url(images/lsj.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.member:nth-child(5) .member-avatar {
+    background-image: url(images/ljx.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.member:nth-child(6) .member-avatar {
+    background-image: url(images/lzy.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.footerText {
+    /* 最底端 */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    color: #999999;
+    font-size: 0.8rem;
+    margin-top: 20px;
+    text-shadow: 1px 1px 0 #000;
+    font-family: 'Press Start 2P', 'Courier New', "pxfont";
+}
+
+/* 返回箭头 */
+.back-arrow {
+    position: absolute;
+    top: 50px;
+    left: 35px;
+    font-size: 24px;
+    color: #ffcc00;
+    text-decoration: none;
+    z-index: 1000;
+    background: rgba(50, 50, 50, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid #ffcc00;
+    image-rendering: pixelated;
+}
+
+.back-arrow:hover {
+    background: rgba(255, 204, 0, 0.2);
+    transform: scale(1.1);
+}

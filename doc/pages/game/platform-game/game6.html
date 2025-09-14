@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="Shortcut Icon" href="../../../assets/ico/ico.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Tale</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    /* ============ NPC 对话弹窗样式 ============ */
+#npcDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;   /* 建议全黑，不透明 */
+  z-index: 9999;
+}
+
+#npcDialog.hidden {
+  display: none;
+}
+
+#dialogFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+</style>
+</head>
+
+<body>
+<audio src="../music/Toby Fox - Snowdin Town.mp3" id="dd" loop="loop"></audio>
+    <canvas id="gameCanvas" width="840" height="480"></canvas>
+    <!-- Canvas尺寸调整为 70 * 12 = 840, 20 * 12 = 240，为了演示方便，这里扩大了一倍 -->
+
+    <!-- Esc菜单 - 默认隐藏 -->
+    <div id="escMenu" class="hidden">
+        <div class="menu-content">
+            <button id="continueBtn">Continue</button>
+            <button id="saveBtn">Save</button>
+            <button id="mainMenuBtn">Return to Main Menu</button>
+        </div>
+    </div>
+   <!-- NPC 对话全屏窗口 -->
+<div id="npcDialog" class="hidden">
+  <iframe id="dialogFrame" src="" frameborder="0" tabindex="-1"></iframe>
+</div>
+    <script src="gameState.js"></script>
+    <script src="../../../script/achievement.js"></script>
+    <script src="script6.js"></script>      <!--一定要先导入scriptn(n为数字).js再导入script.js,否则地图无法加载！-->
+    <script src="script.js"></script>
+    <script src="../../../script/save.js"></script>
+    <script src="../../../script/Esc.js"></script>
+</body>
+
+</html>

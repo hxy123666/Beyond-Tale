@@ -1,0 +1,261 @@
+@font-face {
+    font-family: "Press Start 2P";
+    src: url(../../assets/fonts/PressStart2P-1.ttf);
+}
+
+@font-face {
+    font-family: "pxfont";
+    src: url(../../assets/fonts/HYPixel11pxU-2.ttf);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', 'Courier New',"pxfont";
+}
+
+
+body {
+    background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    image-rendering: pixelated;
+}
+
+/* 返回箭头 */
+.back-arrow {
+    position: absolute;
+    top: 65px;
+    left: 315px;
+    font-size: 24px;
+    color: #ffcc00;
+    text-decoration: none;
+    z-index: 1000;
+    background: rgba(50, 50, 50, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid #ffcc00;
+    image-rendering: pixelated;
+}
+
+.back-arrow:hover {
+    background: rgba(255, 204, 0, 0.2);
+    transform: scale(1.1);
+}
+
+/* 主容器 */
+.container {
+    display: flex;
+    min-height: calc(100vh - 60px);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* 侧边栏 */
+.sidebar {
+    width: 250px;
+    background-color: #444444;
+    border-radius: 8px;
+    padding: 20px;
+    margin-right: 20px;
+    border: 2px solid #666666;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    max-width: 120px;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #ffcc00;
+    padding: 5px;
+    image-rendering: pixelated;
+}
+
+.nav-links {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.nav-links li {
+    margin-bottom: 12px;
+}
+
+.nav-links a {
+    color: #cccccc;
+    text-decoration: none;
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    border: 1px solid #555555;
+    background-color: #3a3a3a;
+}
+
+.nav-links a:hover {
+    background: #555555;
+    color: #ffcc00;
+    transform: translateX(3px);
+    border: 1px solid #ffcc00;
+}
+
+/* 内容区域 */
+.content {
+    flex: 1;
+    background-color: #444444;
+    border-radius: 8px;
+    padding: 25px;
+    border: 2px solid #666666;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+}
+
+.content-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px dotted #666666;
+}
+
+.content-header h1 {
+    font-size: 1.8rem;
+    color: #ffcc00;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.content-header h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.content-header img {
+    border: 2px solid #ffcc00;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    image-rendering: pixelated;
+}
+
+.motto {
+    font-style: italic;
+    color: #aaaaaa;
+    font-size: 1rem;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* 内容区块 */
+.bio-section, .contact-section, .skills-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    border: 2px solid #555555;
+}
+
+h2 {
+    color: #ffcc00;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    border-left: 3px solid #ffcc00;
+    padding-left: 12px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 12px;
+    color: #cccccc;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.contact-section ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.contact-section li {
+    margin-bottom: 10px;
+    color: #cccccc;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* 页脚 */
+footer {
+    text-align: center;
+    padding: 15px;
+    color: #999999;
+    font-size: 0.8rem;
+    border-top: 2px dotted #666666;
+    margin-top: 20px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .nav-links li {
+        margin-bottom: 0;
+    }
+    
+    .nav-links a {
+        font-size: 0.7rem;
+        padding: 8px 10px;
+    }
+    
+    .nav-links a:hover {
+        transform: translateY(-2px);
+    }
+    
+    .content-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .content-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .back-arrow {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        width: 35px;
+        height: 35px;
+    }
+}

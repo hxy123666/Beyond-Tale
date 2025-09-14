@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Shortcut Icon" href="../../../../assets/ico/ico.png">
+    <title>Beyond Tale</title>
+    <style>
+
+        @font-face {
+        font-family: "Press Start 2P";
+        src: url(../../../../assets/fonts/PressStart2P-1.ttf);
+        }
+
+        @font-face {
+        font-family: "pxfont";
+        src: url(../../../../assets/fonts/HYPixel11pxU-2.ttf);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', 'pxfont';
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            overflow: hidden;
+            color: white;
+        }
+
+        #game-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #game-canvas {
+            background: linear-gradient(to bottom, #028af8, #6dd5fa);
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #level-complete {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px 40px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            z-index: 100;
+            display: none;
+        }
+
+        #level-complete h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        #level-complete p {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        #next-level-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            font-size: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 350px;
+            display: none;
+            z-index: 10;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            #game-ui {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            #level-complete h2 {
+                font-size: 28px;
+            }
+
+            #level-complete p {
+                font-size: 16px;
+            }
+
+            #next-level-hint {
+                font-size: 14px;
+                padding: 10px;
+                max-width: 250px;
+            }
+        }
+
+        /* Esc 菜单 */
+        #escMenu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .menu-content {
+            background-color: #333;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .menu-content button {
+            border: 5px solid #2c3e50;
+            color: #2c3e50;
+            background-color: #fff;
+            display: block;
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            font-size: 15px;
+            letter-spacing: 0.1rem;
+            padding: 1rem;
+            margin: 30px auto;
+            position: relative;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .menu-content button::before {
+            content: "";
+            box-shadow: 1px 1px 0 #E26A6A,
+                3px 3px 0 #F1C40F,
+                5px 5px 0 #3498DB;
+            position: absolute;
+            left: 0.25rem;
+            top: 0.5rem;
+            height: 102%;
+            width: 102%;
+            transition: all 0.4s ease;
+            border-radius: 0.5rem;
+        }
+
+        .menu-content button:hover::before {
+            box-shadow: none;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        
+        /* 隐藏音频元素 */
+        #backgroundMusic {
+            display: none;
+        }
+
+        .top-left-image {
+            position: fixed;
+            top: 27px;
+            left: 40px;
+            width: 23px;
+            height: 30px;
+            z-index: 10;
+        }
+
+        .dialog{
+            position: fixed;
+            top:30px;
+            left:70px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 背景音乐元素 -->
+    <!-- 注意：请将下面的音乐文件地址替换为您自己的音乐文件 -->
+    <audio id="backgroundMusic" loop autoplay>
+        <!-- 音乐文件地址示例（需要替换） -->
+        <source src="../music/铲子骑士.mp3" type="audio/mpeg">
+        <source src="your-music-file.ogg" type="audio/ogg">
+        您的浏览器不支持音频元素。
+    </audio>
+    <img class="top-left-image" src="../../picture/sans_small.png" alt="Top left Image">
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <p class="dialog">你通关之后我会把你送到上面去。</p>
+        <div id="game-ui">
+            <div id="score">分数: <span>0</span></div>
+            <div id="lives">生命: <span>3</span></div>
+            <div id="bricks-left">剩余砖块: <span>60</span></div>
+            <div id="umbrella-status">雨伞: <span>未持有</span></div>
+        </div>
+        <div id="level-complete" class="hidden">
+            <h2>恭喜通关!</h2>
+            <p>使用方向键向右移动角色到出口</p>
+        </div>
+        <div id="next-level-hint" class="hidden">
+            <p>恭喜通关！请向右移动Frisk到屏幕边缘进入下一关</p>
+        </div>
+        <!-- Esc菜单 - 默认隐藏 -->
+        <div id="escMenu" class="hidden">
+            <div class="menu-content">
+                <button id="continueBtn">Continue</button>
+                <button id="saveBtn">Save</button>
+                <button id="mainMenuBtn">Return to Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// 背景音乐自动播放功能
+document.addEventListener('DOMContentLoaded', function() {
+    const music = document.getElementById('backgroundMusic');
+    
+    // 自动播放音乐（不等待用户交互）
+    const playMusic = function() {
+        music.play().catch(error => {
+            console.log('自动播放音乐:', error);
+            // 如果自动播放失败，设置一个定时器重试
+            setTimeout(playMusic, 1000);
+        });
+    };
+    
+    // 页面加载后立即尝试播放
+    playMusic();
+});
+ // 创建音频元素
+        const successSound = new Audio();
+        successSound.src = '骨头碎裂.wav'; // 成功音效
+        
+        const failureSound = new Audio();
+        failureSound.src = '反弹.mp3'
+        ; // 失败音效
+
+class BreakoutGame {
+    constructor() {
+        this.canvas = document.getElementById('game-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.container = document.getElementById('game-container');
+        this.scoreElement = document.querySelector('#score span');
+        this.livesElement = document.querySelector('#lives span');
+        this.bricksLeftElement = document.querySelector('#bricks-left span');
+        this.umbrellaStatusElement = document.querySelector('#umbrella-status span');
+        this.levelCompleteScreen = document.getElementById('level-complete');
+        this.nextLevelHint = document.getElementById('next-level-hint');
+
+        // 设置画布尺寸为全屏
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+
+        // 计算缩放比例（基于1920x1080）
+        this.baseWidth = 1920;
+        this.baseHeight = 1080;
+        this.scaleX = this.canvas.width / this.baseWidth;
+        this.scaleY = this.canvas.height / this.baseHeight;
+        this.scale = Math.min(this.scaleX, this.scaleY);
+
+        // 通关后跳转的页面URL - 请替换为您需要的URL
+        this.nextPageURL = '../../platform-game/game5.html';
+
+        // 游戏状态
+        this.gameState = 'playing';
+        this.score = 0;
+        this.lives = 3;
+        this.bricksLeft = 15;
+        this.hasUmbrella = false;
+        this.nearUmbrellaStand = false;
+        this.levelCompleted = false;
+
+        // 固定砖块数量
+        this.brickRowCount = 3;
+        this.brickColumnCount = 5;
+
+        // 游戏元素尺寸（基于缩放）
+        this.paddleWidth = 104 * this.scale;
+        this.paddleHeight = 24 * this.scale;
+        this.ballRadius = 20 * this.scale;
+        this.brickWidth = 240 * this.scale;
+        this.brickHeight = 84 * this.scale;
+        this.brickPadding = 2 * this.scale;
+        this.brickOffsetTop = 80 * this.scaleY;  // 使用垂直缩放保持相对位置
+        this.brickOffsetLeft = (this.canvas.width - (this.brickColumnCount * (this.brickWidth + this.brickPadding))) / 2;
+
+        // 主角尺寸和位置
+        this.characterWidth = 60 * this.scale;
+        this.characterHeight = 80 * this.scale;
+        this.characterX = 50 * this.scaleX;  // 使用水平缩放保持相对位置
+        this.characterY = this.canvas.height - this.characterHeight - 30 * this.scaleY;
+        this.characterSpeed = 6 * this.scale;
+
+        // 雨伞桶尺寸和位置
+        this.umbrellaStandWidth = 50 * this.scale;
+        this.umbrellaStandHeight = 70 * this.scale;
+        this.umbrellaStandX = 20 * this.scaleX;
+        this.umbrellaStandY = this.canvas.height - this.umbrellaStandHeight - 30 * this.scaleY;
+
+        // 平台尺寸和位置
+        this.platformHeight = 40 * this.scale;
+        this.platformY = this.canvas.height - this.platformHeight - 5 * this.scaleY;
+
+        // 雨伞尺寸
+        this.umbrellaWidth = 100 * this.scale;
+        this.umbrellaHeight = 100 * this.scale;
+
+        // 游戏对象
+        this.ball = {
+            x: this.characterX + this.characterWidth / 2,
+            y: this.characterY - this.ballRadius,
+            dx: 7 * this.scale,
+            dy: -7 * this.scale,
+            radius: this.ballRadius,
+            onCharacter: true
+        };
+
+        this.bricks = [];
+
+        // 砖块颜色
+        this.brickColors = [
+            '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF',
+            '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF',
+            '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'
+        ];
+
+        // 粒子效果
+        this.particles = [];
+
+        // 按键状态
+        this.keys = {};
+
+        // 图像资源
+        this.images = {};
+
+        // 初始化
+        this.init();
+    }
+
+    async init() {
+        // 预加载图像
+        await this.preloadImages();
+
+        // 初始化砖块
+        this.initBricks();
+
+        // 事件监听
+        this.setupEventListeners();
+
+        // 开始游戏循环
+        this.gameLoop();
+    }
+
+    async preloadImages() {
+        // 创建角色图像
+        const characterCanvas = document.createElement('canvas');
+        characterCanvas.width = this.characterWidth;
+        characterCanvas.height = this.characterHeight;
+        const characterCtx = characterCanvas.getContext('2d');
+
+        // 绘制角色
+        characterCtx.fillStyle = '#FF0000';
+        characterCtx.fillRect(0, 0, this.characterWidth, this.characterHeight);
+
+        // 绘制角色的脸
+        characterCtx.fillStyle = '#000';
+        characterCtx.fillRect(15 * this.scale, 20 * this.scale, 10 * this.scale, 10 * this.scale);
+        characterCtx.fillRect(35 * this.scale, 20 * this.scale, 10 * this.scale, 10 * this.scale);
+        characterCtx.fillStyle = '#FFF';
+        characterCtx.fillRect(20 * this.scale, 40 * this.scale, 20 * this.scale, 5 * this.scale);
+
+        this.images.character = characterCanvas;
+
+        // 创建雨伞桶图像
+        const umbrellaStandCanvas = document.createElement('canvas');
+        umbrellaStandCanvas.width = this.umbrellaStandWidth;
+        umbrellaStandCanvas.height = this.umbrellaStandHeight;
+        const umbrellaStandCtx = umbrellaStandCanvas.getContext('2d');
+
+        umbrellaStandCtx.fillStyle = '#8B4513';
+        umbrellaStandCtx.fillRect(0, 0, this.umbrellaStandWidth, this.umbrellaStandHeight);
+        umbrellaStandCtx.fillStyle = '#A52A2A';
+        umbrellaStandCtx.fillRect(-5 * this.scale, this.umbrellaStandHeight, this.umbrellaStandWidth + 10 * this.scale, 10 * this.scale);
+
+        this.images.umbrellaStand = umbrellaStandCanvas;
+
+        // 创建雨伞图像
+        const umbrellaCanvas = document.createElement('canvas');
+        umbrellaCanvas.width = this.umbrellaWidth;
+        umbrellaCanvas.height = this.umbrellaHeight + 20 * this.scale; // 包括手柄
+        const umbrellaCtx = umbrellaCanvas.getContext('2d');
+
+        umbrellaCtx.fillStyle = '#00BFFF';
+        umbrellaCtx.fillRect(0, 0, this.umbrellaWidth, this.umbrellaHeight);
+
+        // 雨伞手柄
+        umbrellaCtx.fillStyle = '#8B4513';
+        umbrellaCtx.fillRect(this.umbrellaWidth / 2 - 5 * this.scale, this.umbrellaHeight, 10 * this.scale, 20 * this.scale);
+
+        this.images.umbrella = umbrellaCanvas;
+
+        return Promise.resolve();
+    }
+
+    initBricks() {
+        // 保存当前砖块状态（如果存在）
+        const oldBricks = this.bricks.slice();
+        
+        this.bricks = [];
+        for (let c = 0; c < this.brickColumnCount; c++) {
+            this.bricks[c] = [];
+            for (let r = 0; r < this.brickRowCount; r++) {
+                const brickX = c * (this.brickWidth + this.brickPadding) + this.brickOffsetLeft;
+                const brickY = r * (this.brickHeight + this.brickPadding) + this.brickOffsetTop;
+                const colorIndex = Math.floor(Math.random() * this.brickColors.length);
+
+                // 创建砖块图像
+                const brickCanvas = document.createElement('canvas');
+                brickCanvas.width = this.brickWidth;
+                brickCanvas.height = this.brickHeight;
+                const brickCtx = brickCanvas.getContext('2d');
+
+                brickCtx.fillStyle = this.brickColors[colorIndex];
+                brickCtx.fillRect(0, 0, this.brickWidth, this.brickHeight);
+
+                // 砖块边框
+                brickCtx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+                brickCtx.strokeRect(0, 0, this.brickWidth, this.brickHeight);
+
+                // 如果存在旧砖块，保持其状态
+                let status = 1;
+                if (oldBricks[c] && oldBricks[c][r]) {
+                    status = oldBricks[c][r].status;
+                }
+
+                this.bricks[c][r] = {
+                    x: brickX,
+                    y: brickY,
+                    width: this.brickWidth,
+                    height: this.brickHeight,
+                    status: status,
+                    color: this.brickColors[colorIndex],
+                    image: brickCanvas
+                };
+            }
+        }
+    }
+
+    updateBricksPosition() {
+        // 只更新砖块位置，不改变状态
+        for (let c = 0; c < this.brickColumnCount; c++) {
+            for (let r = 0; r < this.brickRowCount; r++) {
+                if (this.bricks[c] && this.bricks[c][r]) {
+                    const brick = this.bricks[c][r];
+                    brick.x = c * (this.brickWidth + this.brickPadding) + this.brickOffsetLeft;
+                    brick.y = r * (this.brickHeight + this.brickPadding) + this.brickOffsetTop;
+                    brick.width = this.brickWidth;
+                    brick.height = this.brickHeight;
+
+                    // 重新创建砖块图像
+                    const brickCanvas = document.createElement('canvas');
+                    brickCanvas.width = this.brickWidth;
+                    brickCanvas.height = this.brickHeight;
+                    const brickCtx = brickCanvas.getContext('2d');
+
+                    brickCtx.fillStyle = brick.color;
+                    brickCtx.fillRect(0, 0, this.brickWidth, this.brickHeight);
+
+                    // 砖块边框
+                    brickCtx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+                    brickCtx.strokeRect(0, 0, this.brickWidth, this.brickHeight);
+
+                    brick.image = brickCanvas;
+                }
+            }
+        }
+    }
+
+    setupEventListeners() {
+        // 键盘事件
+        window.addEventListener('keydown', (e) => {
+            this.keys[e.key] = true;
+
+            // 按F键拾取雨伞
+            if (e.key === 'f' || e.key === 'F') {
+                if (this.nearUmbrellaStand && !this.hasUmbrella) {
+                    this.hasUmbrella = true;
+                    this.updateUI();
+                }
+            }
+
+            // 空格键发射球
+            if ((e.key === ' ' || e.key === 'Spacebar') && this.ball.onCharacter && this.hasUmbrella) {
+                this.ball.onCharacter = false;
+                this.ball.dx = 7 * this.scale;
+                this.ball.dy = -7 * this.scale;
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            this.keys[e.key] = false;
+        });
+
+        // 鼠标点击发射球
+        this.canvas.addEventListener('click', () => {
+            if (this.ball.onCharacter && this.hasUmbrella) {
+                this.ball.onCharacter = false;
+                this.ball.dx = 7 * this.scale;
+                this.ball.dy = -7 * this.scale;
+            }
+        });
+
+        // 窗口大小调整
+        window.addEventListener('resize', () => {
+            // 保存旧的画布尺寸和缩放比例
+            const oldCanvasWidth = this.canvas.width;
+            const oldCanvasHeight = this.canvas.height;
+            const oldScaleX = this.scaleX;
+            const oldScaleY = this.scaleY;
+            const oldScale = this.scale;
+
+            // 保存角色和球的相对位置
+            const characterRelativeX = this.characterX / oldCanvasWidth;
+            const characterRelativeY = (oldCanvasHeight - this.characterY) / oldCanvasHeight;
+            const ballRelativeX = this.ball.x / oldCanvasWidth;
+            const ballRelativeY = this.ball.y / oldCanvasHeight;
+            const ballRelativeDx = this.ball.dx / oldScale;
+            const ballRelativeDy = this.ball.dy / oldScale;
+
+            // 更新画布尺寸
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+
+            // 重新计算缩放比例
+            this.scaleX = this.canvas.width / this.baseWidth;
+            this.scaleY = this.canvas.height / this.baseHeight;
+            this.scale = Math.min(this.scaleX, this.scaleY);
+
+            // 更新所有尺寸
+            this.paddleWidth = 104 * this.scale;
+            this.paddleHeight = 24 * this.scale;
+            this.ballRadius = 11 * this.scale;
+            this.brickWidth = 64 * this.scale;
+            this.brickHeight = 32 * this.scale;
+            this.brickPadding = 2 * this.scale;
+            this.brickOffsetTop = 80 * this.scaleY;
+            this.brickOffsetLeft = (this.canvas.width - (this.brickColumnCount * (this.brickWidth + this.brickPadding))) / 2;
+
+            this.characterWidth = 60 * this.scale;
+            this.characterHeight = 80 * this.scale;
+            this.characterSpeed = 6 * this.scale;
+
+            this.umbrellaStandWidth = 50 * this.scale;
+            this.umbrellaStandHeight = 70 * this.scale;
+            this.umbrellaStandX = 20 * this.scaleX;
+            this.umbrellaStandY = this.canvas.height - this.umbrellaStandHeight - 30 * this.scaleY;
+
+            this.platformHeight = 40 * this.scale;
+            this.platformY = this.canvas.height - this.platformHeight - 5 * this.scaleY;
+
+            this.umbrellaWidth = 100 * this.scale;
+            this.umbrellaHeight = 20 * this.scale;
+
+            // 恢复角色的相对位置
+            this.characterX = characterRelativeX * this.canvas.width;
+            this.characterY = this.canvas.height - (characterRelativeY * this.canvas.height);
+
+            // 恢复球的相对位置和速度
+            this.ball.x = ballRelativeX * this.canvas.width;
+            this.ball.y = ballRelativeY * this.canvas.height;
+            this.ball.radius = this.ballRadius;
+            
+            // 只有在球不在角色上时才更新速度
+            if (!this.ball.onCharacter) {
+                this.ball.dx = ballRelativeDx * this.scale;
+                this.ball.dy = ballRelativeDy * this.scale;
+            } else {
+                // 如果球在角色上，保持在角色上方
+                this.ball.x = this.characterX + this.characterWidth / 2;
+                this.ball.y = this.characterY - this.ball.radius;
+            }
+
+            // 重新初始化图像
+            this.preloadImages();
+            
+            // 只更新砖块位置，不重新初始化
+            this.updateBricksPosition();
+        });
+    }
+
+    updateUI() {
+        this.scoreElement.textContent = this.score;
+        this.livesElement.textContent = this.lives;
+        this.bricksLeftElement.textContent = this.bricksLeft;
+        this.umbrellaStatusElement.textContent = this.hasUmbrella ? '已持有' : '未持有';
+    }
+
+    updateCharacter() {
+        // 移动角色
+        if (this.keys['ArrowLeft'] || this.keys['a'] || this.keys['A']) {
+            this.characterX = Math.max(20 * this.scaleX, this.characterX - this.characterSpeed);
+        }
+
+        if (this.keys['ArrowRight'] || this.keys['d'] || this.keys['D']) {
+            this.characterX = Math.min(this.canvas.width - this.characterWidth - 20 * this.scaleX, this.characterX + this.characterSpeed);
+        }
+
+        // 球跟随角色
+        if (this.ball.onCharacter) {
+            this.ball.x = this.characterX + this.characterWidth / 2;
+            this.ball.y = this.characterY - this.ball.radius;
+        }
+
+        // 检测是否靠近雨伞桶
+        const distance = Math.abs(this.characterX - this.umbrellaStandX);
+        this.nearUmbrellaStand = distance < 80 * this.scale;
+
+        // 检测是否到达右下角（通关后）
+        if (this.levelCompleted && this.characterX + this.characterWidth >= this.canvas.width - 50 * this.scaleX) {
+            // 跳转到下一个页面
+            window.location.href = this.nextPageURL;
+        }
+    }
+
+    collisionDetection() {
+        // 检测球与砖块的碰撞
+        for (let c = 0; c < this.brickColumnCount; c++) {
+            for (let r = 0; r < this.brickRowCount; r++) {
+                const brick = this.bricks[c][r];
+                if (brick.status === 1) {
+                    if (
+                        this.ball.x > brick.x &&
+                        this.ball.x < brick.x + brick.width &&
+                        this.ball.y > brick.y &&
+                        this.ball.y < brick.y + brick.height
+                    ) {
+                        this.ball.dy = -this.ball.dy;
+                        brick.status = 0;
+                        this.score += 10;
+                        this.bricksLeft--;
+                        this.updateUI();
+
+                        // 播放反弹音效
+                        failureSound.currentTime = 0;
+                        failureSound.play();
+
+                        // 播放砖块碎裂音效
+                        successSound.currentTime = 0;
+                        successSound.play();
+
+                        // 创建粒子效果
+                        this.createParticles(brick.x + brick.width / 2, brick.y + brick.height / 2, brick.color);
+
+                        // 检查是否所有砖块都被击中
+                        if (this.bricksLeft === 0) {
+                            this.levelComplete();
+                        }
+                    }
+                }
+            }
+        }
+
+        // 检测球与雨伞的碰撞
+        if (this.hasUmbrella && !this.ball.onCharacter) {
+            const umbrellaX = this.characterX + this.characterWidth / 2 - 0.3 * this.umbrellaWidth;
+            const umbrellaY = this.characterY - 20 * this.scale;
+            if (
+                this.ball.x > umbrellaX &&
+                this.ball.x < umbrellaX + this.umbrellaWidth &&
+                this.ball.y > umbrellaY &&
+                this.ball.y < umbrellaY + this.umbrellaHeight
+            ) {
+                // 根据击中雨伞的位置改变反弹角度
+                const hitPos = (this.ball.x - umbrellaX) / this.umbrellaWidth;
+                this.ball.dx = (hitPos - 0.5) * 8 * this.scale;
+                this.ball.dy = -Math.abs(this.ball.dy);
+                // 播放反弹音效
+                failureSound.currentTime = 0;
+                failureSound.play();
+            }
+        }
+            
+        // 检测球与平台的碰撞
+        if (this.ball.y + this.ball.radius > this.platformY &&
+            this.ball.y - this.ball.radius < this.platformY + this.platformHeight) {
+            this.ball.dy = -Math.abs(this.ball.dy);
+            // 播放反弹音效
+            failureSound.currentTime = 0;
+            failureSound.play();
+        }
+        // 检测球与墙壁的碰撞（包括房间边框）
+        if (this.ball.x + this.ball.dx > this.canvas.width - this.ball.radius ||
+            this.ball.x + this.ball.dx < this.ball.radius) {
+            this.ball.dx = -this.ball.dx;
+            // 播放反弹音效
+            failureSound.currentTime = 0;
+            failureSound.play();
+        }
+
+        if (this.ball.y + this.ball.dy < this.ball.radius ||
+            this.ball.y + this.ball.dy > this.canvas.height - this.ball.radius) {
+            this.ball.dy = -this.ball.dy;
+        }
+        // 球落到底部
+        if (this.ball.y + this.ball.dy > this.canvas.height - this.ball.radius) {
+            this.lives--;
+            this.updateUI();
+
+            if (this.lives <= 0) {
+                this.gameOver();
+            } else {
+                this.ball.x = this.characterX + this.characterWidth / 2;
+                this.ball.y = this.characterY - this.ball.radius;
+                this.ball.dx = 7 * this.scale;
+                this.ball.dy = -7 * this.scale;
+                this.ball.onCharacter = true;
+            }
+        }
+    }
+
+    createParticles(x, y, color) {
+        for (let i = 0; i < 8; i++) {
+            this.particles.push({
+                x: x,
+                y: y,
+                size: (Math.random() * 5 + 2) * this.scale,
+                speedX: (Math.random() * 6 - 3) * this.scale,
+                speedY: (Math.random() * 6 - 3) * this.scale,
+                color: color,
+                life: 30
+            });
+        }
+    }
+
+    updateParticles() {
+        for (let i = 0; i < this.particles.length; i++) {
+            const p = this.particles[i];
+            p.x += p.speedX;
+            p.y += p.speedY;
+            p.life--;
+
+            if (p.life <= 0) {
+                this.particles.splice(i, 1);
+                i--;
+            }
+        }
+    }
+
+    drawParticles() {
+        for (let i = 0; i < this.particles.length; i++) {
+            const p = this.particles[i];
+            this.ctx.globalAlpha = p.life / 30;
+            this.ctx.fillStyle = p.color;
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
+        this.ctx.globalAlpha = 1;
+    }
+
+    draw() {
+        // 清除画布
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // 绘制背景
+        this.ctx.fillStyle = '#000000';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        // 绘制平台
+        const platform = new Image();
+        platform.src = "./platform.png"; // 请替换为您的平台图像路径
+        this.ctx.drawImage(
+            platform,
+            0,
+            this.platformY,
+            this.canvas.width,
+            this.platformHeight
+        );
+
+        // 绘制雨伞桶
+        const umbrellaBucket = new Image();
+        umbrellaBucket.src = "./umbrellaBucket.png";
+        this.ctx.drawImage(
+            umbrellaBucket,
+            this.umbrellaStandX,
+            this.umbrellaStandY,
+            this.umbrellaStandWidth,
+            this.umbrellaStandHeight
+        );
+
+        // 绘制砖块
+        for (let c = 0; c < this.brickColumnCount; c++) {
+            for (let r = 0; r < this.brickRowCount; r++) {
+                const brick = this.bricks[c][r];
+                const bricks = new Image();
+                bricks.src = "./bricks.png";
+                if (brick.status === 1) {
+                    this.ctx.drawImage(
+                        bricks,
+                        brick.x,
+                        brick.y,
+                        brick.width,
+                        brick.height
+                    );
+                }
+            }
+        }
+
+        // 绘制角色
+        const img = new Image();
+        img.src = "./Frisk.png";
+        this.ctx.drawImage(
+            img,
+            this.characterX,
+            this.characterY,
+            this.characterWidth,
+            this.characterHeight
+        );
+
+        // 绘制雨伞（如果持有）
+        if (this.hasUmbrella) {
+            const umbrellaX = this.characterX + this.characterWidth / 2 - 0.3 * this.umbrellaWidth;
+            const umbrellaY = this.characterY - 20 * this.scale;
+            const img = new Image();
+            img.src = "./umbrella.png";
+            this.ctx.drawImage(
+                img,
+                umbrellaX,
+                umbrellaY,
+                this.umbrellaWidth,
+                this.umbrellaHeight
+            );
+        }
+
+        // 绘制球
+        const ball = new Image();
+        ball.src = "./ball.png";
+        this.ctx.drawImage(
+            ball,
+            this.ball.x - this.ballRadius - 62 * this.scale,
+            this.ball.y - this.ballRadius - 1 * this.scale,
+            (this.ballRadius * 2) + 120 * this.scale,
+            (this.ballRadius * 2) + 25 * this.scale
+        );
+
+        // 绘制粒子
+        this.drawParticles();
+
+        // 绘制靠近雨伞桶的提示
+        if (this.nearUmbrellaStand && !this.hasUmbrella) {
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            this.ctx.fillRect(this.umbrellaStandX - 10 * this.scale, this.umbrellaStandY - 40 * this.scale, 180 * this.scale, 30 * this.scale);
+            this.ctx.fillStyle = '#000';
+            this.ctx.font = `${16 * this.scale}px Arial`;
+            this.ctx.fillText('按 F 键拾取雨伞', this.umbrellaStandX, this.umbrellaStandY - 20 * this.scale);
+        }
+
+        // 绘制通关提示
+        if (this.levelCompleted) {
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            this.ctx.fillRect(this.canvas.width - 300 * this.scale, this.canvas.height - 50 * this.scale, 280 * this.scale, 40 * this.scale);
+            this.ctx.fillStyle = '#000';
+            this.ctx.font = `${16 * this.scale}px Arial`;
+            this.ctx.fillText('向右移动角色到边缘进入下一关', this.canvas.width - 290 * this.scale, this.canvas.height - 25 * this.scale);
+        }
+    }
+
+    update() {
+        // 更新角色位置
+        this.updateCharacter();
+
+        // 移动球
+        if (!this.ball.onCharacter) {
+            this.ball.x += this.ball.dx;
+            this.ball.y += this.ball.dy;
+        }
+
+        // 碰撞检测
+        this.collisionDetection();
+
+        // 更新粒子
+        this.updateParticles();
+    }
+
+    levelComplete() {
+        this.levelCompleted = true;
+
+        // 通关后不再显示提示，直接允许角色移动到边缘跳转
+    }
+
+    gameOver() {
+        this.gameState = 'gameover';
+
+        // 重新开始游戏
+        setTimeout(() => {
+            this.score = 0;
+            this.lives = 3;
+            this.bricksLeft = 15;
+            this.hasUmbrella = false;
+            this.levelCompleted = false;
+            this.updateUI();
+            this.initBricks();
+            this.characterX = 50 * this.scaleX;
+            this.ball.x = this.characterX + this.characterWidth / 2;
+            this.ball.y = this.characterY - this.ball.radius;
+            this.ball.dx = 7 * this.scale;
+            this.ball.dy = -7 * this.scale;
+            this.ball.onCharacter = true;
+            this.gameState = 'playing';
+            this.particles = [];
+        }, 2000);
+    }
+
+    gameLoop() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.gameLoop());
+    }
+}
+
+// 初始化游戏
+window.addEventListener('load', () => {
+    const game = new BreakoutGame();
+});
+    </script>
+    <!-- Esc菜单功能需要 -->
+    <script src="Esc.js"></script>
+    <script src="../../../script/save.js"></script>
+</body>
+
+</html>

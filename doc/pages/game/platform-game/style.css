@@ -1,0 +1,290 @@
+@font-face {
+    font-family: "pxfont";
+    src: url(../../../assets/fonts/HYPixel11pxU-2.ttf);
+}
+
+@font-face {
+    font-family: "Press Start 2P";
+    src: url(../../../assets/fonts/PressStart2P-1.ttf);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P';
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    /* 背景设为纯黑 */
+    overflow: hidden;
+    /* 隐藏滚动条，防止出现不必要的滚动 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+canvas {
+    /*
+     * 关键修改：
+     * 将 max-width/max-height 改为 width/height。
+     * 这告诉 canvas “尝试填满父容器（在这里是整个视口）”，
+     * 然后 object-fit: contain 会介入，强制保持比例并适应这个空间。
+     */
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+
+    /* 保持像素风格的渲染选项 */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+
+
+/* Esc 菜单 */
+#escMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.menu-content {
+    background-color: #333;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+}
+
+
+.menu-content button {
+    border: 5px solid #2c3e50;
+    color: #2c3e50;
+    background-color: #fff;
+    display: block;
+    font-family: 'Press Start 2P';
+    font-size: 15px;
+    letter-spacing: 0.1rem;
+    padding: 1rem;
+    margin: 30px auto;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.menu-content button::before {
+    content: "";
+    box-shadow: 1px 1px 0 #E26A6A,
+        3px 3px 0 #F1C40F,
+        5px 5px 0 #3498DB;
+    position: absolute;
+    left: 0.25rem;
+    top: 0.5rem;
+    height: 102%;
+    width: 102%;
+    transition: all 0.4s ease;
+    border-radius: 0.5rem;
+}
+
+.menu-content button:hover::before {
+    box-shadow: none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/* 成就弹窗 */
+#achievementPopup,
+.achievement-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 背景设为全透明 */
+    background-color: transparent;
+    display: flex;
+    /* 右下角显示 */
+    justify-content: flex-end;
+    align-items: flex-end;
+    z-index: 10;
+}
+
+/* 为多个弹窗添加不同的位置偏移，避免重叠 */
+.achievement-popup:nth-child(2n) {
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.achievement-popup:nth-child(2n) .popup-content {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.achievement-popup:nth-child(2n+1) {
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.achievement-popup:nth-child(2n+1) .popup-content {
+    margin-right: 400px;
+    margin-bottom: 20px;
+}
+
+.popup-content {
+    background-color: #333;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    max-width: 30%;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    /* 添加金色光晕效果 */
+    border: 2px solid #FFD700;
+    /* 添加金色边框 */
+    animation: popupAppear 0.5s ease-out;
+    /* 添加出现动画 */
+}
+
+/* 弹窗出现动画 */
+@keyframes popupAppear {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.popup-content h2 {
+    color: #FFD700;
+    /* 金色标题 */
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.popup-content p {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.popup-content button {
+    border: 2px solid #FFD700;
+    color: #FFD700;
+    background-color: #333;
+    font-family: 'Press Start 2P';
+    font-size: 12px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: #FFD700;
+    color: #333;
+}
+
+/* 覆盖层 */
+#npcDialog {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.5);
+  z-index: 2000;
+}
+#npcDialog:not(.hidden) { display: flex; }
+
+/* 容器：宽度≈半屏，且不超过画布宽度；高度≈70vh，且不超过画布高度 */
+#npcDialog .dialog-content {
+  position: relative;
+  background: rgba(20,20,20,0.95);
+  border: 2px solid #fff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.6);
+  display: flex;
+  flex-direction: column;
+
+  /* 关键尺寸（“和原来的差不多大”） */
+  width: 95%;
+  height: clamp(1000px, 200vh, 480px);
+}
+
+/* 让对话内容占满容器宽度，高度≈70vh 且不超过 480px（你的画布高度） */
+#npcDialog #dialogFrame {
+  width: 95%;
+  height: clamp(1000px, 200vh, 480px);
+  border: none;
+  background: #000;
+}
+
+/* 关闭按钮 */
+#npcDialog #dialogCloseBtn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background: #444;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 顶部提示容器（全局唯一） */
+#hudHints {
+  position: fixed;
+  top: 32px;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3000; /* 高于 npcDialog */
+}
+
+/* 提示气泡 */
+.hint-bubble {
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 24px;
+  padding: 16px 26px;
+  font: 22px/1.4 Arial, sans-serif;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.hint-bubble.show {
+  opacity: 1;
+  transform: translateY(0);
+}

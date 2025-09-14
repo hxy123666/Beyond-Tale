@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss战</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            border: 3px solid #0f3460;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #gameArea {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Boss样式 */
+        #boss {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            top: 50px;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, #ff0000, #8b0000);
+            border-radius: 50%;
+            border: 3px solid #ff6b6b;
+            z-index: 10;
+            animation: bossPulse 2s infinite;
+        }
+
+        @keyframes bossPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* 玩家样式 */
+        #player {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #00ff00, #008000);
+            border-radius: 50%;
+            border: 2px solid #00ff00;
+            z-index: 20;
+            transition: box-shadow 0.3s;
+        }
+
+        #player.slowed {
+            background: radial-gradient(circle, #4169e1, #000080);
+            animation: slowedPulse 0.5s infinite;
+        }
+
+        @keyframes slowedPulse {
+            0%, 100% { box-shadow: 0 0 10px #4169e1; }
+            50% { box-shadow: 0 0 20px #4169e1; }
+        }
+
+        /* 弹幕样式 */
+        .bullet {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, #ffff00, #ff8c00);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff8c00;
+            z-index: 15;
+        }
+
+        /* 地刺预警和攻击样式 */
+        .spike-warning {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0.6));
+            border-radius: 50%;
+            animation: warningPulse 0.5s infinite;
+            z-index: 5;
+        }
+
+        .spike {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: conic-gradient(from 0deg, #ff0000, #ff6b6b, #ff0000);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: spikeRotate 0.5s linear infinite;
+            z-index: 15;
+        }
+
+        @keyframes spikeRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* 激光预警和攻击样式 */
+        .laser-warning {
+            position: absolute;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 0, 0, 0.3), 
+                rgba(255, 0, 0, 0.3), 
+                transparent);
+            z-index: 5;
+            animation: laserWarning 0.3s infinite;
+        }
+
+        @keyframes laserWarning {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .laser {
+            position: absolute;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #ff0000, 
+                #ffff00, 
+                #ff0000, 
+                transparent);
+            box-shadow: 0 0 20px #ff0000;
+            z-index: 15;
+            animation: laserShoot 0.5s ease-out;
+        }
+
+        @keyframes laserShoot {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 反击物样式 */
+        .powerup {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #00ffff, #0080ff);
+            border-radius: 50%;
+            border: 2px solid #00ffff;
+            animation: powerupFloat 2s infinite ease-in-out;
+            z-index: 10;
+            box-shadow: 0 0 15px #00ffff;
+        }
+
+        @keyframes powerupFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* UI样式 */
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .health-bar {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 5px;
+            min-width: 150px;
+        }
+
+        .health-bar h3 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .health-container {
+            background: #333;
+            height: 20px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .health-fill {
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        #playerHealth .health-fill {
+            background: linear-gradient(90deg, #00ff00, #00aa00);
+        }
+
+        #bossHealth .health-fill {
+            background: linear-gradient(90deg, #ff0000, #aa0000);
+        }
+
+        /* 游戏结束画面 */
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+
+        #gameOver h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #gameOver button {
+            padding: 10px 30px;
+            font-size: 18px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #gameOver button:hover {
+            background: #45a049;
+        }
+
+        /* 伤害数字 */
+        .damage-text {
+            position: absolute;
+            color: #ff0000;
+            font-size: 24px;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 100;
+            animation: damageFloat 1s ease-out forwards;
+        }
+
+        @keyframes damageFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
+
+        /* 闪避文字 */
+        .dodge-text {
+            position: absolute;
+            color: #ffff00;
+            font-size: 20px;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 100;
+            animation: dodgeFloat 1s ease-out forwards;
+        }
+
+        @keyframes dodgeFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(-10deg);
+            }
+            50% {
+                transform: translateY(-25px) rotate(10deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) rotate(-10deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="gameArea">
+            <div id="boss"></div>
+            <div id="player"></div>
+        </div>
+        
+        <div id="ui">
+            <div class="health-bar">
+                <h3>玩家 HP</h3>
+                <div class="health-container">
+                    <div id="playerHealth" class="health-fill" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div class="health-bar">
+                <h3>Boss HP</h3>
+                <div class="health-container">
+                    <div id="bossHealth" class="health-fill" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gameOver">
+            <h2 id="gameOverText">游戏结束</h2>
+            <button onclick="restartGame()">重新开始</button>
+        </div>
+    </div>
+
+    <script>
+        // 游戏配置
+        const gameConfig = {
+            playerMaxHealth: 5,
+            bossMaxHealth: 10,
+            playerSpeed: 5,
+            playerSlowSpeed: 2,
+            bulletSpeed: 3,
+            dodgeChance: 0.2,
+            powerupSpawnMin: 10000,
+            powerupSpawnMax: 20000
+        };
+
+        // 游戏状态
+        let gameState = {
+            player: {
+                x: 400,
+                y: 500,
+                health: gameConfig.playerMaxHealth,
+                isSlowed: false,
+                speed: gameConfig.playerSpeed
+            },
+            boss: {
+                x: 400,
+                y: 90,
+                health: gameConfig.bossMaxHealth,
+                damageReceived: 0,
+                attackPatterns: ['bullet'],
+                attackCooldown: 2000
+            },
+            keys: {},
+            gameRunning: true,
+            bullets: [],
+            spikes: [],
+            lasers: [],
+            powerups: []
+        };
+
+        // 获取游戏元素
+        const gameArea = document.getElementById('gameArea');
+        const player = document.getElementById('player');
+        const boss = document.getElementById('boss');
+        const playerHealthBar = document.getElementById('playerHealth');
+        const bossHealthBar = document.getElementById('bossHealth');
+        const gameOverDiv = document.getElementById('gameOver');
+        const gameOverText = document.getElementById('gameOverText');
+
+        // 初始化玩家位置
+        function initPlayer() {
+            player.style.left = gameState.player.x - 15 + 'px';
+            player.style.top = gameState.player.y - 15 + 'px';
+        }
+
+        // 键盘事件
+        document.addEventListener('keydown', (e) => {
+            gameState.keys[e.key] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            gameState.keys[e.key] = false;
+        });
+
+        // 更新玩家位置
+        function updatePlayer() {
+            if (!gameState.gameRunning) return;
+
+            let dx = 0, dy = 0;
+            const speed = gameState.player.speed;
+
+            if (gameState.keys['ArrowUp'] || gameState.keys['w'] || gameState.keys['W']) dy -= speed;
+            if (gameState.keys['ArrowDown'] || gameState.keys['s'] || gameState.keys['S']) dy += speed;
+            if (gameState.keys['ArrowLeft'] || gameState.keys['a'] || gameState.keys['A']) dx -= speed;
+            if (gameState.keys['ArrowRight'] || gameState.keys['d'] || gameState.keys['D']) dx += speed;
+
+            gameState.player.x = Math.max(15, Math.min(785, gameState.player.x + dx));
+            gameState.player.y = Math.max(15, Math.min(585, gameState.player.y + dy));
+
+            player.style.left = gameState.player.x - 15 + 'px';
+            player.style.top = gameState.player.y - 15 + 'px';
+        }
+
+        // 创建弹幕
+        function createBullet() {
+            const angle = Math.random() * Math.PI * 2;
+            const bullet = {
+                x: gameState.boss.x,
+                y: gameState.boss.y,
+                vx: Math.cos(angle) * gameConfig.bulletSpeed,
+                vy: Math.sin(angle) * gameConfig.bulletSpeed,
+                element: null
+            };
+
+            const bulletElement = document.createElement('div');
+            bulletElement.className = 'bullet';
+            bulletElement.style.left = bullet.x - 7.5 + 'px';
+            bulletElement.style.top = bullet.y - 7.5 + 'px';
+            gameArea.appendChild(bulletElement);
+
+            bullet.element = bulletElement;
+            gameState.bullets.push(bullet);
+        }
+
+        // 更新弹幕
+        function updateBullets() {
+            gameState.bullets = gameState.bullets.filter(bullet => {
+                bullet.x += bullet.vx;
+                bullet.y += bullet.vy;
+
+                if (bullet.x < 0 || bullet.x > 800 || bullet.y < 0 || bullet.y > 600) {
+                    bullet.element.remove();
+                    return false;
+                }
+
+                bullet.element.style.left = bullet.x - 7.5 + 'px';
+                bullet.element.style.top = bullet.y - 7.5 + 'px';
+
+                // 检测碰撞
+                const dx = bullet.x - gameState.player.x;
+                const dy = bullet.y - gameState.player.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 22.5) {
+                    damagePlayer(1);
+                    bullet.element.remove();
+                    return false;
+                }
+
+                return true;
+            });
+        }
+
+        // 创建地刺
+        function createSpike() {
+            // 预警
+            const warningElement = document.createElement('div');
+            warningElement.className = 'spike-warning';
+            warningElement.style.left = gameState.player.x - 20 + 'px';
+            warningElement.style.top = gameState.player.y - 20 + 'px';
+            gameArea.appendChild(warningElement);
+
+            const targetX = gameState.player.x;
+            const targetY = gameState.player.y;
+
+            setTimeout(() => {
+                warningElement.remove();
+                
+                const spikeElement = document.createElement('div');
+                spikeElement.className = 'spike';
+                spikeElement.style.left = targetX - 15 + 'px';
+                spikeElement.style.top = targetY - 15 + 'px';
+                gameArea.appendChild(spikeElement);
+
+                // 检测碰撞
+                const dx = targetX - gameState.player.x;
+                const dy = targetY - gameState.player.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 30) {
+                    damagePlayer(1);
+                    slowPlayer();
+                }
+
+                setTimeout(() => {
+                    spikeElement.remove();
+                }, 500);
+            }, 2000);
+        }
+
+        // 减速玩家
+        function slowPlayer() {
+            if (!gameState.player.isSlowed) {
+                gameState.player.isSlowed = true;
+                gameState.player.speed = gameConfig.playerSlowSpeed;
+                player.classList.add('slowed');
+
+                setTimeout(() => {
+                    gameState.player.isSlowed = false;
+                    gameState.player.speed = gameConfig.playerSpeed;
+                    player.classList.remove('slowed');
+                }, 2000);
+            }
+        }
+
+        // 创建激光
+        function createLaser() {
+            const side = Math.floor(Math.random() * 4);
+            let startX, startY;
+
+            switch(side) {
+                case 0: // 上
+                    startX = Math.random() * 800;
+                    startY = 0;
+                    break;
+                case 1: // 右
+                    startX = 800;
+                    startY = Math.random() * 600;
+                    break;
+                case 2: // 下
+                    startX = Math.random() * 800;
+                    startY = 600;
+                    break;
+                case 3: // 左
+                    startX = 0;
+                    startY = Math.random() * 600;
+                    break;
+            }
+
+            const targetX = gameState.player.x;
+            const targetY = gameState.player.y;
+
+            const angle = Math.atan2(targetY - startY, targetX - startX);
+            const length = Math.sqrt(Math.pow(targetX - startX, 2) + Math.pow(targetY - startY, 2));
+
+            // 预警
+            const warningElement = document.createElement('div');
+            warningElement.className = 'laser-warning';
+            warningElement.style.left = startX + 'px';
+            warningElement.style.top = startY - 2 + 'px';
+            warningElement.style.width = length + 'px';
+            warningElement.style.height = '4px';
+            warningElement.style.transformOrigin = 'left center';
+            warningElement.style.transform = `rotate(${angle}rad)`;
+            gameArea.appendChild(warningElement);
+
+            setTimeout(() => {
+                warningElement.remove();
+
+                const laserElement = document.createElement('div');
+                laserElement.className = 'laser';
+                laserElement.style.left = startX + 'px';
+                laserElement.style.top = startY - 5 + 'px';
+                laserElement.style.width = length + 'px';
+                laserElement.style.height = '10px';
+                laserElement.style.transformOrigin = 'left center';
+                laserElement.style.transform = `rotate(${angle}rad)`;
+                gameArea.appendChild(laserElement);
+
+                // 检测碰撞 - 点到线段的距离
+                const playerX = gameState.player.x;
+                const playerY = gameState.player.y;
+                
+                // 计算点到线段的距离
+                const A = playerX - startX;
+                const B = playerY - startY;
+                const C = targetX - startX;
+                const D = targetY - startY;
+
+                const dot = A * C + B * D;
+                const lenSq = C * C + D * D;
+                let param = -1;
+
+                if (lenSq !== 0) param = dot / lenSq;
+
+                let xx, yy;
+
+                if (param < 0) {
+                    xx = startX;
+                    yy = startY;
+                } else if (param > 1) {
+                    xx = targetX;
+                    yy = targetY;
+                } else {
+                    xx = startX + param * C;
+                    yy = startY + param * D;
+                }
+
+                const dx = playerX - xx;
+                const dy = playerY - yy;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 20) {
+                    damagePlayer(2);
+                }
+
+                setTimeout(() => {
+                    laserElement.remove();
+                }, 500);
+            }, 2000);
+        }
+
+        // 创建反击物
+        function createPowerup() {
+            const powerup = {
+                x: Math.random() * 750 + 25,
+                y: 450 + Math.random() * 125,
+                element: null
+            };
+
+            const powerupElement = document.createElement('div');
+            powerupElement.className = 'powerup';
+            powerupElement.style.left = powerup.x - 12.5 + 'px';
+            powerupElement.style.top = powerup.y - 12.5 + 'px';
+            gameArea.appendChild(powerupElement);
+
+            powerup.element = powerupElement;
+            gameState.powerups.push(powerup);
+        }
+
+        // 更新反击物
+        function updatePowerups() {
+            gameState.powerups = gameState.powerups.filter(powerup => {
+                const dx = powerup.x - gameState.player.x;
+                const dy = powerup.y - gameState.player.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 27.5) {
+                    damageBoss(1);
+                    powerup.element.remove();
+                    return false;
+                }
+
+                return true;
+            });
+        }
+
+        // 伤害玩家
+        function damagePlayer(damage) {
+            if (!gameState.gameRunning) return;
+
+            gameState.player.health -= damage;
+            updateHealthBar();
+
+            showDamageText(gameState.player.x, gameState.player.y, damage);
+
+            if (gameState.player.health <= 0) {
+                endGame(false);
+            }
+        }
+
+        // 伤害Boss
+        function damageBoss(damage) {
+            if (!gameState.gameRunning) return;
+
+            // 闪避判定
+            if (Math.random() < gameConfig.dodgeChance) {
+                showDodgeText(gameState.boss.x, gameState.boss.y);
+                return;
+            }
+
+            gameState.boss.health -= damage;
+            gameState.boss.damageReceived++;
+
+            showDamageText(gameState.boss.x, gameState.boss.y, damage);
+
+            // 解锁新攻击模式
+            if (gameState.boss.damageReceived >= 3 && !gameState.boss.attackPatterns.includes('spike')) {
+                gameState.boss.attackPatterns.push('spike');
+            }
+            if (gameState.boss.damageReceived >= 5 && !gameState.boss.attackPatterns.includes('laser')) {
+                gameState.boss.attackPatterns.push('laser');
+            }
+
+            // 调整攻击频率
+            const damageRatio = gameState.boss.damageReceived / gameConfig.bossMaxHealth;
+            gameState.boss.attackCooldown = Math.max(500, 2000 - damageRatio * 1500);
+
+            updateHealthBar();
+
+            if (gameState.boss.health <= 0) {
+                endGame(true);
+            }
+        }
+
+        // 显示伤害数字
+        function showDamageText(x, y, damage) {
+            const damageElement = document.createElement('div');
+            damageElement.className = 'damage-text';
+            damageElement.textContent = `-${damage}`;
+            damageElement.style.left = x - 20 + 'px';
+            damageElement.style.top = y - 40 + 'px';
+            gameArea.appendChild(damageElement);
+
+            setTimeout(() => {
+                damageElement.remove();
+            }, 1000);
+        }
+
+        // 显示闪避文字
+        function showDodgeText(x, y) {
+            const dodgeElement = document.createElement('div');
+            dodgeElement.className = 'dodge-text';
+            dodgeElement.textContent = 'Miss!';
+            dodgeElement.style.left = x - 30 + 'px';
+            dodgeElement.style.top = y - 40 + 'px';
+            gameArea.appendChild(dodgeElement);
+
+            setTimeout(() => {
+                dodgeElement.remove();
+            }, 1000);
+        }
+
+        // 更新血条
+        function updateHealthBar() {
+            const playerHealthPercent = (gameState.player.health / gameConfig.playerMaxHealth) * 100;
+            const bossHealthPercent = (gameState.boss.health / gameConfig.bossMaxHealth) * 100;
+
+            playerHealthBar.style.width = Math.max(0, playerHealthPercent) + '%';
+            bossHealthBar.style.width = Math.max(0, bossHealthPercent) + '%';
+        }
+
+        // Boss攻击逻辑
+        function bossAttack() {
+            if (!gameState.gameRunning) return;
+
+            const patterns = gameState.boss.attackPatterns;
+            const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+
+            switch(pattern) {
+                case 'bullet':
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(() => createBullet(), i * 200);
+                    }
+                    break;
+                case 'spike':
+                    createSpike();
+                    break;
+                case 'laser':
+                    createLaser();
+                    break;
+            }
+
+            setTimeout(() => bossAttack(), gameState.boss.attackCooldown);
+        }
+
+        // 反击物生成
+        function spawnPowerup() {
+            if (!gameState.gameRunning) return;
+
+            createPowerup();
+
+            const nextSpawn = Math.random() * (gameConfig.powerupSpawnMax - gameConfig.powerupSpawnMin) + gameConfig.powerupSpawnMin;
+            setTimeout(() => spawnPowerup(), nextSpawn);
+        }
+
+        // 游戏结束
+        function endGame(victory) {
+            gameState.gameRunning = false;
+            gameOverDiv.style.display = 'block';
+            gameOverText.textContent = victory ? '胜利！' : '游戏结束';
+            gameOverText.style.color = victory ? '#00ff00' : '#ff0000';
+        }
+
+        // 重新开始游戏
+        function restartGame() {
+            // 清理所有元素
+            document.querySelectorAll('.bullet, .spike, .spike-warning, .laser, .laser-warning, .powerup, .damage-text, .dodge-text').forEach(el => el.remove());
+
+            // 重置游戏状态
+            gameState = {
+                player: {
+                    x: 400,
+                    y: 500,
+                    health: gameConfig.playerMaxHealth,
+                    isSlowed: false,
+                    speed: gameConfig.playerSpeed
+                },
+                boss: {
+                    x: 400,
+                    y: 90,
+                    health: gameConfig.bossMaxHealth,
+                    damageReceived: 0,
+                    attackPatterns: ['bullet'],
+                    attackCooldown: 2000
+                },
+                keys: {},
+                gameRunning: true,
+                bullets: [],
+                spikes: [],
+                lasers: [],
+                powerups: []
+            };
+
+            player.classList.remove('slowed');
+            gameOverDiv.style.display = 'none';
+            
+            initPlayer();
+            updateHealthBar();
+            
+            // 重新开始攻击循环
+            setTimeout(() => bossAttack(), 1000);
+            setTimeout(() => spawnPowerup(), 5000);
+        }
+
+        // 游戏主循环
+        function gameLoop() {
+            updatePlayer();
+            updateBullets();
+            updatePowerups();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // 初始化游戏
+        initPlayer();
+        updateHealthBar();
+        gameLoop();
+        setTimeout(() => bossAttack(), 1000);
+        setTimeout(() => spawnPowerup(), 5000);
+    </script>
+</body>
+</html>
