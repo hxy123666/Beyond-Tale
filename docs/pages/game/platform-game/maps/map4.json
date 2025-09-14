@@ -436,7 +436,49 @@
          "visible":true,
          "x":0,
          "y":0
-        }],
+        },
+       {
+  "draworder": "topdown",
+  "id": 14,
+  "name": "NPCs",
+  "objects": [
+    {
+      "gid": 1009,                      
+      "height": 45,
+      "width": 60,
+      "id": 8,
+      "name": "npc_1",
+      "type": "npc",
+      "visible": true,
+      "x": 1500,
+      "y": 423,
+      "properties": [
+        { "name": "dialogPage", "type": "string", "value": "../dialog/diag4.html" },
+        { "name": "interactRadius", "type": "int", "value": 48 }
+      ]
+    },
+    {
+      "gid": 1010,                     
+      "height": 32,                   
+      "width": 24,
+      "id": 9,
+      "name": "npc_2",
+      "type": "npc",
+      "visible": true,
+      "x":2620,
+      "y": 193,
+      "properties": [
+        { "name": "dialogPage", "type": "string", "value": "../dialog/diag8.html" },
+        { "name": "interactRadius", "type": "int", "value": 48 }
+      ]
+    }
+  ],
+  "opacity": 1,
+  "type": "objectgroup",
+  "visible": true,
+  "x": 0,
+  "y": 0
+}],
  "nextlayerid":14,
  "nextobjectid":11,
  "orientation":"orthogonal",
@@ -1013,7 +1055,35 @@
                  "imagewidth":20
                 }],
          "tilewidth":20
-        }],
+        },
+       {
+  "columns": 0,
+  "firstgid": 1009,
+  "grid": { "height": 1, "orientation": "orthogonal", "width": 1 },
+  "margin": 0,
+  "name": "NPC_1",
+  "spacing": 0,
+  "tilecount": 1,
+  "tileheight": 194,
+  "tiles": [
+    { "id": 0, "image": "../assets/hou.png", "imageheight": 194, "imagewidth": 288 }
+  ],
+  "tilewidth": 288
+},
+{
+  "columns": 0,
+  "firstgid": 1010,
+  "grid": { "height": 1, "orientation": "orthogonal", "width": 1 },
+  "margin": 0,
+  "name": "NPC_2",
+  "spacing": 0,
+  "tilecount": 1,
+  "tileheight": 30,
+  "tiles": [
+    { "id": 0, "image": "../assets/sans.png", "imageheight": 30, "imagewidth": 23 }
+  ],
+  "tilewidth": 23
+}],
  "tilewidth":32,
  "type":"map",
  "version":"1.10",

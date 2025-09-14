@@ -47,16 +47,6 @@ window.onload = function () {
 // 检测是否到达一个特定位置
 function checkPosition() {
     const player = gameState.player;
-    const mapHeight = (gameState.mapData?.height || 0) * TILE_SIZE;
-    
-    // 添加调试信息
-    console.log('玩家位置:', player.x, player.y);
-    console.log('玩家右边缘:', player.x + player.width);
-    console.log('玩家下边缘:', player.y + player.height);
-    console.log('地图高度:', mapHeight);
-    console.log('条件1 (384 <= 右边缘 <= 416):', player.x + player.width >= 384, player.x + player.width <= 416);
-    console.log('条件2 (mapHeight-480 <= 下边缘 <= mapHeight-448):', player.y + player.height >= mapHeight - 480, player.y + player.height <= mapHeight - 448);
-
     
     if (player.x + player.width >= 368 && player.x + player.width <= 452 && player.y + player.height == 480) {
         console.log('到达了特定位置');

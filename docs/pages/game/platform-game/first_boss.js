@@ -166,8 +166,8 @@ const BOSS_CONFIG = {
 
     // 反击物配置
     counterItem: {
-        spawnIntervalMin: 5000, // 最小生成间隔(ms)
-        spawnIntervalMax: 10000, // 最大生成间隔(ms)
+        spawnIntervalMin: 3500, // 最小生成间隔(ms)
+        spawnIntervalMax: 6000, // 最大生成间隔(ms)
         width: 28,
         height: 28,
         color: '#00ff00',
@@ -2269,6 +2269,9 @@ if (now >= gameState.death.respawnAt) {
 
     const bd = gameState.deathStats?.bossDeaths || 0;
 
+    if (bd === 3) {
+        showCenterMessage("别放弃", {life: 400, color: 'rgba(0, 0, 0, 1)', fontSize: 20});
+    }
 
     // 第5次 Boss 战死亡：显示警示文案（一次性触发）
     if (bd === 5) {

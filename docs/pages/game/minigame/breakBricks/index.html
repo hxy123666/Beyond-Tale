@@ -316,7 +316,7 @@ class BreakoutGame {
         this.characterHeight = 80 * this.scale;
         this.characterX = 50 * this.scaleX;  // 使用水平缩放保持相对位置
         this.characterY = this.canvas.height - this.characterHeight - 30 * this.scaleY;
-        this.characterSpeed = 6 * this.scale;
+        this.characterSpeed = 12 * this.scale;
 
         // 雨伞桶尺寸和位置
         this.umbrellaStandWidth = 50 * this.scale;
@@ -336,8 +336,8 @@ class BreakoutGame {
         this.ball = {
             x: this.characterX + this.characterWidth / 2,
             y: this.characterY - this.ballRadius,
-            dx: 7 * this.scale,
-            dy: -7 * this.scale,
+            dx: 19 * this.scale,
+            dy: -19 * this.scale,
             radius: this.ballRadius,
             onCharacter: true
         };
@@ -360,6 +360,10 @@ class BreakoutGame {
         // 图像资源
         this.images = {};
 
+        // 60帧控制变量
+        this.lastTime = 0;
+        this.frameInterval = 1000 / 60; // 约16.67ms每帧
+
         // 初始化
         this.init();
     }
@@ -375,7 +379,7 @@ class BreakoutGame {
         this.setupEventListeners();
 
         // 开始游戏循环
-        this.gameLoop();
+        this.gameLoop(0);
     }
 
     async preloadImages() {
@@ -519,8 +523,8 @@ class BreakoutGame {
             // 空格键发射球
             if ((e.key === ' ' || e.key === 'Spacebar') && this.ball.onCharacter && this.hasUmbrella) {
                 this.ball.onCharacter = false;
-                this.ball.dx = 7 * this.scale;
-                this.ball.dy = -7 * this.scale;
+                this.ball.dx = 19 * this.scale;
+                this.ball.dy = -19 * this.scale;
             }
         });
 
@@ -532,8 +536,8 @@ class BreakoutGame {
         this.canvas.addEventListener('click', () => {
             if (this.ball.onCharacter && this.hasUmbrella) {
                 this.ball.onCharacter = false;
-                this.ball.dx = 7 * this.scale;
-                this.ball.dy = -7 * this.scale;
+                this.ball.dx = 19 * this.scale;
+                this.ball.dy = -19 * this.scale;
             }
         });
 
@@ -575,7 +579,7 @@ class BreakoutGame {
 
             this.characterWidth = 60 * this.scale;
             this.characterHeight = 80 * this.scale;
-            this.characterSpeed = 6 * this.scale;
+            this.characterSpeed = 12 * this.scale;
 
             this.umbrellaStandWidth = 50 * this.scale;
             this.umbrellaStandHeight = 70 * this.scale;
@@ -727,6 +731,9 @@ class BreakoutGame {
         if (this.ball.y + this.ball.dy < this.ball.radius ||
             this.ball.y + this.ball.dy > this.canvas.height - this.ball.radius) {
             this.ball.dy = -this.ball.dy;
+            // 播放反弹音效
+            failureSound.currentTime = 0;
+            failureSound.play();
         }
         // 球落到底部
         if (this.ball.y + this.ball.dy > this.canvas.height - this.ball.radius) {
@@ -738,8 +745,8 @@ class BreakoutGame {
             } else {
                 this.ball.x = this.characterX + this.characterWidth / 2;
                 this.ball.y = this.characterY - this.ball.radius;
-                this.ball.dx = 7 * this.scale;
-                this.ball.dy = -7 * this.scale;
+                this.ball.dx = 19 * this.scale;
+                this.ball.dy = -19 * this.scale;
                 this.ball.onCharacter = true;
             }
         }
@@ -929,18 +936,28 @@ class BreakoutGame {
             this.characterX = 50 * this.scaleX;
             this.ball.x = this.characterX + this.characterWidth / 2;
             this.ball.y = this.characterY - this.ball.radius;
-            this.ball.dx = 7 * this.scale;
-            this.ball.dy = -7 * this.scale;
+            this.ball.dx = 19 * this.scale;
+            this.ball.dy = -19 * this.scale;
             this.ball.onCharacter = true;
             this.gameState = 'playing';
             this.particles = [];
         }, 2000);
     }
 
-    gameLoop() {
-        this.update();
-        this.draw();
-        requestAnimationFrame(() => this.gameLoop());
+    gameLoop(timestamp) {
+        // 计算时间差
+        const elapsed = timestamp - this.lastTime;
+        
+        // 当时间差大于等于目标帧间隔时才更新和绘制
+        if (elapsed >= this.frameInterval) {
+            // 更新最后一帧时间
+            this.lastTime = timestamp - (elapsed % this.frameInterval);
+            
+            this.update();
+            this.draw();
+        }
+        
+        requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
     }
 }
 

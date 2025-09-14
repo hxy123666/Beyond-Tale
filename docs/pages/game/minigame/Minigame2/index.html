@@ -33,12 +33,12 @@
         }
         
         .game-container {
-            width: 60vw;
+            width: 90vw;
             height: 60vh;
             background-color: rgba(0, 0, 0, 0.7);
             border: 4px solid white;
             border-radius: 15px;
-            position: relative;
+            position: fixed;
             overflow: hidden;
         }
         
@@ -50,11 +50,11 @@
         
         .images-container {
             position: absolute;
-            top: 50px;
+            top: 5%;
             left: 50%;
             transform: translateX(-50%);
-            width: 640px;
-            height: 200px;
+            width: 80vw;
+            height: 20vh;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -85,11 +85,11 @@
         
         .meter {
             position: absolute;
-            bottom: 150px;
+            bottom: 20vh;
             left: 50%;
             transform: translateX(-50%);
-            width: 600px;
-            height: 40px;
+            width: 80vw;
+            height: 5vh;
             background-color: rgba(0, 0, 0, 0.5);
             border: 3px solid #fff;
             overflow: hidden;
@@ -115,7 +115,7 @@
 
         .instructions {
             position: absolute;
-            bottom: 100px;
+            bottom: 15vh;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -125,7 +125,7 @@
         
         .score {
             position: absolute;
-            bottom: 70px;
+            bottom: 7vh;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -135,7 +135,7 @@
         
         .message {
             position: absolute;
-            top: 280px;
+            top: 25vh;
             left: 50%;
             transform: translateX(-50%);
             font-size: 32px;
@@ -146,7 +146,7 @@
         
         .controls {
             position: absolute;
-            bottom: 20px;
+            bottom: 2vh;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -173,7 +173,7 @@
     </style>
 </head>
 <body>
-    <p class="dialog">这个未来道具9号机可以让你窥见这个世界的真面目：是的，之前你发现你可以悬浮在一些斜坡上以及向左走会穿过“陆地”掉出世界的原因其实是因为你之前所见的都不是这个世界的真面目。戴上9号机之后，你便可以看到这个世界的真面目，从而不会再掉到莫名其妙的坑里了，并且按下shift可以看见虚拟网格，再次按下后网格消失。</p>
+    <p class="dialog">这个未来道具9号机可以让你窥见这个世界的真面目：是的，之前你发现你可以悬浮在一些斜坡上以及向左走会穿过"陆地"掉出世界的原因其实是因为你之前所见的都不是这个世界的真面目。戴上9号机之后，你便可以看到这个世界的真面目，从而不会再掉到莫名其妙的坑里了，并且按下shift可以看见虚拟网格，再次按下后网格消失。</p>
     <div class="game-container">
         <img class="top-left-image" src="../../platform-game/assets/baidagua.png" alt="Top left Image">
         <div class="battle-ui">
@@ -208,7 +208,7 @@
                 <div class="target-zone" id="targetZone"></div>
                 <div class="pointer" id="pointer"></div>
             </div>
-            <div class="instructions">当指针在虚线区域内时按下空格键！</div>
+            <div class="instructions">当指针在虚线区域内时按下空格！</div>
             <div class="score" id="score">成功: 0/3</div>
             <div class="message" id="message">成功！</div>
             <div class="controls">按空格键进行判定 | R键重新开始</div>
@@ -216,12 +216,18 @@
     </div>
 
     <script>
+        function getWidth(){
+            return window.innerWidth;
+        }
+        function getHeight(){
+            return window.innerHeight;
+        }
         // ===== 可自定义的配置参数 =====
         const CONFIG = {
-            pointerSpeed: 3,          // 指针移动速度（像素/帧）
-            targetMinWidth: 80,       // 判定区间最小宽度（像素）
-            targetMaxWidth: 120,      // 判定区间最大宽度（像素）
-            targetCenterRange: 150,   // 判定区间中心点随机范围（像素）     
+            pointerSpeed: 0.008*getWidth(),          // 指针移动速度（像素/帧）
+            targetMinWidth: 120,       // 判定区间最小宽度（像素）
+            targetMaxWidth: 150,      // 判定区间最大宽度（像素）
+            targetCenterRange: 0.25*getWidth(),   // 判定区间中心点随机范围（像素）     
             requiredHits: 8,          // 通关需要的连续成功次数
             nextPageUrl: '../../platform-game/game3.html'  // 通关后要跳转的页面URL
         };
@@ -262,10 +268,14 @@
             totalSuccessCount: 0  // 记录总成功次数，用于替换图片
         };
 
+        // 帧率控制变量
+        let lastFrameTime = 0;
+        const targetFPS = 60;
+        const frameDelay = 1000 / targetFPS; // 约16.67ms
         // 初始化游戏
         function initGame() {
             gameState = {
-                pointerPosition: 600, // 从右侧开始
+                pointerPosition: 0.8*getWidth()-20, // 从右侧开始
                 pointerDirection: -1,
                 successfulHits: 0,
                 gameActive: true,
@@ -281,6 +291,9 @@
             // 更新显示
             updateScore();
             hideMessage();
+            
+            // 重置时间
+            lastFrameTime = 0;
             
             // 开始游戏循环
             requestAnimationFrame(gameLoop);
@@ -322,24 +335,36 @@
             targetZone.style.left = `${gameState.targetZonePosition}px`;
         }
 
-        // 游戏主循环
-        function gameLoop() {
+        // 游戏主循环（锁定60FPS）
+        function gameLoop(currentTime) {
+            
             if (!gameState.gameActive) return;
-            
-            // 更新指针位置
-            gameState.pointerPosition += CONFIG.pointerSpeed * gameState.pointerDirection;
-            
-            // 检测边界碰撞
-            if (gameState.pointerPosition <= 0) {
-                gameState.pointerPosition = 0;
-                gameState.pointerDirection = 1; // 向右
-            } else if (gameState.pointerPosition >= 580) { // 600px - 20px指针宽度
-                gameState.pointerPosition = 580;
-                gameState.pointerDirection = -1; // 向左
+            // 计算时间差
+            if (!lastFrameTime) {
+                lastFrameTime = currentTime;
             }
             
-            // 更新指针位置
-            pointer.style.left = `${gameState.pointerPosition}px`;
+            const deltaTime = currentTime - lastFrameTime;
+            
+            // 只有当时间差大于等于目标帧延迟时才更新
+            if (deltaTime >= frameDelay) {
+                // 更新指针位置
+                gameState.pointerPosition += 0.008*getWidth() * gameState.pointerDirection;
+                // 检测边界碰撞
+                if (gameState.pointerPosition <= 0) {
+                    gameState.pointerPosition = 0;
+                    gameState.pointerDirection = 1; // 向右
+                } else if (gameState.pointerPosition >= 0.8*getWidth()-20) { // 600px - 20px指针宽度
+                    gameState.pointerPosition = 0.8*getWidth()-20;
+                    gameState.pointerDirection = -1; // 向左
+                }
+                
+                // 更新指针位置
+                pointer.style.left = `${gameState.pointerPosition}px`;
+                
+                // 更新最后帧时间
+                lastFrameTime = currentTime - (deltaTime % frameDelay);
+            }
             
             // 继续游戏循环
             requestAnimationFrame(gameLoop);
