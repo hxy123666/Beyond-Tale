@@ -1017,8 +1017,6 @@ function loadImage(src) {
 
 async function resolveAllTilesets(mapData, mapUrl) {
     const result = [];
-    // 新增：获取图集数据
-    const atlasData = gameState.textureAtlas.data?.frames || {};
 
     for (const ts of mapData.tilesets) {
         // 外链 tileset（.tsx），没有 image/tiles 的，先跳过（推荐在 Tiled 里 Embed）
@@ -1032,12 +1030,7 @@ async function resolveAllTilesets(mapData, mapUrl) {
         if (ts.image) {
             // A. spritesheet：整张图
             const imageUrl = new URL(ts.image, mapUrl).href;
-            // 优化：如果这张整图就是我们的图集，直接使用，否则才加载
-            if (ts.image.endsWith('texture-atlas.webp') || ts.image.endsWith('texture-atlas.png')) {
-                tilesetData.image = gameState.textureAtlas.image;
-            } else {
-                tilesetData.image = await loadImage(imageUrl);
-            }
+            tilesetData.image = await loadImage(imageUrl);
             tilesetData.type = 'spritesheet';
 
             // 保留 tile 的元数据（属性/碰撞/动画），但不要去加载 tile.image
@@ -1048,7 +1041,7 @@ async function resolveAllTilesets(mapData, mapUrl) {
             }
 
         } else if (Array.isArray(ts.tiles)) {
-            // B. collection：逐张图片 -> 现在从图集里找
+            // B. collection：逐张图片
             tilesetData.type = 'collection';
             for (const tile of ts.tiles) {
                 // 先保存所有元数据（包括动画）
@@ -1060,39 +1053,23 @@ async function resolveAllTilesets(mapData, mapUrl) {
 
                 if (!tile.image) continue; // 只有属性/碰撞，没有图片的，跳过
 
-                // --- 核心修改 ---
-                // 不再加载单张图片，而是从图集数据中查找
-                const imageName = tile.image.split('/').pop().split('.')[0] + '.webp'; // 标准化为 a.webp, b.webp
-                const frameData = atlasData[imageName];
-
-                if (frameData) {
-                    // 在图集中找到了！记录它的坐标和尺寸
+                let imagePath = tile.image.replace(/\\/g, '/'); // 统一斜杠
+                // 处理 C:/ 或以 / 开头：只取文件名，然后相对 mapUrl 去找
+                if (/^[A-Za-z]:/.test(imagePath) || imagePath.startsWith('/')) {
+                    imagePath = imagePath.split('/').pop();
+                }
+                const imageUrl = new URL(imagePath, mapUrl).href;
+                try {
+                    const tileImage = await loadImage(imageUrl);
+                    // 合并图片信息到已有的元数据中
                     tilesetData.tiles[tile.id] = {
-                        ...tilesetData.tiles[tile.id],
-                        source: 'atlas', // 标记来源是图集
-                        atlasFrame: frameData.frame, // {x, y, w, h}
-                        width: frameData.sourceSize.w,
-                        height: frameData.sourceSize.h
+                        ...tilesetData.tiles[tile.id], // 保留之前的动画等信息
+                        image: tileImage,
+                        width: tile.imagewidth,
+                        height: tile.imageheight
                     };
-                } else {
-                    // 如果图集里没有（比如那些被我们排除的大图），才尝试单独加载
-                    let imagePath = tile.image.replace(/\\/g, '/');
-                    if (/^[A-Za-z]:/.test(imagePath) || imagePath.startsWith('/')) {
-                        imagePath = imagePath.split('/').pop();
-                    }
-                    const imageUrl = new URL(imagePath, mapUrl).href;
-                    try {
-                        const tileImage = await loadImage(imageUrl);
-                        tilesetData.tiles[tile.id] = {
-                            ...tilesetData.tiles[tile.id],
-                            source: 'individual', // 标记来源是独立图片
-                            image: tileImage,
-                            width: tile.imagewidth,
-                            height: tile.imageheight
-                        };
-                    } catch (e) {
-                        console.warn('[Tileset] 单张 tile 图片加载失败：', imageUrl, e.message);
-                    }
+                } catch (e) {
+                    console.warn('[Tileset] 单张 tile 图片加载失败：', imageUrl, e.message);
                 }
             }
 
@@ -1158,22 +1135,9 @@ async function loadMap(levelIndex) {
     try {
         const currentLevel = LEVEL_CONFIG[levelIndex];
         const mapUrl = new URL(currentLevel.mapPath, window.location.href);
-
-        // --- 新增：并行加载地图、图集图片和图集JSON ---
-        const [mapResponse, atlasImage, atlasJsonResponse] = await Promise.all([
-            fetch(mapUrl.href),
-            loadImage('assets/texture-atlas.png'), // 或者 texture-atlas.png
-            fetch('assets/texture-atlas.json')
-        ]);
-
-        if (!mapResponse.ok) throw new Error(`地图请求失败: ${mapResponse.status}`);
-        if (!atlasJsonResponse.ok) throw new Error(`图集JSON请求失败: ${atlasJsonResponse.status}`);
-
-        // 存储加载好的图集资源
-        gameState.textureAtlas.image = atlasImage;
-        gameState.textureAtlas.data = await atlasJsonResponse.json();
-        
-        gameState.mapData = await mapResponse.json();
+        const response = await fetch(mapUrl.href);
+        if (!response.ok) throw new Error(`地图请求失败: ${response.status}`);
+        gameState.mapData = await response.json();
         TILE_SIZE = gameState.mapData.tilewidth || TILE_SIZE;
         gameState.tilesets = await resolveAllTilesets(gameState.mapData, mapUrl);
         for (const layer of gameState.mapData.layers) {
@@ -1747,16 +1711,7 @@ function drawTileLayer(layer) {
 
             if (tileset.type === 'collection') {
                 const tileInfo = tileset.tiles[localId];
-                if (tileInfo?.source === 'atlas') {
-                    // 新逻辑：从图集绘制
-                    const atlasImg = gameState.textureAtlas.image;
-                    const frame = tileInfo.atlasFrame;
-                    if (atlasImg && frame) {
-                        const finalDy = dy + TILE_SIZE - tileInfo.height;
-                        ctx.drawImage(atlasImg, frame.x, frame.y, frame.w, frame.h, dx, finalDy, frame.w, frame.h);
-                    }
-                } else if (tileInfo?.image) {
-                    // 旧逻辑：绘制独立图片
+                if (tileInfo?.image) {
                     const finalDy = dy + TILE_SIZE - tileInfo.height;
                     ctx.drawImage(tileInfo.image, dx, finalDy);
                 }
@@ -1815,15 +1770,7 @@ function drawObjectLayer(layer) {
 
         if (tileset.type === 'collection') {
             const tileInfo = tileset.tiles[localId];
-             if (tileInfo?.source === 'atlas') {
-                // 新逻辑：从图集绘制
-                const atlasImg = gameState.textureAtlas.image;
-                const frame = tileInfo.atlasFrame;
-                if (atlasImg && frame) {
-                    ctx.drawImage(atlasImg, frame.x, frame.y, frame.w, frame.h, dx, dy, obj.width, obj.height);
-                }
-            } else if (tileInfo?.image) {
-                // 旧逻辑：绘制独立图片
+            if (tileInfo?.image) {
                 ctx.drawImage(tileInfo.image, dx, dy, obj.width, obj.height);
             }
         } else {
