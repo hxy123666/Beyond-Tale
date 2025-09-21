@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="Shortcut Icon" href="../../../../assets/ico/ico.png">
+    <link rel="Shortcut Icon" href="../../../../assets/ico/ico.webp">
     <title>Beyond Tale</title>
     <style>
 
@@ -210,7 +210,7 @@
         <source src="your-music-file.ogg" type="audio/ogg">
         您的浏览器不支持音频元素。
     </audio>
-    <img class="top-left-image" src="../../picture/sans_small.png" alt="Top left Image">
+    <img class="top-left-image" src="../../picture/sans_small.webp" alt="Top left Image">
     <div id="game-container">
         <canvas id="game-canvas"></canvas>
         <p class="dialog">你通关之后我会把你送到上面去。</p>
@@ -801,7 +801,7 @@ class BreakoutGame {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         // 绘制平台
         const platform = new Image();
-        platform.src = "./platform.png"; // 请替换为您的平台图像路径
+        platform.src = "./platform.webp"; // 请替换为您的平台图像路径
         this.ctx.drawImage(
             platform,
             0,
@@ -812,7 +812,7 @@ class BreakoutGame {
 
         // 绘制雨伞桶
         const umbrellaBucket = new Image();
-        umbrellaBucket.src = "./umbrellaBucket.png";
+        umbrellaBucket.src = "./umbrellaBucket.webp";
         this.ctx.drawImage(
             umbrellaBucket,
             this.umbrellaStandX,
@@ -826,7 +826,7 @@ class BreakoutGame {
             for (let r = 0; r < this.brickRowCount; r++) {
                 const brick = this.bricks[c][r];
                 const bricks = new Image();
-                bricks.src = "./bricks.png";
+                bricks.src = "./bricks.webp";
                 if (brick.status === 1) {
                     this.ctx.drawImage(
                         bricks,
@@ -841,7 +841,7 @@ class BreakoutGame {
 
         // 绘制角色
         const img = new Image();
-        img.src = "./Frisk.png";
+        img.src = "./Frisk.webp";
         this.ctx.drawImage(
             img,
             this.characterX,
@@ -855,7 +855,7 @@ class BreakoutGame {
             const umbrellaX = this.characterX + this.characterWidth / 2 - 0.3 * this.umbrellaWidth;
             const umbrellaY = this.characterY - 20 * this.scale;
             const img = new Image();
-            img.src = "./umbrella.png";
+            img.src = "./umbrella.webp";
             this.ctx.drawImage(
                 img,
                 umbrellaX,
@@ -867,7 +867,7 @@ class BreakoutGame {
 
         // 绘制球
         const ball = new Image();
-        ball.src = "./ball.png";
+        ball.src = "./ball.webp";
         this.ctx.drawImage(
             ball,
             this.ball.x - this.ballRadius - 62 * this.scale,

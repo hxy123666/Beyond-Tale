@@ -1,17 +1,17 @@
-{
+﻿{
     "dialogues": [
         {
             "id": 1,
-            "background": "../../../assets/images/backgroundBlack.png",
+            "background": "../../../assets/images/backgroundBlack.webp",
             "characters": [
                 {
                     "position": "center",
-                    "image": "../../../assets/images/somebodyUnknown.png",
+                    "image": "../../../assets/images/somebodyUnknown.webp",
                     "active": true
                 }
             ],
             "name": "???",
-            "content": "勇者啊，你为何仍在沉睡？"
+            "content": "鍕囪€呭晩锛屼綘涓轰綍浠嶅湪娌夌潯锛?
         }
     ]
 }

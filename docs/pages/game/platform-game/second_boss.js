@@ -1,4 +1,4 @@
-// 添加音乐播放控制功能
+﻿// 添加音乐播放控制功能
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('dd');
             let audioStarted = false;
@@ -120,7 +120,7 @@ const BOSS_CONFIG = {
     maxHealth: 11,
     width: 280,
     height: 180,
-    imagePath: 'assets/dragon.png',
+    imagePath: 'assets/dragon.webp',
 
     // 攻击频率随受伤提升（可调）
     attackSpeed: {
@@ -277,7 +277,7 @@ const JUMP_BUFFER_FRAMES = 4;
 
 // 玩家精灵图配置
 const PLAYER_SPRITE_CONFIG = {
-    imagePath: 'assets/frisk_sprite.png',
+    imagePath: 'assets/frisk_sprite.webp',
     frameWidth: 24,
     frameHeight: 32,
     animations: {

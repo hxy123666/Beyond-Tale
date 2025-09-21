@@ -1,10 +1,10 @@
-{ "compressionlevel":-1,
+﻿{ "compressionlevel":-1,
  "height":16,
  "infinite":false,
  "layers":[
         {
          "id":2,
-         "image":"../assets/Sky.png",
+         "image":"../assets/Sky.webp",
          "imageheight":320,
          "imagewidth":320,
          "name":"Sky",
@@ -18,7 +18,7 @@
         }, 
         {
          "id":3,
-         "image":"../assets/Rock Mountains.png",
+         "image":"../assets/Rock Mountains.webp",
          "imageheight":320,
          "imagewidth":320,
          "name":"Mountains",
@@ -32,7 +32,7 @@
         }, 
         {
          "id":4,
-         "image":"../assets/middle.png",
+         "image":"../assets/middle.webp",
          "imageheight":368,
          "imagewidth":176,
          "name":"green",
@@ -673,7 +673,7 @@
         {
          "columns":10,
          "firstgid":56,
-         "image":"../assets/Tileset.png",
+         "image":"../assets/Tileset.webp",
          "imageheight":192,
          "imagewidth":320,
          "margin":0,
@@ -1190,13 +1190,13 @@
                          "tileid":0
                         }],
                  "id":0,
-                 "image":"../assets/spr_savepoint_0.png",
+                 "image":"../assets/spr_savepoint_0.webp",
                  "imageheight":10,
                  "imagewidth":11
                 }, 
                 {
                  "id":1,
-                 "image":"../assets/spr_savepoint_1.png",
+                 "image":"../assets/spr_savepoint_1.webp",
                  "imageheight":19,
                  "imagewidth":20
                 }],
@@ -1219,284 +1219,284 @@
          "tiles":[
                 {
                  "id":46,
-                 "image":"../assets/box (3).png",
+                 "image":"../assets/box (3).webp",
                  "imageheight":27,
                  "imagewidth":34
                 }, 
                 {
                  "id":47,
-                 "image":"../assets/box (5).png",
+                 "image":"../assets/box (5).webp",
                  "imageheight":26,
                  "imagewidth":33
                 }, 
                 {
                  "id":48,
-                 "image":"../assets/grass (1).png",
+                 "image":"../assets/grass (1).webp",
                  "imageheight":8,
                  "imagewidth":6
                 }, 
                 {
                  "id":49,
-                 "image":"../assets/grass (2).png",
+                 "image":"../assets/grass (2).webp",
                  "imageheight":11,
                  "imagewidth":9
                 }, 
                 {
                  "id":50,
-                 "image":"../assets/grass (3).png",
+                 "image":"../assets/grass (3).webp",
                  "imageheight":18,
                  "imagewidth":17
                 }, 
                 {
                  "id":51,
-                 "image":"../assets/grass (4).png",
+                 "image":"../assets/grass (4).webp",
                  "imageheight":16,
                  "imagewidth":17
                 }, 
                 {
                  "id":52,
-                 "image":"../assets/grass (5).png",
+                 "image":"../assets/grass (5).webp",
                  "imageheight":16,
                  "imagewidth":14
                 }, 
                 {
                  "id":53,
-                 "image":"../assets/grass (6).png",
+                 "image":"../assets/grass (6).webp",
                  "imageheight":12,
                  "imagewidth":12
                 }, 
                 {
                  "id":54,
-                 "image":"../assets/grass (7).png",
+                 "image":"../assets/grass (7).webp",
                  "imageheight":13,
                  "imagewidth":11
                 }, 
                 {
                  "id":55,
-                 "image":"../assets/grass (8).png",
+                 "image":"../assets/grass (8).webp",
                  "imageheight":9,
                  "imagewidth":11
                 }, 
                 {
                  "id":56,
-                 "image":"../assets/grass (9).png",
+                 "image":"../assets/grass (9).webp",
                  "imageheight":14,
                  "imagewidth":7
                 }, 
                 {
                  "id":57,
-                 "image":"../assets/grass (10).png",
+                 "image":"../assets/grass (10).webp",
                  "imageheight":14,
                  "imagewidth":8
                 }, 
                 {
                  "id":58,
-                 "image":"../assets/pointer (1).png",
+                 "image":"../assets/pointer (1).webp",
                  "imageheight":21,
                  "imagewidth":11
                 }, 
                 {
                  "id":59,
-                 "image":"../assets/pointer (2).png",
+                 "image":"../assets/pointer (2).webp",
                  "imageheight":21,
                  "imagewidth":16
                 }, 
                 {
                  "id":60,
-                 "image":"../assets/pointer (3).png",
+                 "image":"../assets/pointer (3).webp",
                  "imageheight":21,
                  "imagewidth":16
                 }, 
                 {
                  "id":61,
-                 "image":"../assets/pointer (4).png",
+                 "image":"../assets/pointer (4).webp",
                  "imageheight":21,
                  "imagewidth":13
                 }, 
                 {
                  "id":62,
-                 "image":"../assets/pointer (5).png",
+                 "image":"../assets/pointer (5).webp",
                  "imageheight":21,
                  "imagewidth":13
                 }, 
                 {
                  "id":63,
-                 "image":"../assets/pointer (6).png",
+                 "image":"../assets/pointer (6).webp",
                  "imageheight":21,
                  "imagewidth":13
                 }, 
                 {
                  "id":64,
-                 "image":"../assets/pointer (7).png",
+                 "image":"../assets/pointer (7).webp",
                  "imageheight":21,
                  "imagewidth":13
                 }, 
                 {
                  "id":65,
-                 "image":"../assets/pointer (8).png",
+                 "image":"../assets/pointer (8).webp",
                  "imageheight":21,
                  "imagewidth":13
                 }, 
                 {
                  "id":66,
-                 "image":"../assets/ridge (1).png",
+                 "image":"../assets/ridge (1).webp",
                  "imageheight":55,
                  "imagewidth":47
                 }, 
                 {
                  "id":67,
-                 "image":"../assets/ridge (2).png",
+                 "image":"../assets/ridge (2).webp",
                  "imageheight":26,
                  "imagewidth":89
                 }, 
                 {
                  "id":68,
-                 "image":"../assets/ridge (3).png",
+                 "image":"../assets/ridge (3).webp",
                  "imageheight":28,
                  "imagewidth":40
                 }, 
                 {
                  "id":69,
-                 "image":"../assets/ridge (4).png",
+                 "image":"../assets/ridge (4).webp",
                  "imageheight":41,
                  "imagewidth":109
                 }, 
                 {
                  "id":70,
-                 "image":"../assets/ridge (5).png",
+                 "image":"../assets/ridge (5).webp",
                  "imageheight":61,
                  "imagewidth":65
                 }, 
                 {
                  "id":71,
-                 "image":"../assets/ridge (6).png",
+                 "image":"../assets/ridge (6).webp",
                  "imageheight":29,
                  "imagewidth":81
                 }, 
                 {
                  "id":72,
-                 "image":"../assets/stone (1).png",
+                 "image":"../assets/stone (1).webp",
                  "imageheight":31,
                  "imagewidth":31
                 }, 
                 {
                  "id":73,
-                 "image":"../assets/stone (2).png",
+                 "image":"../assets/stone (2).webp",
                  "imageheight":59,
                  "imagewidth":63
                 }, 
                 {
                  "id":74,
-                 "image":"../assets/stone (3).png",
+                 "image":"../assets/stone (3).webp",
                  "imageheight":57,
                  "imagewidth":47
                 }, 
                 {
                  "id":75,
-                 "image":"../assets/stone (4).png",
+                 "image":"../assets/stone (4).webp",
                  "imageheight":63,
                  "imagewidth":52
                 }, 
                 {
                  "id":76,
-                 "image":"../assets/stone (5).png",
+                 "image":"../assets/stone (5).webp",
                  "imageheight":30,
                  "imagewidth":57
                 }, 
                 {
                  "id":77,
-                 "image":"../assets/tree (1).png",
+                 "image":"../assets/tree (1).webp",
                  "imageheight":150,
                  "imagewidth":123
                 }, 
                 {
                  "id":78,
-                 "image":"../assets/tree (2).png",
+                 "image":"../assets/tree (2).webp",
                  "imageheight":103,
                  "imagewidth":101
                 }, 
                 {
                  "id":79,
-                 "image":"../assets/tree (3).png",
+                 "image":"../assets/tree (3).webp",
                  "imageheight":132,
                  "imagewidth":104
                 }, 
                 {
                  "id":80,
-                 "image":"../assets/willow (1).png",
+                 "image":"../assets/willow (1).webp",
                  "imageheight":183,
                  "imagewidth":199
                 }, 
                 {
                  "id":81,
-                 "image":"../assets/willow (2).png",
+                 "image":"../assets/willow (2).webp",
                  "imageheight":135,
                  "imagewidth":104
                 }, 
                 {
                  "id":82,
-                 "image":"../assets/willow (3).png",
+                 "image":"../assets/willow (3).webp",
                  "imageheight":168,
                  "imagewidth":141
                 }, 
                 {
                  "id":83,
-                 "image":"../assets/bush (2).png",
+                 "image":"../assets/bush (2).webp",
                  "imageheight":15,
                  "imagewidth":31
                 }, 
                 {
                  "id":84,
-                 "image":"../assets/bush (3).png",
+                 "image":"../assets/bush (3).webp",
                  "imageheight":10,
                  "imagewidth":30
                 }, 
                 {
                  "id":85,
-                 "image":"../assets/bush (4).png",
+                 "image":"../assets/bush (4).webp",
                  "imageheight":15,
                  "imagewidth":29
                 }, 
                 {
                  "id":86,
-                 "image":"../assets/bush (5).png",
+                 "image":"../assets/bush (5).webp",
                  "imageheight":21,
                  "imagewidth":31
                 }, 
                 {
                  "id":87,
-                 "image":"../assets/bush (6).png",
+                 "image":"../assets/bush (6).webp",
                  "imageheight":28,
                  "imagewidth":63
                 }, 
                 {
                  "id":88,
-                 "image":"../assets/bush (7).png",
+                 "image":"../assets/bush (7).webp",
                  "imageheight":26,
                  "imagewidth":31
                 }, 
                 {
                  "id":89,
-                 "image":"../assets/bush (8).png",
+                 "image":"../assets/bush (8).webp",
                  "imageheight":24,
                  "imagewidth":61
                 }, 
                 {
                  "id":90,
-                 "image":"../assets/bush (9).png",
+                 "image":"../assets/bush (9).webp",
                  "imageheight":27,
                  "imagewidth":63
                 }, 
                 {
                  "id":91,
-                 "image":"../assets/bush (1).png",
+                 "image":"../assets/bush (1).webp",
                  "imageheight":25,
                  "imagewidth":61
                 }, 
                 {
                  "height":48,
                  "id":92,
-                 "image":"../assets/Flag.png",
+                 "image":"../assets/Flag.webp",
                  "imageheight":48,
                  "imagewidth":192,
                  "width":48,
@@ -1505,19 +1505,19 @@
                 }, 
                 {
                  "id":93,
-                 "image":"../assets/Plant.png",
+                 "image":"../assets/Plant.webp",
                  "imageheight":27,
                  "imagewidth":42
                 }, 
                 {
                  "id":94,
-                 "image":"../assets/back-gold.png",
+                 "image":"../assets/back-gold.webp",
                  "imageheight":60,
                  "imagewidth":374
                 }, 
                 {
                  "id":95,
-                 "image":"../assets/cloud.png",
+                 "image":"../assets/cloud.webp",
                  "imageheight":55,
                  "imagewidth":84
                 }],
@@ -1561,25 +1561,25 @@
                          "tileid":3
                         }],
                  "id":0,
-                 "image":"../assets/flag1.png",
+                 "image":"../assets/flag1.webp",
                  "imageheight":48,
                  "imagewidth":48
                 }, 
                 {
                  "id":1,
-                 "image":"../assets/flag2.png",
+                 "image":"../assets/flag2.webp",
                  "imageheight":48,
                  "imagewidth":48
                 }, 
                 {
                  "id":2,
-                 "image":"../assets/flag3.png",
+                 "image":"../assets/flag3.webp",
                  "imageheight":48,
                  "imagewidth":48
                 }, 
                 {
                  "id":3,
-                 "image":"../assets/flag4.png",
+                 "image":"../assets/flag4.webp",
                  "imageheight":48,
                  "imagewidth":48
                 }],
@@ -1602,7 +1602,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"../assets/grid.png",
+                 "image":"../assets/grid.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }],
@@ -1611,7 +1611,7 @@
         {
          "columns":13,
          "firstgid":274,
-         "image":"../assets/Decor.png",
+         "image":"../assets/Decor.webp",
          "imageheight":544,
          "imagewidth":416,
          "margin":0,
@@ -1638,19 +1638,19 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"../assets/Spike.png",
+                 "image":"../assets/Spike.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":1,
-                 "image":"../assets/Spike2.png",
+                 "image":"../assets/Spike2.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":4,
-                 "image":"../assets/Spike3.png",
+                 "image":"../assets/Spike3.webp",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -1707,7 +1707,7 @@
         {
          "columns":4,
          "firstgid":500,
-         "image":"../assets/128x256.png",
+         "image":"../assets/128x256.webp",
          "imageheight":256,
          "imagewidth":128,
          "margin":0,
@@ -1734,19 +1734,19 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"../assets/Spike.png",
+                 "image":"../assets/Spike.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":1,
-                 "image":"../assets/Spike2.png",
+                 "image":"../assets/Spike2.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":4,
-                 "image":"../assets/Spike3.png",
+                 "image":"../assets/Spike3.webp",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -1853,19 +1853,19 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"../assets/Spike.png",
+                 "image":"../assets/Spike.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":1,
-                 "image":"../assets/Spike2.png",
+                 "image":"../assets/Spike2.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":4,
-                 "image":"../assets/Spike3.png",
+                 "image":"../assets/Spike3.webp",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -1972,19 +1972,19 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"../assets/Spike.png",
+                 "image":"../assets/Spike.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":1,
-                 "image":"../assets/Spike2.png",
+                 "image":"../assets/Spike2.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }, 
                 {
                  "id":4,
-                 "image":"../assets/Spike3.png",
+                 "image":"../assets/Spike3.webp",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -2090,7 +2090,7 @@
          "tiles":[
             {
              "id":0,
-             "image":"../assets/baidagua.png",     
+             "image":"../assets/baidagua.webp",     
              "imageheight":50,
              "imagewidth":32
             }
