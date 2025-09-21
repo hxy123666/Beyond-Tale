@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
     font-family: "Press Start 2P";
     src: url(../../assets/fonts/PressStart2P-1.ttf);
 }
@@ -16,7 +16,7 @@
 }
 
 body {
-    background-image: url(images/bg.png);
+    background-image: url(images/bg.webp);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -212,38 +212,38 @@ body {
 
 /* 头像图片 */
 .member:nth-child(1) .member-avatar {
-    background-image: url(images/hxy.jpg);
+    background-image: url(images/hxy.webp);
     /* 适配头像框 */
     background-size: cover;
     background-position: center;
 }
 
 .member:nth-child(2) .member-avatar {
-    background-image: url(images/hzh.png);
+    background-image: url(images/hzh.webp);
     background-size: cover;
     background-position: center;
 }
 
 .member:nth-child(3) .member-avatar {
-    background-image: url(images/jhn.jpg);
+    background-image: url(images/jhn.webp);
     background-size: cover;
     background-position: center;
 }
 
 .member:nth-child(4) .member-avatar {
-    background-image: url(images/lsj.jpg);
+    background-image: url(images/lsj.webp);
     background-size: cover;
     background-position: center;
 }
 
 .member:nth-child(5) .member-avatar {
-    background-image: url(images/ljx.jpg);
+    background-image: url(images/ljx.webp);
     background-size: cover;
     background-position: center;
 }
 
 .member:nth-child(6) .member-avatar {
-    background-image: url(images/lzy.jpg);
+    background-image: url(images/lzy.webp);
     background-size: cover;
     background-position: center;
 }

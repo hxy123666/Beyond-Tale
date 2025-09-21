@@ -36,6 +36,10 @@ function handleLogin() {
         alert('Username and password cannot be empty!');
         return; // 阻止后续代码执行
     }
+    if (!localStorage.getItem('user')) {
+        alert('User does not exist!');
+        return; // 阻止后续代码执行
+    }
     var storedUser = JSON.parse(localStorage.getItem('user'));
     if (username === storedUser.username && password === storedUser.password) {
         alert('Successfully logged in!');

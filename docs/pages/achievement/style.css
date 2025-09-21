@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
     font-family: "Press Start 2P";
     src: url(../../assets/fonts/PressStart2P-1.ttf);
 }
@@ -16,7 +16,7 @@
 
 body {
     font-family: 'Press Start 2P', 'Courier New', "pxfont";
-    background-image: url(images/bg.png);
+    background-image: url(images/bg.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34,7 +34,7 @@ body {
     text-align: center;
     width: 100%;
     height: 100px;
-    background-image: url(images/achievement.png);
+    background-image: url(images/achievement.webp);
     background-size: cover;
     background-position: center;
 }
@@ -149,72 +149,72 @@ body {
 
 /* 成就图标 */
 .icon-1 {
-    background-image: url(images/achievement1.png);
+    background-image: url(images/achievement1.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-2 {
-    background-image: url(images/achievement2.png);
+    background-image: url(images/achievement2.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-3 {
-    background-image: url(images/achievement3.png);
+    background-image: url(images/achievement3.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-4 {
-    background-image: url(images/achievement4.jpg);
+    background-image: url(images/achievement4.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-5 {
-    background-image: url(images/achievement5.png);
+    background-image: url(images/achievement5.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-6 {
-    background-image: url(images/achievement6.png);
+    background-image: url(images/achievement6.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-7 {
-    background-image: url(images/achievement7.png);
+    background-image: url(images/achievement7.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-8 {
-    background-image: url(images/achievement8.png);
+    background-image: url(images/achievement8.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-9 {
-    background-image: url(images/achievement9.png);
+    background-image: url(images/achievement9.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-10 {
-    background-image: url(images/achievement10.png);
+    background-image: url(images/achievement10.webp);
     background-size: cover;
     background-position: center;
 }
 
 .icon-11 {
-    background-image: url(images/achievement11.png);
+    background-image: url(images/achievement11.webp);
     background-size: cover;
     background-position: center;
 }
 .icon-12 {
-    background-image: url(images/achievement12.png);
+    background-image: url(images/achievement12.webp);
     background-size: cover;
     background-position: center;
 }
