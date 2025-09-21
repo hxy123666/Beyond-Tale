@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // 播放音效
-function playSound(soundName) {
-    const sound = new Audio(`../../../assets/sounds/${soundName}.wav`);
+const sound = new Audio(`../../../assets/sounds/achievement.wav`);
+function playSound() {
     sound.play();
 }
 
@@ -92,78 +92,78 @@ function checkAchievements() {
         if (data.deathStats && data.deathStats.fallDeaths == 1 && !unlockedAchievements.has('随手一跳')) {
             const popup = showPopup('随手一跳');
             // 播放音效
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
         // 检查otherFallDeaths成就
         if (data.deathStats && data.deathStats.otherFallDeaths == 1 && !unlockedAchievements.has('世界之外')) {
             const popup = showPopup('世界之外');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
         // 检查determination成就
         if (data.determination >= 1 && !unlockedAchievements.has('这使你充满了决心')) {
             const popup = showPopup('这使你充满了决心');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
         // 检查jumpCount43成就
         if (data.jumpCount43 >= 1 && !unlockedAchievements.has('有了决心就不一样了')) {
             const popup = showPopup('有了决心就不一样了');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
         // 检查friendship-achievement成就
         if (data.nearbyNPCCounter >= 1 && !unlockedAchievements.has('友情啊羁绊啊')) {
             const popup = showPopup('友情啊羁绊啊');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
         // 检查fallOffLeft-achievement 成就
         if (data.deathStats.fallOffLeftCounter >= 1 && !unlockedAchievements.has('左边可没有彩蛋')) {
             const popup = showPopup('左边可没有彩蛋');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
         // 检查foundintheGrass-achievement 成就
         if (data.foundintheGrass_achievement == true && !unlockedAchievements.has('下北泽野槌蛇')) {
             const popup = showPopup('下北泽野槌蛇');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
 
         // 检查invention-achievement 成就
         if (data.invention_achievement == true && !unlockedAchievements.has('未来道具9号机')) {
             const popup = showPopup('未来道具9号机');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
 
         // 检查hair-achievement 成就
         if (data.hair_achievement == true && !unlockedAchievements.has('救命毫毛')) {
             const popup = showPopup('救命毫毛');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
 
         // 检查reverse-achievement 成就
         if (data.currentLevel == 'game5' && !unlockedAchievements.has('将大局逆转吧')) {
             const popup = showPopup('将大局逆转吧');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
 
         // 检查fallfromHigh-achievement 成就
         if (data.deathStats.fallfromHighCounter >= 1 && !unlockedAchievements.has('有了决心也不行')) {
             const popup = showPopup('有了决心也不行');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
 
         // 检查boss-achievement 成就
         if (data.currentLevel == 'the_boss_you_can_defeat' && !unlockedAchievements.has('想到一同战斗的伙伴， 这使你充满了决心')) {
             const popup = showPopup('想到一同战斗的伙伴， 这使你充满了决心');
-            playSound('achievement');
+            playSound();
             setTimeout(() => closePopup(popup), 2000);
         }
 
