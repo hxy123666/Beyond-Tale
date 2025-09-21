@@ -37,6 +37,7 @@ const gameState = {
         moveHeldFrames: 0,
         moveDir: 0,
         jumpCount43: 0, // 跳跃次数
+        jumpCount54: 0, // 跳跃次数
         sprite: {
             image: null,
             currentAnimation: 'idle',
@@ -131,6 +132,7 @@ const gameStateManager = {
             jumpStartY: 0,
             canJump: true,
             jumpCount43: 0, // 跳跃次数
+            jumpCount54: 0, // 跳跃次数
             sprite: {
                 image: gameState.player.sprite.image,
                 currentAnimation: 'idle',
@@ -283,6 +285,7 @@ const gameStateManager = {
             deathStats: gameState.deathStats,
             determination: gameState.checkpointMessage.counter,
             jumpCount43: gameState.player.jumpCount43,
+            jumpCount54: gameState.player.jumpCount54,
             nearbyNPCCounter: gameState.nearbyNPCCounter,
             invention_achievement: gameState.invention_achievement,
             hair_achievement: gameState.hair_achievement,
@@ -312,6 +315,7 @@ const gameStateManager = {
                 };
                 gameState.checkpointMessage.counter = parsedData.determination;
                 gameState.player.jumpCount43 = parsedData.jumpCount43 || 0;
+                gameState.player.jumpCount54 = parsedData.jumpCount54 || 0;
                 gameState.bossDeathDialogShown = !!parsedData.bossDeathDialogShown; // 新增
                 gameState.nearbyNPCCounter = parsedData.nearbyNPCCounter || 0;
                 gameState.invention_achievement = parsedData.invention_achievement || false;

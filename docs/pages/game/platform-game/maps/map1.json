@@ -4,7 +4,7 @@
  "layers":[
         {
          "id":3,
-         "image":"../Backgrounds/Sky.png",
+         "image":"../backgrounds/Sky.png",
          "imageheight":320,
          "imagewidth":320,
          "name":"Sky",
@@ -18,7 +18,7 @@
         }, 
         {
          "id":2,
-         "image":"../Backgrounds/Clouds.png",
+         "image":"../backgrounds/Clouds.png",
          "imageheight":320,
          "imagewidth":320,
          "name":"Clouds",
@@ -34,7 +34,7 @@
         }, 
         {
          "id":4,
-         "image":"../Backgrounds/Grass Mountains.png",
+         "image":"../backgrounds/Grass Mountains.png",
          "imageheight":320,
          "imagewidth":320,
          "name":"Mountains",

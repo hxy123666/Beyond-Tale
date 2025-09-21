@@ -219,11 +219,6 @@ body {
     font-family: 'Press Start 2P', 'Courier New', monospace;
 }
 
-.loader-container {
-    background-image: url(about_us/images/logo.jpg);
-    background-size: cover;
-    background-position: center;
-}
 
 #selectContainer {
     /* 右下角 */

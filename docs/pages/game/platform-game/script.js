@@ -682,6 +682,8 @@ function updatePlayer() {
                         player.hitCeiling = false;
                         player.ceilingHangFrames = 0;
                         triggerBounceEffect(player.x + player.width / 2, yCollision.y);
+                        countJumps('jump54');
+                        gameStateManager.saveToLocalStorage();
                         return;
                     }
                     if (tiles >= 6) {
