@@ -1162,7 +1162,7 @@ async function loadMap(levelIndex) {
         // --- 新增：并行加载地图、图集图片和图集JSON ---
         const [mapResponse, atlasImage, atlasJsonResponse] = await Promise.all([
             fetch(mapUrl.href),
-            loadImage('assets/texture-atlas.webp'), // 或者 texture-atlas.png
+            loadImage('assets/texture-atlas.png'), // 或者 texture-atlas.png
             fetch('assets/texture-atlas.json')
         ]);
 
