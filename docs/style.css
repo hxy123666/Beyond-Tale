@@ -13,7 +13,7 @@ body {
     padding: 0;
     width: 100%;
     min-height: 100vh;
-    background-image: url(assets/images/background.png);
+    background-image: url(assets/images/background.webp);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
