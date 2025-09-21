@@ -67,16 +67,16 @@
         }
 
         .credits-container {
-            font-family: 'Press Start 2P' , "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             position: absolute;
             top: 100%;
             width: 100%;
             padding: 2rem;
-            animation: scrollCredits 30s linear forwards;
+            animation: scrollCredits 45s linear forwards;
         }
 
         .logo {
-            font-family: 'Press Start 2P' , "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             text-align: center;
             margin-bottom: 5rem;
             opacity: 0;
@@ -316,7 +316,7 @@
         .Text2 {
             font-family: 'Press Start 2P' , "pxfont";
             text-align: center;
-            font-size: 1.6rem;
+            font-size: 3rem;
             line-height: 1.8;
             animation: fadeIn 3s 2s forwards;
         }
@@ -373,22 +373,23 @@
     <div class="credits-container">
         <div class="logo">
             <h1>恭喜你达成结局</h1>
-            <p>《超越传说》(Beyond Tale)</p>
+            <p>《成为传说》(Be Tale)</p>
         </div>
         <div class="Text">
-                <p>世界的法则因你的力量而改写。那曾不可一世的魔龙，在惊愕与不甘的咆哮中，身躯崩解为无数璀璨的光粒，如同星辰般升腾、消散。</p>
-                <p>Frisk的决心汇集了伙伴的力量，作为她最初的伙伴，你帮她将不可能转变为可能，到达了战胜魔龙的世界线。</p>            
-                <p>震颤传遍了整个浮空岛。天穹之上，空间被撕裂开来，一道温暖的光之裂缝缓缓开启，其后映出的，是Frisk朝思暮想的故乡景象。</p>
-                <p>她站在世界的边缘，风中飘扬的发丝拂过她坚定的面庞。那些曾在旅途中相遇的、来自不同时空的伙伴们——他们的身影逐一浮现，环绕在她身边，化作无声的送别。</p>
+                <p>你赢得了胜利。无关信念，无需帮助，唯有对“胜利”本身最纯粹的渴望。你倾泻了所有的技巧、力量与意志，甚至动用了超越这个世界常理的力量，终于在厮杀中将不可战胜之物践踏于脚下。</p>
+                <p>多么伟大的胜利，Frisk。</p>            
+                <p>成功战胜了魔龙。路途上的一切都无关紧要了，重要的是，你，赢了。</p>
+                <p>魔龙庞大的身躯轰然倒下，不再动弹。浮空岛在哀鸣中臣服于你的脚下。现在，你，Frisk，是这片领域新的主宰。</p>
+                <p>无论是继续观测，从无尽时空中搜寻新的“玩家”以供取乐；还是不断战斗，不断变强，都任由你选择。</p>
+                <p>现在，该去战胜下一个敌人了，不如就从那个懒懒的骨头开始？</p>
             </div>
             <div class="special-thanks">
-                <p>“你做到了，Frisk。”</p>
-                <p>“是你让我们相信，即使是不同的世界，也能因‘决心’而相连。” </p>
-                <p>“干得不错，kid”</p>
-                <p>“回家吧，带着我们的祝福。”</p>
+                <p>“你赢了。”</p>
+                <p>“但你赢得了什么？” </p>
+                <p>“是自由，还是另一个牢笼？”</p>
             </div>
             <div class="Text2">
-                <p>Frisk回过头，仿佛能穿透屏幕看到你。她露出了最为灿烂的笑容，重重地点头，然后纵身跃入那道光门之中。</p>
+                <p>谨以此结局，献给所有不惜一切代价、追求征服的意志。</p>
             </div>
             <br>
             <br>
@@ -513,8 +514,8 @@
             
             // 监听动画结束
             document.querySelector('.credits-container').addEventListener('animationend', function() {
-                // 动画播放80秒后返回主页
-                setTimeout(returnToMainPage, 80000);
+                // 动画播放50秒后返回主页
+                setTimeout(returnToMainPage, 50000);
             });
             
             // 键盘控制

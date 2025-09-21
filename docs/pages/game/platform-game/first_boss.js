@@ -903,10 +903,12 @@ function handleBossDefeat() {
     bossState.lasers = [];
     bossState.counterItems = [];
 
+    this.nextPageURL = '../credits2.html';
     // 可以在这里添加过关逻辑
     setTimeout(() => {
         // 例如：跳转到下一关或显示胜利画面
         gameState.bossDefeated = true;
+        window.location.href = this.nextPageURL;
     }, 3000);
 }
 
