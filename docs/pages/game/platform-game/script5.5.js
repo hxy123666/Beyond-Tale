@@ -1,66 +1,66 @@
-﻿ // 添加音乐播放控制功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const audio = document.getElementById('dd');
-            let audioStarted = false;
-            
-            function startAudio() {
-                if (!audioStarted) {
-                    audio.play();
-                    audioStarted = true;
-                    // 移除事件监听器，避免重复触发
-                    document.removeEventListener('keydown', startAudio);
-                    document.removeEventListener('mousedown', startAudio);
+﻿// 添加音乐播放控制功能
+document.addEventListener('DOMContentLoaded', function () {
+    const audio = document.getElementById('dd');
+    let audioStarted = false;
+
+    function startAudio() {
+        if (!audioStarted) {
+            audio.play();
+            audioStarted = true;
+            // 移除事件监听器，避免重复触发
+            document.removeEventListener('keydown', startAudio);
+            document.removeEventListener('mousedown', startAudio);
+        }
+    }
+
+    // 添加键盘和鼠标事件监听
+    document.addEventListener('keydown', startAudio);
+    document.addEventListener('mousedown', startAudio);
+
+    // 当页面失去焦点时暂停音乐
+    window.addEventListener('blur', function () {
+        if (audioStarted) {
+            audio.pause();
+        }
+    });
+
+    // 当页面重新获得焦点时恢复音乐
+    window.addEventListener('focus', function () {
+        if (audioStarted) {
+            audio.play();
+        }
+    });
+
+    // 当页面卸载时停止音乐
+    window.addEventListener('beforeunload', function () {
+        if (audioStarted) {
+            audio.pause();
+        }
+    });
+
+    // 监听NPC对话窗口的显示/隐藏状态
+    const npcDialog = document.getElementById('npcDialog');
+    const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.attributeName === 'class') {
+                if (npcDialog.classList.contains('hidden')) {
+                    // NPC对话结束，恢复音乐
+                    if (audioStarted) {
+                        audio.play();
+                    }
+                } else {
+                    // NPC对话开始，暂停音乐
+                    if (audioStarted) {
+                        audio.pause();
+                    }
                 }
             }
-            
-            // 添加键盘和鼠标事件监听
-            document.addEventListener('keydown', startAudio);
-            document.addEventListener('mousedown', startAudio);
-            
-            // 当页面失去焦点时暂停音乐
-            window.addEventListener('blur', function() {
-                if (audioStarted) {
-                    audio.pause();
-                }
-            });
-            
-            // 当页面重新获得焦点时恢复音乐
-            window.addEventListener('focus', function() {
-                if (audioStarted) {
-                    audio.play();
-                }
-            });
-            
-            // 当页面卸载时停止音乐
-            window.addEventListener('beforeunload', function() {
-                if (audioStarted) {
-                    audio.pause();
-                }
-            });
-            
-            // 监听NPC对话窗口的显示/隐藏状态
-            const npcDialog = document.getElementById('npcDialog');
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.attributeName === 'class') {
-                        if (npcDialog.classList.contains('hidden')) {
-                            // NPC对话结束，恢复音乐
-                            if (audioStarted) {
-                                audio.play();
-                            }
-                        } else {
-                            // NPC对话开始，暂停音乐
-                            if (audioStarted) {
-                                audio.pause();
-                            }
-                        }
-                    }
-                });
-            });
-            
-            // 开始观察NPC对话窗口的class属性变化
-            observer.observe(npcDialog, { attributes: true });
         });
+    });
+
+    // 开始观察NPC对话窗口的class属性变化
+    observer.observe(npcDialog, { attributes: true });
+});
 // ==============================
 // 游戏配置
 // ==============================
@@ -2127,8 +2127,16 @@ async function init() {
             console.log('死亡统计数据:', gameState.deathStats);
             console.log('是否第一次摔死:', gameState.firstFallDeath);
 
+
+
             setInitialCameraPosition();
             setupAudioUnlock();
+            // 隐藏加载界面
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
+            
             // *** 修正版：用你原版的方式启动游戏循环 ***
             gameLoop();
         } else {

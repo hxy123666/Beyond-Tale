@@ -2070,6 +2070,13 @@ async function init() {
 
             setInitialCameraPosition();
             setupAudioUnlock();
+            
+            // 隐藏加载界面
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
+            
             // *** 修正版：用你原版的方式启动游戏循环 ***
             gameLoop();
         } else {

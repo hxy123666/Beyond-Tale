@@ -1,3 +1,3 @@
 document.addEventListener('click', function () {
-    window.location.href = 'gap.html';
+    window.location.href = '../platform-game/game.html';
 });
