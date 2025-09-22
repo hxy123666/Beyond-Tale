@@ -1,10 +1,10 @@
-{ "compressionlevel":-1,
+﻿{ "compressionlevel":-1,
  "height":16,
  "infinite":false,
  "layers":[
         {
          "id":8,
-         "image":"..\/assets\/grey.jpg",
+         "image":"..\/assets\/grey.webp",
          "imageheight":1080,
          "imagewidth":1920,
          "name":"background",
@@ -74,7 +74,7 @@
         {
          "columns":6,
          "firstgid":1,
-         "image":"..\/assets\/Industrial.png",
+         "image":"..\/assets\/Industrial.webp",
          "imageheight":128,
          "imagewidth":192,
          "margin":0,
@@ -110,13 +110,13 @@
                          "tileid":1
                         }],
                  "id":0,
-                 "image":"..\/assets\/spr_savepoint_0.png",
+                 "image":"..\/assets\/spr_savepoint_0.webp",
                  "imageheight":10,
                  "imagewidth":11
                 }, 
                 {
                  "id":1,
-                 "image":"..\/assets\/spr_savepoint_1.png",
+                 "image":"..\/assets\/spr_savepoint_1.webp",
                  "imageheight":19,
                  "imagewidth":20
                 }],

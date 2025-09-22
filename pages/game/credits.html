@@ -1,17 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <link rel="Shortcut Icon" href="../../assets/ico/ico.png" type="image/x-icon" />
+    <link rel="Shortcut Icon" href="../../assets/ico/ico.webp" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>credits</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         @font-face {
-    font-family: "pxfont";
-    src: url(../../assets/fonts/HYPixel11pxU-2.ttf);
-}
+            font-family: "pxfont";
+            src: url(../../assets/fonts/HYPixel11pxU-2.ttf);
+        }
+
+        @font-face {
+            font-family: "Press Start 2P";
+            src: url(../../assets/fonts/PressStart2P-1.ttf);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -19,7 +27,7 @@
         }
 
         body {
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             background: #000;
             color: #e6f1ff;
             min-height: 100vh;
@@ -34,13 +42,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent 0,
-                transparent 2px,
-                rgba(0, 0, 0, 0.1) 2px,
-                rgba(0, 0, 0, 0.1) 4px
-            );
+            background: repeating-linear-gradient(to bottom,
+                    transparent 0,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.1) 2px,
+                    rgba(0, 0, 0, 0.1) 4px);
             pointer-events: none;
             z-index: 5;
         }
@@ -52,28 +58,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.8) 0%,
-                transparent 15%,
-                transparent 85%,
-                rgba(0, 0, 0, 0.8) 100%
-            );
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.8) 0%,
+                    transparent 15%,
+                    transparent 85%,
+                    rgba(0, 0, 0, 0.8) 100%);
             pointer-events: none;
             z-index: 4;
         }
 
         .credits-container {
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             position: absolute;
             top: 100%;
             width: 100%;
             padding: 2rem;
-            animation: scrollCredits 45s linear forwards;
+            animation: scrollCredits 30s linear forwards;
         }
 
         .logo {
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             text-align: center;
             margin-bottom: 5rem;
             opacity: 0;
@@ -81,16 +85,15 @@
         }
 
         .logo h1 {
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             font-size: 5rem;
-            color:#ccd6f6;
-            /* text-shadow:gray; */
+            color: #ccd6f6;
             margin-bottom: 1rem;
             letter-spacing: 5px;
         }
 
         .logo p {
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             font-size: 2rem;
             color: #ccd6f6;
             opacity: 0.8;
@@ -107,7 +110,7 @@
         }
 
         .credit-section h2 {
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             font-size: 2.5rem;
             color: black;
             margin-bottom: 3rem;
@@ -138,9 +141,17 @@
             animation: fadeInUp 1s forwards;
         }
 
-        .credit-item:nth-child(1) { animation-delay: 4s; }
-        .credit-item:nth-child(2) { animation-delay: 4.5s; }
-        .credit-item:nth-child(3) { animation-delay: 5s; }
+        .credit-item:nth-child(1) {
+            animation-delay: 4s;
+        }
+
+        .credit-item:nth-child(2) {
+            animation-delay: 4.5s;
+        }
+
+        .credit-item:nth-child(3) {
+            animation-delay: 5s;
+        }
 
         .credit-item:hover {
             transform: translateY(-10px) scale(1.05);
@@ -183,17 +194,15 @@
             text-align: center;
             padding: 4rem 2rem;
             margin: 5rem 0;
-            /* background: rgba(100, 255, 218, 0.1); */
             border-radius: 15px;
-            /* border: 2px solid rgba(100, 255, 218, 0.3); */
             opacity: 0;
-            animation: fadeIn 3s 15s forwards;
+            animation: fadeIn 3s 2s forwards;
         }
 
         .special-thanks h2 {
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             font-size: 2.5rem;
-            color:#ccd6f6;
+            color: #ccd6f6;
             margin-bottom: 2rem;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -230,33 +239,42 @@
 
         /* 动画 */
         @keyframes scrollCredits {
-            0% { 
+            0% {
                 top: 100%;
                 opacity: 0;
             }
+
             5% {
                 opacity: 1;
             }
+
             95% {
                 opacity: 1;
             }
-            100% { 
+
+            100% {
                 top: -200%;
                 opacity: 0;
             }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeInUp {
-            from { 
+            from {
                 opacity: 0;
                 transform: translateY(30px);
             }
-            to { 
+
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
@@ -271,11 +289,19 @@
             animation: twinkle linear infinite;
             z-index: -1;
         }
-        
+
         @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0; }
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
 
         /* 控制按钮 */
@@ -295,7 +321,7 @@
             border: 1px solid #64ffda;
             border-radius: 4px;
             cursor: pointer;
-            font-family: 'Press Start 2P', 'Courier New', "pxfont";
+            font-family: 'Press Start 2P', "pxfont";
             transition: all 0.3s;
             opacity: 0.7;
         }
@@ -305,35 +331,58 @@
             opacity: 1;
         }
 
+        .Text {
+            font-family: 'Press Start 2P', "pxfont";
+            text-indent: 2em;
+            font-size: 1.6rem;
+            line-height: 1.8;
+            animation: fadeIn 3s 2s forwards;
+        }
+
+        .Text2 {
+            font-family: 'Press Start 2P', "pxfont";
+            text-align: center;
+            font-size: 1.6rem;
+            line-height: 1.8;
+            animation: fadeIn 3s 2s forwards;
+        }
+
+        #stats {
+            width: 40%;       
+            margin: 0 auto;
+            border-radius: 10px;
+            border: 2px solid gold;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .credits-container {
-                font-family: 'Press Start 2P', 'Courier New', "pxfont";
+                font-family: 'Press Start 2P', "pxfont";
                 padding: 1rem;
                 animation-duration: 60s;
             }
-            
+
             .logo h1 {
                 font-size: 3rem;
             }
-            
+
             .logo p {
                 font-size: 1.5rem;
             }
-            
+
             .credit-section h2 {
                 font-size: 2rem;
             }
-            
+
             .credit-row {
                 gap: 1.5rem;
             }
-            
+
             .credit-item {
                 width: 180px;
                 padding: 1.5rem;
             }
-            
+
             .avatar {
                 width: 120px;
                 height: 120px;
@@ -350,11 +399,61 @@
         }
     </style>
 </head>
+
 <body>
     <div class="film-overlay"></div>
     <div class="fade-overlay"></div>
-    
+
     <div class="credits-container">
+        <div class="logo">
+            <h1>恭喜你达成结局</h1>
+            <p>《超越传说》(Beyond Tale)</p>
+        </div>
+        <div class="Text">
+            <p>世界的法则因你的力量而改写。那曾不可一世的魔龙，在惊愕与不甘的咆哮中，身躯崩解为无数璀璨的光粒，如同星辰般升腾、消散。</p>
+            <p>Frisk的决心汇集了伙伴的力量，作为她最初的伙伴，你帮她将不可能转变为可能，到达了战胜魔龙的世界线。</p>
+            <p>震颤传遍了整个浮空岛。天穹之上，空间被撕裂开来，一道温暖的光之裂缝缓缓开启，其后映出的，是Frisk朝思暮想的故乡景象。</p>
+            <p>她站在世界的边缘，风中飘扬的发丝拂过她坚定的面庞。那些曾在旅途中相遇的、来自不同时空的伙伴们——他们的身影逐一浮现，环绕在她身边，化作无声的送别。</p>
+        </div>
+        <div class="special-thanks">
+            <p>“你做到了，Frisk。”</p>
+            <p>“是你让我们相信，即使是不同的世界，也能因‘决心’而相连。” </p>
+            <p>“干得不错，kid”</p>
+            <p>“回家吧，带着我们的祝福。”</p>
+        </div>
+
+
+        <div class="Text2">
+            <p>Frisk回过头，仿佛能穿透屏幕看到你。她露出了最为灿烂的笑容，重重地点头，然后纵身跃入那道光门之中。</p>
+        </div>
+        
+        <br>
+        <div class="Text2" id="stats">
+            <h2>统计信息</h2>
+            <!-- 从localStorage中获取数据 -->
+            <p>成功跳跃：<span id="jumpCount"></span></p>
+            <p>成就：<span id="achievementCount"></span></p>
+            <p>死亡次数：<span id="deathCount"></span></p>
+            <p>Boss死亡：<span id="bossDeathCount"></span></p>
+        </div>
+        <br>
+
+        <div class="Text2">
+            <p>谨以此作，献给所有永不磨灭的决心。</p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
         <div class="logo">
             <h1>Beyond Tale</h1>
             <p>制作人员名单</p>
@@ -366,40 +465,56 @@
                 <h2>开发团队</h2>
                 <div class="credit-row">
                     <div class="credit-item">
-                        <div class="avatar" style="background-image: url('../about-us/images/hzh.png')"></div>
+                        <div class="avatar" style="background-image: url('../about-us/images/hzh.webp')"></div>
                         <h3>组长/CIO/程序员/视频剪辑</h3>
                         <p>华子豪</p>
                     </div>
                     <div class="credit-item">
-                        <div class="avatar" style="background-image: url('../about-us/images/hxy.jpg')"></div>
+                        <div class="avatar" style="background-image: url('../about-us/images/hxy.webp')"></div>
                         <h3>网站编辑/程序员</h3>
                         <p>黄旭毅</p>
                     </div>
                     <div class="credit-item">
-                        <div class="avatar" style="background-image: url('../about-us/images/jhn.jpg')"></div>
+                        <div class="avatar" style="background-image: url('../about-us/images/jhn.webp')"></div>
                         <h3>程序员/游戏测试</h3>
                         <p>金皓男</p>
                     </div>
                 </div>
-                
+
                 <div class="credit-row">
                     <div class="credit-item">
-                        <div class="avatar" style="background-image: url('../about-us/images/ljx.jpg')"></div>
+                        <div class="avatar" style="background-image: url('../about-us/images/ljx.webp')"></div>
                         <h3>网站编辑/程序员</h3>
                         <p>李婧瑄</p>
                     </div>
                     <div class="credit-item">
-                        <div class="avatar" style="background-image: url('../about-us/images/lsj.jpg')"></div>
+                        <div class="avatar" style="background-image: url('../about-us/images/lsj.webp')"></div>
                         <h3>美工/技术总监</h3>
                         <p>来首君</p>
                     </div>
                     <div class="credit-item">
-                        <div class="avatar" style="background-image: url('../about-us/images/lzy.jpg')"></div>
+                        <div class="avatar" style="background-image: url('../about-us/images/lzy.webp')"></div>
                         <h3>程序员/游戏测试</h3>
                         <p>李子岳</p>
                     </div>
                 </div>
             </div>
+
+            <!-- 结束语 -->
+            <div class="Text2">
+                <p>Frisk在自己的床上缓缓睁开双眼。窗外的阳光柔和而明媚，一切都如同往常一样宁静</p>
+                <br>
+                <p>她的目光落在书桌上，那里放着一本从未见过的笔记本。深色的封面上，烫金的字样写着：《Beyond Tale》</p>
+                <br>
+                <p>她轻轻翻开，书页间记录的，是她在浮空岛上经历的每一个瞬间——每一次对话，每一个抉择，每一位朋友的音容笑貌</p>
+                <br>
+                <p>你回来了。</p>
+                <br>
+                <p>但那段传奇，</p>
+                <br>
+                <p>已成为你灵魂的一部分，永不消逝。</p>
+            </div>
+
 
             <!-- 特别鸣谢部分 -->
             <div class="special-thanks">
@@ -420,12 +535,12 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // 创建星星背景
             function createStarBackground() {
                 const container = document.body;
                 const starCount = 150;
-                
+
                 for (let i = 0; i < starCount; i++) {
                     const star = document.createElement('div');
                     star.className = 'star';
@@ -435,11 +550,11 @@
                     star.style.top = Math.random() * 100 + '%';
                     star.style.animationDuration = (Math.random() * 5 + 3) + 's';
                     star.style.animationDelay = (Math.random() * 5) + 's';
-                    
+
                     container.appendChild(star);
                 }
             }
-            
+
             // 返回主页函数
             function returnToMainPage() {
                 // 请将以下URL替换为您的实际主页URL
@@ -448,7 +563,7 @@
             // const creditsContainer = document.querySelector('.credits-container');
             // const pauseBtn = document.getElementById('pause-btn');
             // let isPaused = false;
-            
+
             // pauseBtn.addEventListener('click', function() {
             //     if (isPaused) {
             //         creditsContainer.style.animationPlayState = 'running';
@@ -460,18 +575,18 @@
             //     isPaused = !isPaused;
             // });
             // 跳过按钮
-            document.getElementById('skip-btn').addEventListener('click', function() {
+            document.getElementById('skip-btn').addEventListener('click', function () {
                 returnToMainPage();
             });
-            
+
             // 监听动画结束
-            document.querySelector('.credits-container').addEventListener('animationend', function() {
-                // 动画播放30秒后返回主页
-                setTimeout(returnToMainPage, 35000);
+            document.querySelector('.credits-container').addEventListener('animationend', function () {
+                // 动画播放80秒后返回主页
+                setTimeout(returnToMainPage, 80000);
             });
-            
+
             // 键盘控制
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
                     // ESC键跳过
                     returnToMainPage();
@@ -480,24 +595,38 @@
                     // 空格键暂停/继续
                     pauseBtn.click();
             }*/
-        });
-            
+            });
+
+
+            // 从localStorage中获取统计数据
+            const gameData = JSON.parse(localStorage.getItem('platformGameState')) || {};
+            const achievement = JSON.parse(localStorage.getItem('unlockedAchievements')) || [];
+            const jumpCount1 = gameData.jumpCount43 || 0;
+            const jumpCount2 = gameData.jumpCount54 || 0;
+
+            // 将数据填入页面
+            document.querySelector('#jumpCount').textContent = (jumpCount1 + jumpCount2) || '0';
+            document.querySelector('#achievementCount').textContent = achievement.length || '0';
+            document.querySelector('#deathCount').textContent = gameData.deathStats.totalDeaths || '0';
+            document.querySelector('#bossDeathCount').textContent = gameData.bossDeaths || '0';
+
+
             // 初始化
             createStarBackground();
-            
+
             // 导出函数以便外部修改内容
             window.BeyondTaleCredits = {
-                updateTeamMember: function(section, index, name, role, avatarUrl) {
+                updateTeamMember: function (section, index, name, role, avatarUrl) {
                     // 在实际实现中，这里会根据参数更新对应的团队成员信息
                     console.log(`更新成员: ${section}[${index}] -> ${name}, ${role}, ${avatarUrl}`);
                 },
-                
-                updateAllMembers: function(newTeamData) {
+
+                updateAllMembers: function (newTeamData) {
                     // 更新所有团队成员信息
                     console.log("所有成员信息已更新");
                 },
-                
-                skipAnimation: function() {
+
+                skipAnimation: function () {
                     // 跳过动画直接返回主页
                     returnToMainPage();
                 }
@@ -505,4 +634,5 @@
         });
     </script>
 </body>
+
 </html>

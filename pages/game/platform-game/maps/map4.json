@@ -1,10 +1,10 @@
-{ "compressionlevel":-1,
+﻿{ "compressionlevel":-1,
  "height":16,
  "infinite":false,
  "layers":[
         {
          "id":2,
-         "image":"..\/assets\/GandalfHardcore  (4).png",
+         "image":"..\/assets\/GandalfHardcore  (4).webp",
          "imageheight":346,
          "imagewidth":1024,
          "name":"background1",
@@ -17,7 +17,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/assets\/GandalfHardcore  (3).png",
+         "image":"..\/assets\/GandalfHardcore  (3).webp",
          "imageheight":346,
          "imagewidth":1024,
          "name":"background2",
@@ -31,7 +31,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/assets\/GandalfHardcore  (2).png",
+         "image":"..\/assets\/GandalfHardcore  (2).webp",
          "imageheight":346,
          "imagewidth":1024,
          "name":"background3",
@@ -47,7 +47,7 @@
         }, 
         {
          "id":5,
-         "image":"..\/assets\/GandalfHardcore  (1).png",
+         "image":"..\/assets\/GandalfHardcore  (1).webp",
          "imageheight":346,
          "imagewidth":1024,
          "name":"background4",
@@ -436,7 +436,49 @@
          "visible":true,
          "x":0,
          "y":0
-        }],
+        },
+       {
+  "draworder": "topdown",
+  "id": 14,
+  "name": "NPCs",
+  "objects": [
+    {
+      "gid": 1009,                      
+      "height": 45,
+      "width": 60,
+      "id": 8,
+      "name": "npc_1",
+      "type": "npc",
+      "visible": true,
+      "x": 1500,
+      "y": 423,
+      "properties": [
+        { "name": "dialogPage", "type": "string", "value": "../dialog/diag4.html" },
+        { "name": "interactRadius", "type": "int", "value": 48 }
+      ]
+    },
+    {
+      "gid": 1010,                     
+      "height": 32,                   
+      "width": 24,
+      "id": 9,
+      "name": "npc_2",
+      "type": "npc",
+      "visible": true,
+      "x":2620,
+      "y": 193,
+      "properties": [
+        { "name": "dialogPage", "type": "string", "value": "../dialog/diag8.html" },
+        { "name": "interactRadius", "type": "int", "value": 48 }
+      ]
+    }
+  ],
+  "opacity": 1,
+  "type": "objectgroup",
+  "visible": true,
+  "x": 0,
+  "y": 0
+}],
  "nextlayerid":14,
  "nextobjectid":11,
  "orientation":"orthogonal",
@@ -451,7 +493,7 @@
         {
          "columns":16,
          "firstgid":163,
-         "image":"..\/assets\/Ground.png",
+         "image":"..\/assets\/Ground.webp",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -478,7 +520,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/assets\/Spike3.png",
+                 "image":"..\/assets\/Spike3.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }],
@@ -510,13 +552,13 @@
                          "tileid":1
                         }],
                  "id":0,
-                 "image":"..\/assets\/spr_savepoint_0.png",
+                 "image":"..\/assets\/spr_savepoint_0.webp",
                  "imageheight":10,
                  "imagewidth":11
                 }, 
                 {
                  "id":1,
-                 "image":"..\/assets\/spr_savepoint_1.png",
+                 "image":"..\/assets\/spr_savepoint_1.webp",
                  "imageheight":19,
                  "imagewidth":20
                 }],
@@ -525,7 +567,7 @@
         {
          "columns":4,
          "firstgid":422,
-         "image":"..\/assets\/128x256.png",
+         "image":"..\/assets\/128x256.webp",
          "imageheight":256,
          "imagewidth":128,
          "margin":0,
@@ -681,247 +723,247 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/assets\/ridge (6).png",
+                 "image":"..\/assets\/ridge (6).webp",
                  "imageheight":29,
                  "imagewidth":81
                 }, 
                 {
                  "id":1,
-                 "image":"..\/assets\/Birch2.png",
+                 "image":"..\/assets\/Birch2.webp",
                  "imageheight":112,
                  "imagewidth":80
                 }, 
                 {
                  "id":2,
-                 "image":"..\/assets\/Birch1.png",
+                 "image":"..\/assets\/Birch1.webp",
                  "imageheight":112,
                  "imagewidth":80
                 }, 
                 {
                  "id":3,
-                 "image":"..\/assets\/Tree1.png",
+                 "image":"..\/assets\/Tree1.webp",
                  "imageheight":208,
                  "imagewidth":256
                 }, 
                 {
                  "id":4,
-                 "image":"..\/assets\/Tree3.png",
+                 "image":"..\/assets\/Tree3.webp",
                  "imageheight":208,
                  "imagewidth":256
                 }, 
                 {
                  "id":5,
-                 "image":"..\/assets\/Bonsai.png",
+                 "image":"..\/assets\/Bonsai.webp",
                  "imageheight":64,
                  "imagewidth":64
                 }, 
                 {
                  "id":6,
-                 "image":"..\/assets\/bench (3).png",
+                 "image":"..\/assets\/bench (3).webp",
                  "imageheight":10,
                  "imagewidth":48
                 }, 
                 {
                  "id":7,
-                 "image":"..\/assets\/bench (4).png",
+                 "image":"..\/assets\/bench (4).webp",
                  "imageheight":22,
                  "imagewidth":45
                 }, 
                 {
                  "id":8,
-                 "image":"..\/assets\/bench (1).png",
+                 "image":"..\/assets\/bench (1).webp",
                  "imageheight":22,
                  "imagewidth":48
                 }, 
                 {
                  "id":9,
-                 "image":"..\/assets\/bench (2).png",
+                 "image":"..\/assets\/bench (2).webp",
                  "imageheight":10,
                  "imagewidth":45
                 }, 
                 {
                  "id":10,
-                 "image":"..\/assets\/fence (2).png",
+                 "image":"..\/assets\/fence (2).webp",
                  "imageheight":64,
                  "imagewidth":35
                 }, 
                 {
                  "id":11,
-                 "image":"..\/assets\/fence (3).png",
+                 "image":"..\/assets\/fence (3).webp",
                  "imageheight":64,
                  "imagewidth":48
                 }, 
                 {
                  "id":12,
-                 "image":"..\/assets\/fence (1).png",
+                 "image":"..\/assets\/fence (1).webp",
                  "imageheight":64,
                  "imagewidth":48
                 }, 
                 {
                  "id":13,
-                 "image":"..\/assets\/fountain (1).png",
+                 "image":"..\/assets\/fountain (1).webp",
                  "imageheight":72,
                  "imagewidth":72
                 }, 
                 {
                  "id":14,
-                 "image":"..\/assets\/fountain (2).png",
+                 "image":"..\/assets\/fountain (2).webp",
                  "imageheight":72,
                  "imagewidth":72
                 }, 
                 {
                  "id":15,
-                 "image":"..\/assets\/stone (10).png",
+                 "image":"..\/assets\/stone (10).webp",
                  "imageheight":44,
                  "imagewidth":70
                 }, 
                 {
                  "id":16,
-                 "image":"..\/assets\/stone (11).png",
+                 "image":"..\/assets\/stone (11).webp",
                  "imageheight":7,
                  "imagewidth":10
                 }, 
                 {
                  "id":17,
-                 "image":"..\/assets\/stone (6).png",
+                 "image":"..\/assets\/stone (6).webp",
                  "imageheight":14,
                  "imagewidth":22
                 }, 
                 {
                  "id":18,
-                 "image":"..\/assets\/stone (7).png",
+                 "image":"..\/assets\/stone (7).webp",
                  "imageheight":16,
                  "imagewidth":27
                 }, 
                 {
                  "id":19,
-                 "image":"..\/assets\/stone (8).png",
+                 "image":"..\/assets\/stone (8).webp",
                  "imageheight":17,
                  "imagewidth":39
                 }, 
                 {
                  "id":20,
-                 "image":"..\/assets\/stone (9).png",
+                 "image":"..\/assets\/stone (9).webp",
                  "imageheight":22,
                  "imagewidth":46
                 }, 
                 {
                  "id":21,
-                 "image":"..\/assets\/bushes (14).png",
+                 "image":"..\/assets\/bushes (14).webp",
                  "imageheight":33,
                  "imagewidth":32
                 }, 
                 {
                  "id":22,
-                 "image":"..\/assets\/bushes (15).png",
+                 "image":"..\/assets\/bushes (15).webp",
                  "imageheight":33,
                  "imagewidth":32
                 }, 
                 {
                  "id":23,
-                 "image":"..\/assets\/bushes (16).png",
+                 "image":"..\/assets\/bushes (16).webp",
                  "imageheight":25,
                  "imagewidth":32
                 }, 
                 {
                  "id":24,
-                 "image":"..\/assets\/bushes (17).png",
+                 "image":"..\/assets\/bushes (17).webp",
                  "imageheight":25,
                  "imagewidth":32
                 }, 
                 {
                  "id":25,
-                 "image":"..\/assets\/bushes (18).png",
+                 "image":"..\/assets\/bushes (18).webp",
                  "imageheight":25,
                  "imagewidth":32
                 }, 
                 {
                  "id":26,
-                 "image":"..\/assets\/bushes (19).png",
+                 "image":"..\/assets\/bushes (19).webp",
                  "imageheight":25,
                  "imagewidth":32
                 }, 
                 {
                  "id":27,
-                 "image":"..\/assets\/bushes (20).png",
+                 "image":"..\/assets\/bushes (20).webp",
                  "imageheight":16,
                  "imagewidth":32
                 }, 
                 {
                  "id":28,
-                 "image":"..\/assets\/bushes (1).png",
+                 "image":"..\/assets\/bushes (1).webp",
                  "imageheight":16,
                  "imagewidth":32
                 }, 
                 {
                  "id":29,
-                 "image":"..\/assets\/bushes (2).png",
+                 "image":"..\/assets\/bushes (2).webp",
                  "imageheight":16,
                  "imagewidth":32
                 }, 
                 {
                  "id":30,
-                 "image":"..\/assets\/bushes (3).png",
+                 "image":"..\/assets\/bushes (3).webp",
                  "imageheight":16,
                  "imagewidth":32
                 }, 
                 {
                  "id":31,
-                 "image":"..\/assets\/bushes (4).png",
+                 "image":"..\/assets\/bushes (4).webp",
                  "imageheight":17,
                  "imagewidth":40
                 }, 
                 {
                  "id":32,
-                 "image":"..\/assets\/bushes (5).png",
+                 "image":"..\/assets\/bushes (5).webp",
                  "imageheight":16,
                  "imagewidth":40
                 }, 
                 {
                  "id":33,
-                 "image":"..\/assets\/bushes (6).png",
+                 "image":"..\/assets\/bushes (6).webp",
                  "imageheight":13,
                  "imagewidth":38
                 }, 
                 {
                  "id":34,
-                 "image":"..\/assets\/bushes (7).png",
+                 "image":"..\/assets\/bushes (7).webp",
                  "imageheight":10,
                  "imagewidth":22
                 }, 
                 {
                  "id":35,
-                 "image":"..\/assets\/bushes (8).png",
+                 "image":"..\/assets\/bushes (8).webp",
                  "imageheight":25,
                  "imagewidth":50
                 }, 
                 {
                  "id":36,
-                 "image":"..\/assets\/bushes (9).png",
+                 "image":"..\/assets\/bushes (9).webp",
                  "imageheight":24,
                  "imagewidth":41
                 }, 
                 {
                  "id":37,
-                 "image":"..\/assets\/bushes (10).png",
+                 "image":"..\/assets\/bushes (10).webp",
                  "imageheight":22,
                  "imagewidth":43
                 }, 
                 {
                  "id":38,
-                 "image":"..\/assets\/bushes (11).png",
+                 "image":"..\/assets\/bushes (11).webp",
                  "imageheight":19,
                  "imagewidth":30
                 }, 
                 {
                  "id":39,
-                 "image":"..\/assets\/bushes (12).png",
+                 "image":"..\/assets\/bushes (12).webp",
                  "imageheight":33,
                  "imagewidth":32
                 }, 
                 {
                  "id":40,
-                 "image":"..\/assets\/bushes (13).png",
+                 "image":"..\/assets\/bushes (13).webp",
                  "imageheight":33,
                  "imagewidth":32
                 }],
@@ -944,7 +986,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/assets\/grid.png",
+                 "image":"..\/assets\/grid.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }],
@@ -953,7 +995,7 @@
         {
          "columns":16,
          "firstgid":496,
-         "image":"..\/assets\/Ground.png",
+         "image":"..\/assets\/Ground.webp",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -966,7 +1008,7 @@
         {
          "columns":16,
          "firstgid":752,
-         "image":"..\/assets\/Ground.png",
+         "image":"..\/assets\/Ground.webp",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -1002,18 +1044,46 @@
                          "tileid":1
                         }],
                  "id":0,
-                 "image":"..\/assets\/spr_savepoint_0.png",
+                 "image":"..\/assets\/spr_savepoint_0.webp",
                  "imageheight":10,
                  "imagewidth":11
                 }, 
                 {
                  "id":1,
-                 "image":"..\/assets\/spr_savepoint_1.png",
+                 "image":"..\/assets\/spr_savepoint_1.webp",
                  "imageheight":19,
                  "imagewidth":20
                 }],
          "tilewidth":20
-        }],
+        },
+       {
+  "columns": 0,
+  "firstgid": 1009,
+  "grid": { "height": 1, "orientation": "orthogonal", "width": 1 },
+  "margin": 0,
+  "name": "NPC_1",
+  "spacing": 0,
+  "tilecount": 1,
+  "tileheight": 194,
+  "tiles": [
+    { "id": 0, "image": "../assets/hou.webp", "imageheight": 194, "imagewidth": 288 }
+  ],
+  "tilewidth": 288
+},
+{
+  "columns": 0,
+  "firstgid": 1010,
+  "grid": { "height": 1, "orientation": "orthogonal", "width": 1 },
+  "margin": 0,
+  "name": "NPC_2",
+  "spacing": 0,
+  "tilecount": 1,
+  "tileheight": 30,
+  "tiles": [
+    { "id": 0, "image": "../assets/sans.webp", "imageheight": 30, "imagewidth": 23 }
+  ],
+  "tilewidth": 23
+}],
  "tilewidth":32,
  "type":"map",
  "version":"1.10",

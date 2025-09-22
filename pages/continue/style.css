@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
     font-family: "Press Start 2P";
     src: url(../../assets/fonts/PressStart2P-1.ttf);
 }
@@ -19,7 +19,7 @@ body {
     font-family: 'Press Start 2P', 'Courier New', "pxfont";
     min-height: 100vh;
     padding: 20px;
-    background-image: url(../../assets/images/continueBg.png);
+    background-image: url(../../assets/images/continueBg.webp);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

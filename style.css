@@ -13,7 +13,7 @@ body {
     padding: 0;
     width: 100%;
     min-height: 100vh;
-    background-image: url(assets/images/background.png);
+    background-image: url(assets/images/background.webp);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -219,11 +219,6 @@ body {
     font-family: 'Press Start 2P', 'Courier New', monospace;
 }
 
-.loader-container {
-    background-image: url(about_us/images/logo.jpg);
-    background-size: cover;
-    background-position: center;
-}
 
 #selectContainer {
     /* 右下角 */

@@ -1,10 +1,10 @@
-{ "compressionlevel":-1,
+﻿{ "compressionlevel":-1,
  "height":16,
  "infinite":false,
  "layers":[
         {
          "id":2,
-         "image":"..\/assets\/veggiegarden_background1.png",
+         "image":"..\/assets\/veggiegarden_background1.webp",
          "imageheight":320,
          "imagewidth":448,
          "name":"background1",
@@ -18,7 +18,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/assets\/veggiegarden_background2.png",
+         "image":"..\/assets\/veggiegarden_background2.webp",
          "imageheight":320,
          "imagewidth":448,
          "name":"background2",
@@ -34,7 +34,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/assets\/veggiegarden_background3.png",
+         "image":"..\/assets\/veggiegarden_background3.webp",
          "imageheight":320,
          "imagewidth":448,
          "name":"background3",
@@ -50,7 +50,7 @@
         }, 
         {
          "id":13,
-         "image":"..\/assets\/veggiegarden_background4.png",
+         "image":"..\/assets\/veggiegarden_background4.webp",
          "imageheight":320,
          "imagewidth":448,
          "name":"background4",
@@ -66,7 +66,7 @@
         }, 
         {
          "id":14,
-         "image":"..\/assets\/cloud5.png",
+         "image":"..\/assets\/cloud5.webp",
          "imageheight":35,
          "imagewidth":110,
          "name":"cloud1",
@@ -82,7 +82,7 @@
         }, 
         {
          "id":15,
-         "image":"..\/assets\/cloud6.png",
+         "image":"..\/assets\/cloud6.webp",
          "imageheight":101,
          "imagewidth":165,
          "name":"cloud2",
@@ -98,7 +98,7 @@
         }, 
         {
          "id":17,
-         "image":"..\/assets\/cloud2.png",
+         "image":"..\/assets\/cloud2.webp",
          "imageheight":15,
          "imagewidth":43,
          "name":"cloud3",
@@ -114,7 +114,7 @@
         }, 
         {
          "id":18,
-         "image":"..\/assets\/birds1.png",
+         "image":"..\/assets\/birds1.webp",
          "imageheight":20,
          "imagewidth":20,
          "name":"birds",
@@ -651,7 +651,7 @@
         {
          "columns":16,
          "firstgid":1,
-         "image":"..\/assets\/Ground.png",
+         "image":"..\/assets\/Ground.webp",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -664,7 +664,7 @@
         {
          "columns":4,
          "firstgid":257,
-         "image":"..\/assets\/128x256.png",
+         "image":"..\/assets\/128x256.webp",
          "imageheight":256,
          "imagewidth":128,
          "margin":0,
@@ -820,7 +820,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/assets\/Spike3.png",
+                 "image":"..\/assets\/Spike3.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }],
@@ -843,31 +843,31 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/assets\/ridge (6).png",
+                 "image":"..\/assets\/ridge (6).webp",
                  "imageheight":29,
                  "imagewidth":81
                 }, 
                 {
                  "id":1,
-                 "image":"..\/assets\/Birch2.png",
+                 "image":"..\/assets\/Birch2.webp",
                  "imageheight":112,
                  "imagewidth":80
                 }, 
                 {
                  "id":2,
-                 "image":"..\/assets\/Birch1.png",
+                 "image":"..\/assets\/Birch1.webp",
                  "imageheight":112,
                  "imagewidth":80
                 }, 
                 {
                  "id":3,
-                 "image":"..\/assets\/Tree1.png",
+                 "image":"..\/assets\/Tree1.webp",
                  "imageheight":208,
                  "imagewidth":256
                 }, 
                 {
                  "id":4,
-                 "image":"..\/assets\/Tree3.png",
+                 "image":"..\/assets\/Tree3.webp",
                  "imageheight":208,
                  "imagewidth":256
                 }],
@@ -876,7 +876,7 @@
         {
          "columns":9,
          "firstgid":295,
-         "image":"..\/assets\/others.png",
+         "image":"..\/assets\/others.webp",
          "imageheight":224,
          "imagewidth":288,
          "margin":0,
@@ -889,7 +889,7 @@
         {
          "columns":11,
          "firstgid":358,
-         "image":"..\/assets\/Tileset Inside.png",
+         "image":"..\/assets\/Tileset Inside.webp",
          "imageheight":160,
          "imagewidth":352,
          "margin":0,
@@ -916,7 +916,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/assets\/grid.png",
+                 "image":"..\/assets\/grid.webp",
                  "imageheight":32,
                  "imagewidth":32
                 }],
@@ -948,13 +948,13 @@
                          "tileid":1
                         }],
                  "id":0,
-                 "image":"..\/assets\/spr_savepoint_0.png",
+                 "image":"..\/assets\/spr_savepoint_0.webp",
                  "imageheight":10,
                  "imagewidth":11
                 }, 
                 {
                  "id":1,
-                 "image":"..\/assets\/spr_savepoint_1.png",
+                 "image":"..\/assets\/spr_savepoint_1.webp",
                  "imageheight":19,
                  "imagewidth":20
                 }],
@@ -963,7 +963,7 @@
         {
          "columns":32,
          "firstgid":416,
-         "image":"..\/assets\/village_props.png",
+         "image":"..\/assets\/village_props.webp",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,
@@ -989,7 +989,7 @@
   "tiles": [
     {
       "id": 0,
-      "image": "../assets/zhendin.png",
+      "image": "../assets/zhendin.webp",
       "imageheight": 467,
       "imagewidth": 368
     }

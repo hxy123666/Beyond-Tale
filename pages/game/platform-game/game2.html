@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
-    <link rel="Shortcut Icon" href="../../../assets/ico/ico.png">
+    <link rel="Shortcut Icon" href="../../../assets/ico/ico.webp">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beyond Tale</title>
     <link rel="stylesheet" href="style.css">
@@ -33,7 +33,7 @@
 </head>
 
 <body>
-<audio src="../music/魂斗罗1.MP3" id="dd" loop="loop"></audio>
+<audio src="../music/魂斗罗1.mp3" id="dd" loop="loop"></audio>
     <canvas id="gameCanvas" width="840" height="480"></canvas>
     <!-- Canvas尺寸调整为 70 * 12 = 840, 20 * 12 = 240，为了演示方便，这里扩大了一倍 -->
 
@@ -54,13 +54,12 @@
     </div>
  <!-- NPC 对话全屏窗口 -->
 <div id="npcDialog" class="hidden">
-  <iframe id="dialogFrame" src="" frameborder="0" tabindex="-1"></iframe>
+  <iframe id="dialogFrame" src="#" frameborder="0" tabindex="-1"></iframe>
 </div>
     <script src="gameState.js"></script>
     <script src="../../../script/achievement.js"></script>
     <script src="script2.js"></script> <!--一定要先导入scriptn(n为数字).js再导入script.js,否则地图无法加载！-->
     <script src="script.js"></script>
-    <script src="determination-detector.js"></script>
     <script src="../../../script/save.js"></script>
     <script src="../../../script/Esc.js"></script>
 </body>

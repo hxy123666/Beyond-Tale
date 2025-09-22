@@ -1,4 +1,4 @@
-// 添加音乐播放控制功能
+﻿// 添加音乐播放控制功能
 document.addEventListener('DOMContentLoaded', function () {
     const audio = document.getElementById('dd');
     let audioStarted = false;
@@ -162,7 +162,7 @@ const JUMP_BUFFER_FRAMES = 4;  // 提前按下跳跃键的缓冲（帧）
 
 // *** 玩家精灵图配置 (修正版) ***
 const PLAYER_SPRITE_CONFIG = {
-    imagePath: 'assets/frisk_sprite.png',
+    imagePath: 'assets/frisk_sprite.webp',
     frameWidth: 24,
     frameHeight: 32,
     animations: {
@@ -682,6 +682,8 @@ function updatePlayer() {
                         player.hitCeiling = false;
                         player.ceilingHangFrames = 0;
                         triggerBounceEffect(player.x + player.width / 2, yCollision.y);
+                        countJumps('jump54');
+                        gameStateManager.saveToLocalStorage();
                         return;
                     }
                     if (tiles >= 6) {

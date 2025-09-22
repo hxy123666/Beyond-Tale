@@ -1,4 +1,4 @@
-// ==============================
+﻿// ==============================
 // 游戏配置
 // ==============================
 let TILE_SIZE = 32;
@@ -68,7 +68,7 @@ const TOTAL_JUMP_FRAMES = JUMP_UP_FRAMES * 2; // 总跳跃时间（上升+下降
 
 // *** 玩家精灵图配置 (修正版) ***
 const PLAYER_SPRITE_CONFIG = {
-imagePath: 'assets/frisk_sprite.png',
+imagePath: 'assets/frisk_sprite.webp',
 frameWidth: 24,
 frameHeight: 32,
 animations: {

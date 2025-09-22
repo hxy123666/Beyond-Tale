@@ -7,7 +7,7 @@ window.onload = function () {
         document.getElementById("walking-person").style.display = "block";
     }, 5000); // 5000毫秒 = 5秒
 };
-// 自动跳转，设置时间为六秒
+// 自动跳转，设置时间
 setTimeout(function () {
     window.location.href = "../platform-game/game.html";
-}, 10000)
+}, 9000)
