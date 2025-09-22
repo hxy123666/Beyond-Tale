@@ -106,8 +106,10 @@ function getCurrentUrl() {
     return "default";
 }
 
+// 先从localStorage加载之前的状态
+gameStateManager.loadFromLocalStorage();
+// 然后设置当前关卡并保存
 gameState.currentLevel = getCurrentUrl();
-// 存储
 gameStateManager.saveToLocalStorage();
 
 
