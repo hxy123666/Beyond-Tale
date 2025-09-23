@@ -1,66 +1,66 @@
 ﻿// 添加音乐播放控制功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const audio = document.getElementById('dd');
-            let audioStarted = false;
-            
-            function startAudio() {
-                if (!audioStarted) {
-                    audio.play();
-                    audioStarted = true;
-                    // 移除事件监听器，避免重复触发
-                    document.removeEventListener('keydown', startAudio);
-                    document.removeEventListener('mousedown', startAudio);
+document.addEventListener('DOMContentLoaded', function () {
+    const audio = document.getElementById('dd');
+    let audioStarted = false;
+
+    function startAudio() {
+        if (!audioStarted) {
+            audio.play();
+            audioStarted = true;
+            // 移除事件监听器，避免重复触发
+            document.removeEventListener('keydown', startAudio);
+            document.removeEventListener('mousedown', startAudio);
+        }
+    }
+
+    // 添加键盘和鼠标事件监听
+    document.addEventListener('keydown', startAudio);
+    document.addEventListener('mousedown', startAudio);
+
+    // 当页面失去焦点时暂停音乐
+    window.addEventListener('blur', function () {
+        if (audioStarted) {
+            audio.pause();
+        }
+    });
+
+    // 当页面重新获得焦点时恢复音乐
+    window.addEventListener('focus', function () {
+        if (audioStarted) {
+            audio.play();
+        }
+    });
+
+    // 当页面卸载时停止音乐
+    window.addEventListener('beforeunload', function () {
+        if (audioStarted) {
+            audio.pause();
+        }
+    });
+
+    // 监听NPC对话窗口的显示/隐藏状态
+    const npcDialog = document.getElementById('npcDialog');
+    const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.attributeName === 'class') {
+                if (npcDialog.classList.contains('hidden')) {
+                    // NPC对话结束，恢复音乐
+                    if (audioStarted) {
+                        audio.play();
+                    }
+                } else {
+                    // NPC对话开始，暂停音乐
+                    if (audioStarted) {
+                        audio.pause();
+                    }
                 }
             }
-            
-            // 添加键盘和鼠标事件监听
-            document.addEventListener('keydown', startAudio);
-            document.addEventListener('mousedown', startAudio);
-            
-            // 当页面失去焦点时暂停音乐
-            window.addEventListener('blur', function() {
-                if (audioStarted) {
-                    audio.pause();
-                }
-            });
-            
-            // 当页面重新获得焦点时恢复音乐
-            window.addEventListener('focus', function() {
-                if (audioStarted) {
-                    audio.play();
-                }
-            });
-            
-            // 当页面卸载时停止音乐
-            window.addEventListener('beforeunload', function() {
-                if (audioStarted) {
-                    audio.pause();
-                }
-            });
-            
-            // 监听NPC对话窗口的显示/隐藏状态
-            const npcDialog = document.getElementById('npcDialog');
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.attributeName === 'class') {
-                        if (npcDialog.classList.contains('hidden')) {
-                            // NPC对话结束，恢复音乐
-                            if (audioStarted) {
-                                audio.play();
-                            }
-                        } else {
-                            // NPC对话开始，暂停音乐
-                            if (audioStarted) {
-                                audio.pause();
-                            }
-                        }
-                    }
-                });
-            });
-            
-            // 开始观察NPC对话窗口的class属性变化
-            observer.observe(npcDialog, { attributes: true });
         });
+    });
+
+    // 开始观察NPC对话窗口的class属性变化
+    observer.observe(npcDialog, { attributes: true });
+});
 
 // ==============================
 // 游戏配置
@@ -915,66 +915,66 @@ function handleBossDefeat() {
 }
 
 function ensureHudHintsContainer() {
-  let c = document.getElementById('hudHints');
-  if (!c) {
-    c = document.createElement('div');
-    c.id = 'hudHints';
-    document.body.appendChild(c);
-  }
-  return c;
+    let c = document.getElementById('hudHints');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'hudHints';
+        document.body.appendChild(c);
+    }
+    return c;
 }
 
 // 顶部提示：默认显示 5 秒
 function showHudHint(text, duration = 5000) {
-  const container = ensureHudHintsContainer();
-  const el = document.createElement('div');
-  el.className = 'hint-bubble';
-  el.textContent = text;
-  container.appendChild(el);
+    const container = ensureHudHintsContainer();
+    const el = document.createElement('div');
+    el.className = 'hint-bubble';
+    el.textContent = text;
+    container.appendChild(el);
 
-  // 进入场动画
-  requestAnimationFrame(() => el.classList.add('show'));
+    // 进入场动画
+    requestAnimationFrame(() => el.classList.add('show'));
 
-  // 退出和移除
-  setTimeout(() => {
-    el.classList.remove('show');
-    setTimeout(() => el.remove(), 300);
-  }, duration);
+    // 退出和移除
+    setTimeout(() => {
+        el.classList.remove('show');
+        setTimeout(() => el.remove(), 300);
+    }, duration);
 }
 
 function scheduleBossDialogHints() {
-  if (gameState.bossDialogHintsScheduled) return;
+    if (gameState.bossDialogHintsScheduled) return;
 
-  // 仅在对话层可见时安排
-  const dlg = document.getElementById('npcDialog');
-  const dialogOpen = dlg && !dlg.classList.contains('hidden');
-  if (!dialogOpen) return;
+    // 仅在对话层可见时安排
+    const dlg = document.getElementById('npcDialog');
+    const dialogOpen = dlg && !dlg.classList.contains('hidden');
+    if (!dialogOpen) return;
 
-  gameState.hintTimers.upLook = setTimeout(() => {
-    showHudHint('向上看', 7000);
-  }, 20 * 1000);
+    gameState.hintTimers.upLook = setTimeout(() => {
+        showHudHint('向上看', 7000);
+    }, 20 * 1000);
 
-  gameState.hintTimers.changeUrl = setTimeout(() => {
-    showHudHint('你可以改变网址', 7000);
-  }, 40 * 1000);
+    gameState.hintTimers.changeUrl = setTimeout(() => {
+        showHudHint('你可以改变网址', 7000);
+    }, 40 * 1000);
 
-  gameState.bossDialogHintsScheduled = true;w
+    gameState.bossDialogHintsScheduled = true; w
 }
 
 function clearBossDialogHints() {
-  if (gameState.hintTimers.upLook) {
-    clearTimeout(gameState.hintTimers.upLook);
-    gameState.hintTimers.upLook = null;
-  }
-  if (gameState.hintTimers.changeUrl) {
-    clearTimeout(gameState.hintTimers.changeUrl);
-    gameState.hintTimers.changeUrl = null;
-  }
-  gameState.bossDialogHintsScheduled = false;
+    if (gameState.hintTimers.upLook) {
+        clearTimeout(gameState.hintTimers.upLook);
+        gameState.hintTimers.upLook = null;
+    }
+    if (gameState.hintTimers.changeUrl) {
+        clearTimeout(gameState.hintTimers.changeUrl);
+        gameState.hintTimers.changeUrl = null;
+    }
+    gameState.bossDialogHintsScheduled = false;
 
-  // 清理当前屏幕上的提示元素（可选）
-  const c = document.getElementById('hudHints');
-  if (c) c.innerHTML = '';
+    // 清理当前屏幕上的提示元素（可选）
+    const c = document.getElementById('hudHints');
+    if (c) c.innerHTML = '';
 }
 
 // ==============================
@@ -2259,43 +2259,43 @@ function updateDeath() {
         updateParticles();
     }
 
-if (now >= gameState.death.respawnAt) {
-    setPlayerStartPosition();
-    setInitialCameraPosition();
+    if (now >= gameState.death.respawnAt) {
+        setPlayerStartPosition();
+        setInitialCameraPosition();
 
-    if (bossState.active) {
-        initBossSystem();
-    }
-    gameState.particles = [];
-    gameState.effects.flashAlpha = 0;
-    gameState.death.active = false;
-    gameState.death.exploded = false;
+        if (bossState.active) {
+            initBossSystem();
+        }
+        gameState.particles = [];
+        gameState.effects.flashAlpha = 0;
+        gameState.death.active = false;
+        gameState.death.exploded = false;
 
-    const bd = gameState.deathStats?.bossDeaths || 0;
+        const bd = gameState.deathStats?.bossDeaths || 0;
 
-    if (bd === 3) {
-        showCenterMessage("别放弃", {life: 400, color: 'rgba(0, 0, 0, 1)', fontSize: 20});
-    }
+        if (bd === 3) {
+            showCenterMessage("别放弃", { life: 400, color: 'rgba(0, 0, 0, 1)', fontSize: 20 });
+        }
 
-    // 第5次 Boss 战死亡：显示警示文案（一次性触发）
-    if (bd === 5) {
-        const spLayer = getSavePointLayer();
-        if (spLayer) spLayer.visible = false;
-        showCenterMessage("面对不可战胜的敌人，Frisk的决心大幅降低，没有决心的Frisk失去了存档", {life: 400, color: 'rgba(0, 0, 0, 1)', fontSize: 20});
-    }
+        // 第5次 Boss 战死亡：显示警示文案（一次性触发）
+        if (bd === 5) {
+            const spLayer = getSavePointLayer();
+            if (spLayer) spLayer.visible = false;
+            showCenterMessage("面对不可战胜的敌人，Frisk的决心大幅降低，没有决心的Frisk失去了存档", { life: 400, color: 'rgba(0, 0, 0, 1)', fontSize: 20 });
+        }
 
-    // 第6次 Boss 战死亡：打开 diag10（一次性）
-    if (!gameState.bossDeathDialogShown && bd >= 6) {
-        gameState.bossDeathDialogShown = true;
-        gameStateManager.saveToLocalStorage(); // 可选：持久化一次性开关
-        showNpcDialog('../dialog/diag10.html');
+        // 第6次 Boss 战死亡：打开 diag10（一次性）
+        if (!gameState.bossDeathDialogShown && bd >= 6) {
+            gameState.bossDeathDialogShown = true;
+            gameStateManager.saveToLocalStorage(); // 可选：持久化一次性开关
+            showNpcDialog('../dialog/diag10.html');
 
-        scheduleBossDialogHints();
+            scheduleBossDialogHints();
+        }
     }
 }
-}
 
-function showCenterMessage(text, {life=180, color='#ffffff', fontSize=18} = {}) {
+function showCenterMessage(text, { life = 180, color = '#ffffff', fontSize = 18 } = {}) {
     gameState.effects.floatingTexts = gameState.effects.floatingTexts || [];
     gameState.effects.floatingTexts.push({
         text,
@@ -3048,6 +3048,11 @@ async function init() {
 
             setInitialCameraPosition();
             setupAudioUnlock();
+            // 隐藏加载界面
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
             initBossSystem();
             gameLoop();
         } else {

@@ -10,6 +10,10 @@
 </head>
 
 <body>
+    <!-- 加载界面 -->
+    <iframe id="loadingScreen" src="../first stage/gap.html"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1000;"></iframe>
+
     <audio src="../music/Toby Fox - MEGALOVANIA (狂妄之人).mp3" id="dd" loop="loop"></audio>
     <canvas id="gameCanvas" width="840" height="480"></canvas>
     <!-- Canvas尺寸调整为 70 * 12 = 840, 20 * 12 = 240，为了演示方便，这里扩大了一倍 -->
@@ -22,17 +26,17 @@
             <button id="mainMenuBtn">Return to Main Menu</button>
         </div>
     </div>
-   
+
     <!-- NPC对话层（如已有可忽略） -->
-<div id="npcDialog" class="hidden">
-  <div class="dialog-content">
-    <iframe id="dialogFrame" src="" frameborder="0"></iframe>
-  </div>
-</div>
+    <div id="npcDialog" class="hidden">
+        <div class="dialog-content">
+            <iframe id="dialogFrame" src="" frameborder="0"></iframe>
+        </div>
+    </div>
 
     <script src="gameState.js"></script>
     <script src="../../../script/achievement.js"></script>
-    <script src="script8.js"></script>      <!--一定要先导入scriptn(n为数字).js再导入script.js,否则地图无法加载！-->
+    <script src="script8.js"></script> <!--一定要先导入scriptn(n为数字).js再导入script.js,否则地图无法加载！-->
     <script src="first_boss.js"></script>
     <script src="../../../script/save.js"></script>
     <script src="../../../script/Esc.js"></script>
