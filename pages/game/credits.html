@@ -73,7 +73,7 @@
             top: 100%;
             width: 100%;
             padding: 2rem;
-            animation: scrollCredits 30s linear forwards;
+            animation: scrollCredits 60s linear forwards;
         }
 
         .logo {
@@ -238,25 +238,25 @@
         }
 
         /* 动画 */
-        @keyframes scrollCredits {
-            0% {
-                top: 100%;
-                opacity: 0;
-            }
+@keyframes scrollCredits {
+    0% {
+        top: 100%;
+        opacity: 0;
+    }
 
-            5% {
-                opacity: 1;
-            }
+    5% {
+        opacity: 1;
+    }
 
-            95% {
-                opacity: 1;
-            }
+    95% {
+        opacity: 1;
+    }
 
-            100% {
-                top: -200%;
-                opacity: 0;
-            }
-        }
+    100% {
+        top: -500%;
+        opacity: 0;
+    }
+}
 
         @keyframes fadeIn {
             from {
@@ -582,7 +582,7 @@
             // 监听动画结束
             document.querySelector('.credits-container').addEventListener('animationend', function () {
                 // 动画播放80秒后返回主页
-                setTimeout(returnToMainPage, 80000);
+                setTimeout(returnToMainPage, 60000);
             });
 
             // 键盘控制
