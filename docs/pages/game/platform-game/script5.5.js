@@ -2136,6 +2136,9 @@ async function init() {
             if (loadingScreen) {
                 loadingScreen.style.display = 'none';
             }
+
+            // 显示画布
+            canvas.style.display = 'block';
             
             // *** 修正版：用你原版的方式启动游戏循环 ***
             gameLoop();

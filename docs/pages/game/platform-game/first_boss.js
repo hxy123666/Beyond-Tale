@@ -3048,6 +3048,11 @@ async function init() {
 
             setInitialCameraPosition();
             setupAudioUnlock();
+            // 显示画布
+            const canvas = document.getElementById('gameCanvas');
+            if (canvas) {
+                canvas.style.display = 'block';
+            }
             // 隐藏加载界面
             const loadingScreen = document.getElementById('loadingScreen');
             if (loadingScreen) {

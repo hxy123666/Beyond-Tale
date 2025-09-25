@@ -2068,17 +2068,22 @@ async function init() {
             console.log('死亡统计数据:', gameState.deathStats);
             console.log('是否第一次摔死:', gameState.firstFallDeath);
 
-            setInitialCameraPosition();
-            setupAudioUnlock();
-            
-            // 隐藏加载界面
-            const loadingScreen = document.getElementById('loadingScreen');
-            if (loadingScreen) {
-                loadingScreen.style.display = 'none';
-            }
-            
-            // *** 修正版：用你原版的方式启动游戏循环 ***
-            gameLoop();
+    setInitialCameraPosition();
+    setupAudioUnlock();
+    
+    // 显示画布
+    const canvasEl = document.getElementById('gameCanvas');
+    if (canvasEl) {
+        canvasEl.style.display = 'block';
+    }
+    // 隐藏加载界面
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+    }
+    
+    // *** 修正版：用你原版的方式启动游戏循环 ***
+    gameLoop();
         } else {
             throw new Error("地图或角色图片加载失败");
         }
