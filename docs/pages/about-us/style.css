@@ -210,6 +210,85 @@ body {
     }
 }
 
+/* 小屏幕优化 */
+@media (max-width: 480px) {
+    .circle-container {
+        width: 280px;
+        height: 280px;
+        animation-duration: 60s; /* 减慢旋转速度以节省性能 */
+    }
+
+    .member {
+        width: 70px;
+        height: 90px; /* 增加高度以容纳名字 */
+        animation-duration: 60s; /* 减慢反向旋转 */
+    }
+
+    .member-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+
+    .member-name {
+        font-size: 0.7rem;
+        margin-top: 5px;
+        max-width: 60px;
+        word-wrap: break-word;
+    }
+
+    .center-logo {
+        width: 80px;
+        height: 80px;
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+
+    /* 调整位置以防溢出 */
+    .member:nth-child(1) {
+        top: 0%;
+    }
+
+    .member:nth-child(2) {
+        top: 10%;
+        right: 0%;
+    }
+
+    .member:nth-child(3) {
+        bottom: 0%;
+        right: 0%;
+    }
+
+    .member:nth-child(4) {
+        bottom: 0%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .member:nth-child(5) {
+        bottom: 10%;
+        left: 0%;
+    }
+
+    .member:nth-child(6) {
+        top: 10%;
+        left: 0%;
+    }
+
+    .back-arrow {
+        top: 10px;
+        left: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+
+    .footerText {
+        font-size: 0.6rem;
+        padding: 10px;
+    }
+}
+
 /* 头像图片 */
 .member:nth-child(1) .member-avatar {
     background-image: url(images/hxy.webp);

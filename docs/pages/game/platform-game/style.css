@@ -155,7 +155,7 @@ canvas {
 }
 
 .popup-content {
-    background-color: #333;
+    background: rgba(50, 50, 50, 0.3);
     padding: 40px;
     border-radius: 10px;
     text-align: center;
@@ -287,4 +287,98 @@ canvas {
 .hint-bubble.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Responsive adjustments for mobile and tablet */
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  #escMenu .menu-content {
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .menu-content button {
+    font-size: 12px;
+    padding: 0.8rem;
+    margin: 20px auto;
+  }
+
+  .popup-content {
+    padding: 20px;
+    max-width: 80%;
+    font-size: 14px;
+  }
+
+  .popup-content h2 {
+    font-size: 16px;
+  }
+
+  .popup-content p {
+    font-size: 12px;
+  }
+
+  .popup-content button {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+
+  #npcDialog .dialog-content {
+    width: 95%;
+    height: clamp(300px, 70vh, 400px);
+    padding: 8px;
+  }
+
+  #npcDialog #dialogFrame {
+    height: clamp(300px, 70vh, 400px);
+  }
+
+  .hint-bubble {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+}
+
+/* Further scaling for very small screens */
+@media (max-width: 480px) {
+  .menu-content {
+    padding: 15px;
+  }
+
+  .menu-content button {
+    font-size: 10px;
+    padding: 0.6rem;
+    margin: 15px auto;
+  }
+
+  .popup-content {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .popup-content h2 {
+    font-size: 14px;
+  }
+
+  .popup-content p {
+    font-size: 11px;
+  }
+
+  .popup-content button {
+    font-size: 9px;
+    padding: 5px 10px;
+  }
+
+  #npcDialog .dialog-content {
+    width: 98%;
+    padding: 5px;
+  }
+
+  .hint-bubble {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
 }

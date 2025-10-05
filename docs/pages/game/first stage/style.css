@@ -187,6 +187,48 @@ body {
     }
 }
 
+/* Small mobile optimization */
+@media (max-width: 480px) {
+    .dialog-container {
+        width: 98%;
+        bottom: 10px;
+    }
+
+    .dialog-box {
+        padding: 10px 15px;
+    }
+
+    .dialog-name {
+        font-size: 1em;
+    }
+
+    .dialog-content {
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    .controls {
+        bottom: 2px;
+        right: 5px;
+        gap: 5px;
+    }
+
+    .controls button {
+        padding: 3px 8px;
+        font-size: 0.8em;
+    }
+
+    #escMenu .menu-content {
+        padding: 20px;
+    }
+
+    .menu-content button {
+        font-size: 12px;
+        padding: 0.8rem;
+        margin: 20px auto;
+    }
+}
+
 
 
 /* Esc 菜单 */

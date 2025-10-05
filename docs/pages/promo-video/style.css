@@ -39,3 +39,23 @@ body{
     text-shadow: 1px 1px 0 #000;
     font-family: 'Press Start 2P', 'Courier New', "pxfont";
 }
+
+/* Responsive footer for smaller screens */
+@media (max-width: 768px) {
+    .footerText {
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Further optimization for small mobile */
+@media (max-width: 480px) {
+    .footerText {
+        padding: 8px;
+        font-size: 0.6rem;
+        margin-top: 10px;
+    }
+}

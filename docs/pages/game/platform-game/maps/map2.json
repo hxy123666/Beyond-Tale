@@ -1502,24 +1502,6 @@
                  "width":48,
                  "x":0,
                  "y":0
-                }, 
-                {
-                 "id":93,
-                 "image":"../assets/Plant.webp",
-                 "imageheight":27,
-                 "imagewidth":42
-                }, 
-                {
-                 "id":94,
-                 "image":"../assets/back-gold.webp",
-                 "imageheight":60,
-                 "imagewidth":374
-                }, 
-                {
-                 "id":95,
-                 "image":"../assets/cloud.webp",
-                 "imageheight":55,
-                 "imagewidth":84
                 }],
          "tilewidth":374
         }, 

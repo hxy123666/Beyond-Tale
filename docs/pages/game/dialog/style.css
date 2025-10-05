@@ -91,3 +91,51 @@
     background-color: #FFD700;
     color: #333;
 }
+
+/* Responsive adjustments for mobile popups */
+@media (max-width: 768px) {
+  .popup-content {
+    padding: 20px;
+    max-width: 70%;
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .popup-content h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .popup-content p {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  .popup-content button {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .popup-content {
+    padding: 15px;
+    max-width: 90%;
+    margin-right: 5px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .popup-content h2 {
+    font-size: 14px;
+  }
+
+  .popup-content p {
+    font-size: 11px;
+  }
+
+  .popup-content button {
+    font-size: 9px;
+    padding: 5px 10px;
+  }
+}

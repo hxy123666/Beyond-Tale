@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <link rel="Shortcut Icon" href="../../assets/ico/ico.webp">
@@ -11,14 +12,15 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body, html {
+
+        body,
+        html {
             height: 100%;
             font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
             overflow: hidden;
             color: #fff;
         }
-        
+
         /* 视频容器 - 覆盖整个页面 */
         #video-container {
             position: fixed;
@@ -29,13 +31,13 @@
             z-index: -1;
             overflow: hidden;
         }
-        
+
         #story-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
         /* 控制按钮 */
         #controls {
             position: fixed;
@@ -45,7 +47,7 @@
             display: flex;
             gap: 15px;
         }
-        
+
         .control-btn {
             width: 60px;
             height: 60px;
@@ -59,20 +61,22 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
-        
+
         .control-btn:hover {
             transform: scale(1.1);
             background: rgba(0, 0, 0, 0.7);
         }
-        
+
         .control-btn img {
             width: 100px;
             height: 100px;
-            pointer-events: none; /* 防止图片干扰按钮点击 */
+            pointer-events: none;
+            /* 防止图片干扰按钮点击 */
         }
-        
+
         /* 加载和错误状态 */
-        #loading, #error {
+        #loading,
+        #error {
             position: fixed;
             top: 0;
             left: 0;
@@ -85,11 +89,11 @@
             background: rgba(0, 0, 0, 0.8);
             z-index: 200;
         }
-        
+
         #error {
             display: none;
         }
-        
+
         .spinner {
             width: 50px;
             height: 50px;
@@ -98,17 +102,19 @@
             border-top-color: #ffcc00;
             animation: spin 1s ease-in-out infinite;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .loading-text {
             margin-top: 20px;
             font-size: 1.2rem;
             color: #ffcc00;
         }
-        
+
         .error-text {
             font-size: 1.5rem;
             color: #ff6b6b;
@@ -116,7 +122,7 @@
             text-align: center;
             max-width: 80%;
         }
-        
+
         .retry-btn {
             padding: 10px 20px;
             background: #ffcc00;
@@ -127,25 +133,58 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         .retry-btn:hover {
             background: #ffaa00;
         }
-        
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .control-btn {
                 width: 50px;
                 height: 50px;
             }
-            
+
             .control-btn img {
                 width: 25px;
                 height: 25px;
             }
         }
+
+        /* Small mobile optimization */
+        @media (max-width: 480px) {
+            #controls {
+                top: 10px;
+                right: 10px;
+                gap: 10px;
+            }
+
+            .control-btn {
+                width: 45px;
+                height: 45px;
+            }
+
+            .control-btn img {
+                width: 20px;
+                height: 20px;
+            }
+
+            .loading-text {
+                font-size: 1rem;
+            }
+
+            .error-text {
+                font-size: 1.2rem;
+            }
+
+            .retry-btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <!-- 视频容器 -->
     <div id="video-container">
@@ -154,7 +193,7 @@
             您的浏览器不支持视频播放。
         </video>
     </div>
-    
+
     <!-- 控制按钮 -->
     <div id="controls">
         <button id="silence-btn" class="control-btn">
@@ -164,13 +203,13 @@
             <img src="images/skip.webp" alt="跳过">
         </button>
     </div>
-    
+
     <!-- 加载状态 -->
     <div id="loading">
         <div class="spinner"></div>
         <p class="loading-text">视频加载中...</p>
     </div>
-    
+
     <!-- 错误状态 -->
     <div id="error">
         <p class="error-text">视频加载失败，请检查网络连接或视频文件路径</p>
@@ -178,7 +217,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // 获取元素
             const silenceBtn = document.getElementById('silence-btn');
             const skipBtn = document.getElementById('skip-btn');
@@ -187,51 +226,51 @@
             const loading = document.getElementById('loading');
             const error = document.getElementById('error');
             const retryBtn = document.getElementById('retry-btn');
-            
+
             const soundOnIcon = "images/volume_icon.webp"; // 有声音图标路径
             const soundOffIcon = "images/volume_muted_icon.webp"; // 静音图标路径
-            
+
             // 预加载图标
             preloadImages([soundOnIcon, soundOffIcon]);
-            
+
             // 静音状态
             let isMuted = true; // 初始状态为静音
-            
+
             // 视频加载事件
-            video.addEventListener('loadeddata', function() {
+            video.addEventListener('loadeddata', function () {
                 loading.style.display = 'none';
                 video.play().catch(e => {
                     console.error('自动播放失败:', e);
                     error.style.display = 'flex';
                 });
             });
-            
-            video.addEventListener('error', function() {
+
+            video.addEventListener('error', function () {
                 loading.style.display = 'none';
                 error.style.display = 'flex';
             });
-            
+
             // 视频结束事件 - 直接跳转
-            video.addEventListener('ended', function() {
+            video.addEventListener('ended', function () {
                 redirectToGame();
             });
-            
+
             // 重试按钮功能
-            retryBtn.addEventListener('click', function() {
+            retryBtn.addEventListener('click', function () {
                 error.style.display = 'none';
                 loading.style.display = 'flex';
                 video.load();
             });
-            
+
             // 静音按钮功能
-            silenceBtn.addEventListener('click', function() {
+            silenceBtn.addEventListener('click', function () {
                 isMuted = !isMuted;
                 video.muted = isMuted;
-                
+
                 // 更换图标
                 updateSoundIcon();
             });
-            
+
             // 更新声音图标函数
             function updateSoundIcon() {
                 try {
@@ -253,18 +292,18 @@
                     }
                 }
             }
-            
+
             // 跳过按钮功能
-            skipBtn.addEventListener('click', function() {
+            skipBtn.addEventListener('click', function () {
                 // 直接跳转到游戏页面
                 redirectToGame();
             });
-            
+
             // 跳转到游戏页面
             function redirectToGame() {
                 window.location.href = "../../pages/game/first stage/first_stage.html";
             }
-            
+
             // 预加载图片函数
             function preloadImages(urls) {
                 urls.forEach(url => {
@@ -272,7 +311,7 @@
                     img.src = url;
                 });
             }
-            
+
             // 尝试自动播放
             video.muted = true; // 静音以允许自动播放
             video.play().then(() => {
@@ -283,7 +322,7 @@
                 console.error('自动播放失败:', e);
                 loading.querySelector('.loading-text').textContent = '点击视频开始播放';
                 loading.style.cursor = 'pointer';
-                loading.onclick = function() {
+                loading.onclick = function () {
                     video.play().then(() => {
                         loading.style.display = 'none';
                     }).catch(e => {
@@ -295,4 +334,5 @@
         });
     </script>
 </body>
+
 </html>
