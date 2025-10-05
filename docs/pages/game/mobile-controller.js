@@ -28,7 +28,8 @@ class MobileController {
             'right': 'ArrowRight', 
             'jump': ' ',
             'action': 'e',
-            'esc': 'Escape'
+            'esc': 'Escape',
+            'dialog': 'q'
         };
         
         this.init();
@@ -121,11 +122,14 @@ class MobileController {
         const jumpBtn = this.createButton('jump', 'JUMP', 'action-button jump-button');
         // 交互按钮
         const actionBtn = this.createButton('action', 'E', 'action-button interact-button');
+        // 对话按钮
+        const dialogBtn = this.createButton('dialog', 'Q', 'action-button dialog-button');
         // Esc菜单按钮
         const escBtn = this.createButton('esc', 'MENU', 'action-button esc-button');
         
         container.appendChild(jumpBtn);
         container.appendChild(actionBtn);
+        container.appendChild(dialogBtn);
         container.appendChild(escBtn);
         
         return container;
@@ -235,7 +239,9 @@ class MobileController {
             ' ': 32,
             'e': 69,
             'E': 69,
-            'Escape': 27
+            'Escape': 27,
+            'q': 81,
+            'Q': 81
         };
         return keyMap[key] || 0;
     }
@@ -368,6 +374,11 @@ class MobileController {
                 font-size: 9px;
             }
             
+            .dialog-button {
+                background: rgba(100, 255, 255, 0.3);
+                border-color: rgba(100, 255, 255, 0.5);
+            }
+            
             .direction-button.pressed, .action-button.pressed {
                 background: rgba(255, 255, 255, 0.6);
                 transform: scale(0.95);
@@ -387,6 +398,11 @@ class MobileController {
             .esc-button.pressed {
                 background: rgba(255, 255, 150, 0.6);
                 border-color: rgba(255, 255, 150, 0.8);
+            }
+            
+            .dialog-button.pressed {
+                background: rgba(150, 255, 255, 0.6);
+                border-color: rgba(150, 255, 255, 0.8);
             }
             
             /* 横屏模式调整 */
