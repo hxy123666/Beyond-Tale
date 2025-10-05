@@ -237,6 +237,7 @@
         </div>
     </div>
 
+    <script src="../../mobile-controller.js"></script>
     <script>
 // 背景音乐自动播放功能
 document.addEventListener('DOMContentLoaded', function() {
@@ -253,6 +254,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 页面加载后立即尝试播放
     playMusic();
+    
+    // 初始化移动端控制器
+    if (typeof MobileController !== 'undefined') {
+        window.mobileController = new MobileController();
+        console.log('打砖块游戏移动端控制器已初始化');
+    }
 });
  // 创建音频元素
         const successSound = new Audio();

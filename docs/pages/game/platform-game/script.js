@@ -2071,6 +2071,13 @@ async function init() {
     setInitialCameraPosition();
     setupAudioUnlock();
     
+    // 初始化移动端控制器
+    if (typeof MobileController !== 'undefined') {
+        window.mobileController = new MobileController();
+        window.mobileController.setGameState(gameState);
+        console.log('移动端控制器已初始化');
+    }
+    
     // 显示画布
     const canvasEl = document.getElementById('gameCanvas');
     if (canvasEl) {

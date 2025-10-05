@@ -35,7 +35,10 @@
         #story-video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            /* 使用contain确保视频完整显示，避免底部被裁剪 */
+            background: #000;
+            /* 添加黑色背景，避免视频两侧留白时影响美观 */
         }
 
         /* 控制按钮 */

@@ -283,6 +283,154 @@
             }
         }
 
+        /* 移动端触摸优化 */
+        @media (max-width: 768px) {
+            /* 增加触摸目标大小 */
+            .option {
+                padding: 15px 12px;
+                font-size: 1rem;
+                min-height: 44px; /* iOS推荐的最小触摸目标 */
+                display: flex;
+                align-items: center;
+            }
+
+            /* 触摸反馈 */
+            .option:active {
+                background: linear-gradient(to right, rgba(100, 85, 140, 0.9), rgba(80, 70, 110, 0.9));
+                transform: scale(0.98);
+            }
+
+            /* 音乐播放器移动端优化 */
+            #music-player {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+
+            #toggle-music {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            #volume-control input {
+                width: 60px;
+            }
+
+            /* 对话容器移动端优化 */
+            #dialog-container {
+                width: 85%;
+                min-height: 35%;
+                max-height: 65%;
+                padding: 15px;
+                bottom: 3%;
+                right: 3%;
+            }
+
+            #character-name {
+                font-size: 1.4rem;
+                margin-bottom: 8px;
+            }
+
+            #dialog-text {
+                font-size: 1rem;
+                padding: 8px;
+                min-height: 60px;
+            }
+
+            /* 角色图片移动端优化 */
+            #character {
+                height: 70%;
+                left: 3%;
+            }
+
+            /* ESC菜单移动端优化 */
+            .menu-content {
+                padding: 25px;
+                width: 85%;
+                max-width: 300px;
+            }
+
+            .menu-content button {
+                font-size: 12px;
+                padding: 0.8rem;
+                margin: 20px auto;
+            }
+        }
+
+        /* 超小屏幕优化 */
+        @media (max-width: 480px) {
+            #dialog-container {
+                width: 90%;
+                padding: 12px;
+                bottom: 2%;
+                right: 2%;
+            }
+
+            #character-name {
+                font-size: 1.2rem;
+            }
+
+            #dialog-text {
+                font-size: 0.9rem;
+                padding: 6px;
+            }
+
+            .option {
+                padding: 12px 8px;
+                font-size: 0.85rem;
+                min-height: 40px;
+            }
+
+            #character {
+                height: 60%;
+                left: 2%;
+            }
+
+            #music-player {
+                top: 5px;
+                right: 5px;
+                padding: 6px 10px;
+            }
+
+            #toggle-music {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+
+            #volume-control input {
+                width: 50px;
+            }
+        }
+
+        /* 触摸设备通用优化 */
+        @media (hover: none) and (pointer: coarse) {
+            .option {
+                /* 移除hover效果，使用active效果 */
+                transition: none;
+            }
+
+            .option:hover {
+                background: linear-gradient(to right, rgba(60, 50, 90, 0.8), rgba(40, 35, 60, 0.8));
+                transform: none;
+                box-shadow: none;
+            }
+
+            .option:active {
+                background: linear-gradient(to right, rgba(100, 85, 140, 0.9), rgba(80, 70, 110, 0.9));
+                transform: scale(0.95);
+            }
+
+            #next-btn:active {
+                transform: scale(0.95);
+            }
+
+            #toggle-music:active {
+                transform: scale(0.95);
+            }
+        }
+
         /* Esc 菜单 */
         #escMenu {
             position: absolute;
