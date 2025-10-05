@@ -27,7 +27,8 @@ class MobileController {
             'left': 'ArrowLeft',
             'right': 'ArrowRight', 
             'jump': ' ',
-            'action': 'e'
+            'action': 'e',
+            'esc': 'Escape'
         };
         
         this.init();
@@ -48,12 +49,28 @@ class MobileController {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const isHoverNone = window.matchMedia('(hover: none)').matches;
         
-        this.isActive = isMobile || isTouchDevice;
+        // 更全面的移动设备检测
+        this.isActive = isMobile || isTouchDevice || isCoarsePointer || isHoverNone;
         
         // 同时检测屏幕尺寸
         const isSmallScreen = window.innerWidth <= 768;
         this.isActive = this.isActive || isSmallScreen;
+        
+        // 调试信息
+        console.log('移动端检测:', {
+            userAgent: userAgent.substring(0, 50) + '...',
+            isMobile,
+            isTouchDevice,
+            isCoarsePointer,
+            isHoverNone,
+            isSmallScreen,
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight,
+            isActive: this.isActive
+        });
         
         // 检测是否为横屏
         this.isLandscape = window.innerWidth > window.innerHeight;
@@ -104,9 +121,12 @@ class MobileController {
         const jumpBtn = this.createButton('jump', 'JUMP', 'action-button jump-button');
         // 交互按钮
         const actionBtn = this.createButton('action', 'E', 'action-button interact-button');
+        // Esc菜单按钮
+        const escBtn = this.createButton('esc', 'MENU', 'action-button esc-button');
         
         container.appendChild(jumpBtn);
         container.appendChild(actionBtn);
+        container.appendChild(escBtn);
         
         return container;
     }
@@ -214,7 +234,8 @@ class MobileController {
             'ArrowRight': 39,
             ' ': 32,
             'e': 69,
-            'E': 69
+            'E': 69,
+            'Escape': 27
         };
         return keyMap[key] || 0;
     }
@@ -341,6 +362,12 @@ class MobileController {
                 border-color: rgba(100, 255, 100, 0.5);
             }
             
+            .esc-button {
+                background: rgba(255, 255, 100, 0.3);
+                border-color: rgba(255, 255, 100, 0.5);
+                font-size: 9px;
+            }
+            
             .direction-button.pressed, .action-button.pressed {
                 background: rgba(255, 255, 255, 0.6);
                 transform: scale(0.95);
@@ -355,6 +382,11 @@ class MobileController {
             .interact-button.pressed {
                 background: rgba(150, 255, 150, 0.6);
                 border-color: rgba(150, 255, 150, 0.8);
+            }
+            
+            .esc-button.pressed {
+                background: rgba(255, 255, 150, 0.6);
+                border-color: rgba(255, 255, 150, 0.8);
             }
             
             /* 横屏模式调整 */
@@ -409,10 +441,17 @@ class MobileController {
                 }
             }
             
-            /* 隐藏控制器（桌面端） */
-            @media (min-width: 769px) and (hover: hover) {
+            /* 隐藏控制器（桌面端） - 更精确的检测 */
+            @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
                 .mobile-controller {
                     display: none;
+                }
+            }
+            
+            /* 强制显示移动端控制器 */
+            @media (max-width: 1023px), (pointer: coarse), (hover: none) {
+                .mobile-controller {
+                    display: block !important;
                 }
             }
         `;
