@@ -43,6 +43,7 @@ class MobileController {
             this.createController();
             this.setupTouchEvents();
             this.setupOrientationChange();
+            this.setupDialogDetection();
         }
     }
     
@@ -302,6 +303,44 @@ class MobileController {
         console.log('切换到竖屏模式');
     }
     
+    setupDialogDetection() {
+        // 检测对话界面的显示/隐藏
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.id === 'npcDialog') {
+                        this.handleDialogStateChange(target);
+                    }
+                }
+            });
+        });
+        
+        // 观察NPC对话框的变化
+        const npcDialog = document.getElementById('npcDialog');
+        if (npcDialog) {
+            observer.observe(npcDialog, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+            // 初始检查
+            this.handleDialogStateChange(npcDialog);
+        }
+    }
+    
+    handleDialogStateChange(dialogElement) {
+        const isDialogOpen = !dialogElement.classList.contains('hidden');
+        this.isDialogOpen = isDialogOpen;
+        
+        if (isDialogOpen) {
+            this.controllerElement.classList.add('dialog-mode');
+            console.log('对话界面已打开，切换到对话模式');
+        } else {
+            this.controllerElement.classList.remove('dialog-mode');
+            console.log('对话界面已关闭，恢复正常模式');
+        }
+    }
+    
     addControllerStyles() {
         if (document.getElementById('mobile-controller-styles')) return;
         
@@ -315,7 +354,7 @@ class MobileController {
                 width: 100%;
                 height: 100%;
                 pointer-events: none;
-                z-index: 1000;
+                z-index: 10002; /* 确保在对话框之上 */
             }
             
             .direction-pad {
@@ -469,6 +508,41 @@ class MobileController {
                 .mobile-controller {
                     display: block !important;
                 }
+            }
+            
+            /* 对话模式样式 */
+            .mobile-controller.dialog-mode .direction-pad {
+                display: none; /* 对话时隐藏方向键 */
+            }
+            
+            .mobile-controller.dialog-mode .action-buttons {
+                bottom: 50px; /* 对话时按钮位置上移 */
+                right: 50%;
+                transform: translateX(50%); /* 居中显示 */
+                flex-direction: row;
+                gap: 15px;
+            }
+            
+            .mobile-controller.dialog-mode .action-button {
+                width: 70px;
+                height: 70px;
+                font-size: 12px;
+            }
+            
+            .mobile-controller.dialog-mode .jump-button,
+            .mobile-controller.dialog-mode .interact-button {
+                display: none; /* 对话时隐藏跳跃和交互按钮 */
+            }
+            
+            .mobile-controller.dialog-mode .dialog-button {
+                background: rgba(100, 255, 100, 0.8); /* 对话时Q按钮更突出 */
+                border-color: rgba(100, 255, 100, 1);
+                transform: scale(1.1);
+            }
+            
+            .mobile-controller.dialog-mode .esc-button {
+                background: rgba(255, 100, 100, 0.8); /* 对话时MENU按钮更突出 */
+                border-color: rgba(255, 100, 100, 1);
             }
         `;
         
