@@ -54,6 +54,9 @@ class MobileController {
         // 同时检测屏幕尺寸
         const isSmallScreen = window.innerWidth <= 768;
         this.isActive = this.isActive || isSmallScreen;
+        
+        // 检测是否为横屏
+        this.isLandscape = window.innerWidth > window.innerHeight;
     }
     
     createController() {
@@ -226,11 +229,20 @@ class MobileController {
     setupOrientationChange() {
         window.addEventListener('orientationchange', () => {
             setTimeout(() => {
+                this.isLandscape = window.innerWidth > window.innerHeight;
                 this.updateLayout();
+                this.handleOrientationChange();
             }, 100);
         });
         
         window.addEventListener('resize', () => {
+            const wasLandscape = this.isLandscape;
+            this.isLandscape = window.innerWidth > window.innerHeight;
+            
+            if (wasLandscape !== this.isLandscape) {
+                this.handleOrientationChange();
+            }
+            
             this.updateLayout();
         });
     }
@@ -238,8 +250,29 @@ class MobileController {
     updateLayout() {
         if (!this.controllerElement) return;
         
-        const isLandscape = window.innerWidth > window.innerHeight;
-        this.controllerElement.className = `mobile-controller ${isLandscape ? 'landscape' : 'portrait'}`;
+        this.controllerElement.className = `mobile-controller ${this.isLandscape ? 'landscape' : 'portrait'}`;
+    }
+    
+    handleOrientationChange() {
+        // 横屏变化时的处理
+        if (this.isLandscape) {
+            this.showLandscapeMessage();
+        } else {
+            this.showPortraitMessage();
+        }
+        
+        // 触觉反馈
+        this.vibrate(50);
+    }
+    
+    showLandscapeMessage() {
+        // 可以在这里添加横屏模式的提示
+        console.log('切换到横屏模式');
+    }
+    
+    showPortraitMessage() {
+        // 可以在这里添加竖屏模式的提示
+        console.log('切换到竖屏模式');
     }
     
     addControllerStyles() {
@@ -387,10 +420,10 @@ class MobileController {
         document.head.appendChild(style);
     }
     
-    vibrate() {
+    vibrate(duration = 10) {
         // 触觉反馈（如果支持）
         if ('vibrate' in navigator) {
-            navigator.vibrate(10);
+            navigator.vibrate(duration);
         }
     }
     

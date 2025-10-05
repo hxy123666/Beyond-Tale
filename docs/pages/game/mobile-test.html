@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>移动端控制器测试 - Beyond Tale</title>
+    <link rel="Shortcut Icon" href="../../../assets/ico/ico.webp">
+    <style>
+        @font-face {
+            font-family: "Press Start 2P";
+            src: url(../../../../assets/fonts/PressStart2P-1.ttf);
+        }
+
+        @font-face {
+            font-family: "pxfont";
+            src: url(../../../../assets/fonts/HYPixel11pxU-2.ttf);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', 'pxfont', monospace;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* 强制横屏样式 */
+        @media screen and (orientation: portrait) {
+            body::before {
+                content: "请将手机横屏以获得最佳游戏体验";
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                font-size: 16px;
+                z-index: 10000;
+                background: rgba(0, 0, 0, 0.9);
+                padding: 20px;
+                border-radius: 10px;
+                width: 80%;
+                max-width: 300px;
+            }
+            
+            .game-content {
+                filter: blur(5px);
+                pointer-events: none;
+            }
+        }
+
+        .game-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .test-area {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .status-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .status-item h3 {
+            font-size: 10px;
+            margin-bottom: 5px;
+            opacity: 0.7;
+        }
+
+        .status-item .value {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-item .value.active {
+            color: #4CAF50;
+        }
+
+        .controls-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .controls-info h3 {
+            font-size: 12px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .control-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+
+        .control-key {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .test-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .test-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .test-btn:active {
+            transform: translateY(0);
+        }
+
+        .orientation-info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .header p {
+                font-size: 10px;
+            }
+            
+            .test-area {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            .status-display {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .status-item {
+                padding: 8px;
+            }
+            
+            .status-item h3 {
+                font-size: 8px;
+            }
+            
+            .status-item .value {
+                font-size: 12px;
+            }
+            
+            .controls-info h3 {
+                font-size: 10px;
+            }
+            
+            .control-item {
+                font-size: 8px;
+            }
+            
+            .test-btn {
+                font-size: 8px;
+                padding: 8px 12px;
+            }
+        }
+
+        /* 小屏幕手机适配 */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 16px;
+            }
+            
+            .test-area {
+                padding: 10px;
+            }
+            
+            .status-item {
+                padding: 6px;
+            }
+            
+            .status-item .value {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-content">
+        <div class="header">
+            <h1>移动端控制器测试</h1>
+            <p>测试触摸控制和横屏支持</p>
+        </div>
+
+        <div class="test-area">
+            <div class="status-display">
+                <div class="status-item">
+                    <h3>设备类型</h3>
+                    <div class="value" id="device-type">检测中...</div>
+                </div>
+                <div class="status-item">
+                    <h3>屏幕方向</h3>
+                    <div class="value" id="orientation">检测中...</div>
+                </div>
+                <div class="status-item">
+                    <h3>控制器状态</h3>
+                    <div class="value" id="controller-status">未初始化</div>
+                </div>
+                <div class="status-item">
+                    <h3>触摸支持</h3>
+                    <div class="value" id="touch-support">检测中...</div>
+                </div>
+            </div>
+
+            <div class="controls-info">
+                <h3>按键状态监控</h3>
+                <div class="control-item">
+                    <span>左移</span>
+                    <span class="control-key" id="left-key">未按下</span>
+                </div>
+                <div class="control-item">
+                    <span>右移</span>
+                    <span class="control-key" id="right-key">未按下</span>
+                </div>
+                <div class="control-item">
+                    <span>跳跃</span>
+                    <span class="control-key" id="jump-key">未按下</span>
+                </div>
+                <div class="control-item">
+                    <span>交互</span>
+                    <span class="control-key" id="action-key">未按下</span>
+                </div>
+            </div>
+
+            <div class="test-buttons">
+                <button class="test-btn" onclick="testVibration()">测试震动</button>
+                <button class="test-btn" onclick="toggleController()">切换控制器</button>
+                <button class="test-btn" onclick="resetTest()">重置测试</button>
+                <button class="test-btn" onclick="goToGame()">进入游戏</button>
+            </div>
+        </div>
+
+        <div class="orientation-info">
+            <div id="screen-size">屏幕尺寸: 检测中...</div>
+            <div id="orientation-hint">建议横屏游玩</div>
+        </div>
+    </div>
+
+    <script src="mobile-controller.js"></script>
+    <script>
+        // 全局变量
+        let mobileController = null;
+        let isControllerVisible = true;
+
+        // 检测设备信息
+        function detectDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            const deviceType = isMobile ? '移动设备' : (isTouchDevice ? '触摸设备' : '桌面设备');
+            document.getElementById('device-type').textContent = deviceType;
+            
+            const touchSupport = isTouchDevice ? '支持' : '不支持';
+            document.getElementById('touch-support').textContent = touchSupport;
+            
+            updateOrientation();
+            updateScreenSize();
+        }
+
+        // 更新屏幕方向
+        function updateOrientation() {
+            const isLandscape = window.innerWidth > window.innerHeight;
+            const orientation = isLandscape ? '横屏' : '竖屏';
+            document.getElementById('orientation').textContent = orientation;
+            
+            const hint = document.getElementById('orientation-hint');
+            hint.textContent = isLandscape ? '横屏模式 - 适合游戏' : '建议横屏游玩';
+        }
+
+        // 更新屏幕尺寸
+        function updateScreenSize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            document.getElementById('screen-size').textContent = `屏幕: ${width}x${height}`;
+        }
+
+        // 初始化移动端控制器
+        function initMobileController() {
+            if (typeof MobileController !== 'undefined') {
+                mobileController = new MobileController();
+                
+                // 设置按键状态监听
+                setupKeyMonitoring();
+                
+                document.getElementById('controller-status').textContent = '已初始化';
+                document.getElementById('controller-status').classList.add('active');
+                
+                console.log('移动端控制器测试已初始化');
+            } else {
+                document.getElementById('controller-status').textContent = '加载失败';
+                console.error('移动端控制器未加载');
+            }
+        }
+
+        // 设置按键监控
+        function setupKeyMonitoring() {
+            const keyMap = {
+                'ArrowLeft': 'left-key',
+                'ArrowRight': 'right-key',
+                ' ': 'jump-key',
+                'e': 'action-key',
+                'E': 'action-key'
+            };
+
+            // 监听键盘事件
+            document.addEventListener('keydown', (e) => {
+                const elementId = keyMap[e.key];
+                if (elementId) {
+                    const element = document.getElementById(elementId);
+                    element.textContent = '按下';
+                    element.style.background = 'rgba(76, 175, 80, 0.5)';
+                }
+            });
+
+            document.addEventListener('keyup', (e) => {
+                const elementId = keyMap[e.key];
+                if (elementId) {
+                    const element = document.getElementById(elementId);
+                    element.textContent = '未按下';
+                    element.style.background = 'rgba(255, 255, 255, 0.2)';
+                }
+            });
+        }
+
+        // 测试震动
+        function testVibration() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate([100, 50, 100]);
+                alert('震动测试成功！');
+            } else {
+                alert('此设备不支持震动功能');
+            }
+        }
+
+        // 切换控制器显示
+        function toggleController() {
+            if (!mobileController) return;
+            
+            if (isControllerVisible) {
+                mobileController.hide();
+                isControllerVisible = false;
+            } else {
+                mobileController.show();
+                isControllerVisible = true;
+            }
+        }
+
+        // 重置测试
+        function resetTest() {
+            // 重置所有按键状态显示
+            ['left-key', 'right-key', 'jump-key', 'action-key'].forEach(id => {
+                const element = document.getElementById(id);
+                element.textContent = '未按下';
+                element.style.background = 'rgba(255, 255, 255, 0.2)';
+            });
+            
+            // 重新检测设备
+            detectDevice();
+            
+            alert('测试已重置');
+        }
+
+        // 进入游戏
+        function goToGame() {
+            window.location.href = 'platform-game/game.html';
+        }
+
+        // 监听屏幕方向变化
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                updateOrientation();
+                updateScreenSize();
+            }, 100);
+        });
+
+        window.addEventListener('resize', () => {
+            updateOrientation();
+            updateScreenSize();
+        });
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            detectDevice();
+            initMobileController();
+        });
+
+        // 防止默认的触摸行为（避免页面滚动）
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>

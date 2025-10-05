@@ -8,6 +8,44 @@
   <title>Beyond Tale</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    /* ============ 横屏提示样式 ============ */
+    @media screen and (orientation: portrait) {
+      body::before {
+        content: "请将手机横屏以获得最佳游戏体验";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 16px;
+        z-index: 10000;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 300px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+      
+      /* 只模糊游戏画布，不影响UI元素 */
+      #gameCanvas,
+      #loadingScreen {
+        filter: blur(5px);
+        pointer-events: none;
+      }
+      
+      /* 确保重要UI元素在竖屏时仍然可见和可交互 */
+      #escMenu,
+      #achievementPopup,
+      .achievement-popup,
+      #npcDialog {
+        filter: none !important;
+        pointer-events: auto !important;
+      }
+    }
+
     /* ============ NPC 对话弹窗样式 ============ */
     #npcDialog {
       position: fixed;
