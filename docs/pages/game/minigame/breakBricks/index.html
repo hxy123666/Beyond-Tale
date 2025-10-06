@@ -463,7 +463,6 @@
         <button class="mobile-btn fire-btn" id="mobileFireBtn">发射</button>
     </div>
 
-    <script src="../../mobile-controller.js"></script>
     <script>
 // 背景音乐自动播放功能
 document.addEventListener('DOMContentLoaded', function() {
@@ -481,11 +480,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 页面加载后立即尝试播放
     playMusic();
     
-    // 初始化移动端控制器
-    if (typeof MobileController !== 'undefined') {
-        window.mobileController = new MobileController();
-        console.log('打砖块游戏移动端控制器已初始化');
-    }
+    // 不初始化通用的移动端控制器，避免与游戏专用控制器冲突
+    console.log('打砖块游戏使用专用移动端控制器，跳过通用控制器初始化');
 
     // 移动端控制器事件监听
     const mobileLeftBtn = document.getElementById('mobileLeftBtn');
