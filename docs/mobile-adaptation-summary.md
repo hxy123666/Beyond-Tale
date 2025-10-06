@@ -39,6 +39,7 @@
 
 #### 小游戏系列
 - ✅ `docs/pages/game/minigame/Minigame2/index.html` (专门定制控制器)
+- ✅ `docs/pages/game/minigame/breakBricks/index.html` (打砖块游戏，完整移动端适配)
 
 ### 4. 游戏脚本集成
 - ✅ `docs/pages/game/platform-game/script.js` - 已集成移动端控制器初始化

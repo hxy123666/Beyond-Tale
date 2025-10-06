@@ -42,13 +42,14 @@
         }
 
         /* ============ 移动端控制器样式 ============ */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) and (orientation: landscape), 
+               (max-width: 768px) and (orientation: portrait) {
             .mobile-controls {
                 position: fixed;
                 bottom: 20px;
                 left: 50%;
                 transform: translateX(-50%);
-                display: flex;
+                display: flex !important;
                 gap: 20px;
                 z-index: 1000;
             }
@@ -78,6 +79,7 @@
                 background: rgba(100, 200, 100, 0.9);
                 border-color: #2d5a2d;
                 color: white;
+                min-width: 80px;
             }
 
             .mobile-btn.space-btn:active {
@@ -88,6 +90,7 @@
                 background: rgba(200, 100, 100, 0.9);
                 border-color: #5a2d2d;
                 color: white;
+                min-width: 80px;
             }
 
             .mobile-btn.reset-btn:active {
@@ -98,11 +101,37 @@
             .controls {
                 display: none;
             }
+
+            /* 优化移动端游戏容器 */
+            .game-container {
+                width: 95vw;
+                height: 65vh;
+            }
+
+            /* 优化移动端文字大小 */
+            .instructions {
+                font-size: 16px;
+            }
+
+            .score {
+                font-size: 20px;
+            }
+
+            .message {
+                font-size: 24px;
+            }
+
+            /* 优化移动端图片槽位 */
+            .image-slot {
+                width: 60px;
+                height: 150px;
+            }
         }
 
-        @media (min-width: 769px) {
+        /* 桌面端隐藏移动端控制器 */
+        @media (min-width: 1025px) {
             .mobile-controls {
-                display: none;
+                display: none !important;
             }
         }
 
@@ -582,32 +611,145 @@
         const mobileSpaceBtn = document.getElementById('mobileSpaceBtn');
         const mobileResetBtn = document.getElementById('mobileResetBtn');
 
+        console.log('初始化移动端控制器...');
+
         if (mobileSpaceBtn) {
+            console.log('找到空格按钮');
+            
+            // 确保按钮能接收触摸事件
+            mobileSpaceBtn.style.touchAction = 'manipulation';
+            
             mobileSpaceBtn.addEventListener('touchstart', function(e) {
+                console.log('移动端空格按钮被触摸');
                 e.preventDefault();
+                e.stopPropagation();
+                checkHit();
+            }, { passive: false });
+
+            mobileSpaceBtn.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, { passive: false });
+
+            mobileSpaceBtn.addEventListener('click', function(e) {
+                console.log('移动端空格按钮被点击');
+                e.preventDefault();
+                e.stopPropagation();
                 checkHit();
             });
 
-            mobileSpaceBtn.addEventListener('click', function(e) {
+            // 添加更多事件监听以确保兼容性
+            mobileSpaceBtn.addEventListener('mousedown', function(e) {
+                console.log('移动端空格按钮被按下');
                 e.preventDefault();
+                e.stopPropagation();
                 checkHit();
             });
+        } else {
+            console.error('未找到空格按钮');
         }
 
         if (mobileResetBtn) {
+            console.log('找到重置按钮');
+            
+            // 确保按钮能接收触摸事件
+            mobileResetBtn.style.touchAction = 'manipulation';
+            
             mobileResetBtn.addEventListener('touchstart', function(e) {
+                console.log('移动端重置按钮被触摸');
                 e.preventDefault();
+                e.stopPropagation();
+                initGame();
+            }, { passive: false });
+
+            mobileResetBtn.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, { passive: false });
+
+            mobileResetBtn.addEventListener('click', function(e) {
+                console.log('移动端重置按钮被点击');
+                e.preventDefault();
+                e.stopPropagation();
                 initGame();
             });
 
-            mobileResetBtn.addEventListener('click', function(e) {
+            // 添加更多事件监听以确保兼容性
+            mobileResetBtn.addEventListener('mousedown', function(e) {
+                console.log('移动端重置按钮被按下');
                 e.preventDefault();
+                e.stopPropagation();
                 initGame();
             });
+        } else {
+            console.error('未找到重置按钮');
         }
+
+        // 添加全局触摸事件处理作为备用方案
+        document.addEventListener('touchstart', function(e) {
+            // 检查触摸的是否是移动端按钮
+            if (e.target === mobileSpaceBtn) {
+                console.log('全局触摸事件：空格按钮');
+                e.preventDefault();
+                checkHit();
+            } else if (e.target === mobileResetBtn) {
+                console.log('全局触摸事件：重置按钮');
+                e.preventDefault();
+                initGame();
+            }
+        }, { passive: false });
 
         // 初始化游戏
         initGame();
+
+        // 移动端特殊优化：防止页面滚动
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        // 移动端特殊优化：防止双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // 移动端特殊优化：调整指针速度以适应不同屏幕尺寸
+        function adjustForMobile() {
+            if (window.innerWidth <= 768) {
+                // 移动端调整指针速度
+                CONFIG.pointerSpeed = 0.006 * getWidth();
+                CONFIG.targetMinWidth = 100;
+                CONFIG.targetMaxWidth = 130;
+                CONFIG.targetCenterRange = 0.2 * getWidth();
+                
+                // 重新初始化游戏以应用新参数
+                if (gameState && gameState.gameActive) {
+                    // 保存当前游戏状态
+                    const currentHits = gameState.successfulHits;
+                    const currentTotal = gameState.totalSuccessCount;
+                    
+                    // 重新初始化
+                    initGame();
+                    
+                    // 恢复游戏状态
+                    gameState.successfulHits = currentHits;
+                    gameState.totalSuccessCount = currentTotal;
+                    updateScore();
+                }
+            }
+        }
+
+        // 页面加载时调整移动端参数
+        window.addEventListener('load', function() {
+            adjustForMobile();
+            // 确保移动端控制器正确初始化
+            console.log('Minigame2 移动端适配已加载');
+        });
+        window.addEventListener('resize', adjustForMobile);
     </script>
 </body>
 </html>

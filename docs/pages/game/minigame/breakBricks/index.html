@@ -219,6 +219,93 @@
             display: none;
         }
 
+        /* ============ 移动端控制器样式 ============ */
+        @media (max-width: 1024px) and (orientation: landscape), 
+               (max-width: 768px) and (orientation: portrait) {
+            .mobile-controls {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex !important;
+                gap: 15px;
+                z-index: 1000;
+            }
+
+            .mobile-btn {
+                padding: 15px 20px;
+                font-size: 14px;
+                font-family: 'Press Start 2P', monospace;
+                background: rgba(255, 255, 255, 0.9);
+                border: 3px solid #333;
+                border-radius: 10px;
+                color: #333;
+                cursor: pointer;
+                user-select: none;
+                -webkit-user-select: none;
+                transition: all 0.1s ease;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .mobile-btn:active {
+                transform: scale(0.95);
+                background: rgba(200, 200, 200, 0.9);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            .mobile-btn.left-btn {
+                background: rgba(100, 150, 255, 0.9);
+                border-color: #2d5aa2;
+                color: white;
+            }
+
+            .mobile-btn.left-btn:active {
+                background: rgba(80, 120, 200, 0.9);
+            }
+
+            .mobile-btn.right-btn {
+                background: rgba(100, 150, 255, 0.9);
+                border-color: #2d5aa2;
+                color: white;
+            }
+
+            .mobile-btn.right-btn:active {
+                background: rgba(80, 120, 200, 0.9);
+            }
+
+            .mobile-btn.action-btn {
+                background: rgba(255, 200, 100, 0.9);
+                border-color: #a65c2d;
+                color: white;
+            }
+
+            .mobile-btn.action-btn:active {
+                background: rgba(200, 160, 80, 0.9);
+            }
+
+            .mobile-btn.fire-btn {
+                background: rgba(255, 100, 100, 0.9);
+                border-color: #a52d5c;
+                color: white;
+            }
+
+            .mobile-btn.fire-btn:active {
+                background: rgba(200, 80, 80, 0.9);
+            }
+
+            /* 隐藏桌面端控制提示 */
+            .dialog {
+                display: none;
+            }
+        }
+
+        /* 桌面端隐藏移动端控制器 */
+        @media (min-width: 1025px) {
+            .mobile-controls {
+                display: none !important;
+            }
+        }
+
         .top-left-image {
             position: fixed;
             top: 27px;
@@ -272,6 +359,14 @@
         </div>
     </div>
 
+    <!-- 移动端控制器 -->
+    <div class="mobile-controls">
+        <button class="mobile-btn left-btn" id="mobileLeftBtn">←</button>
+        <button class="mobile-btn right-btn" id="mobileRightBtn">→</button>
+        <button class="mobile-btn action-btn" id="mobileActionBtn">F</button>
+        <button class="mobile-btn fire-btn" id="mobileFireBtn">发射</button>
+    </div>
+
     <script src="../../mobile-controller.js"></script>
     <script>
 // 背景音乐自动播放功能
@@ -294,6 +389,110 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof MobileController !== 'undefined') {
         window.mobileController = new MobileController();
         console.log('打砖块游戏移动端控制器已初始化');
+    }
+
+    // 移动端控制器事件监听
+    const mobileLeftBtn = document.getElementById('mobileLeftBtn');
+    const mobileRightBtn = document.getElementById('mobileRightBtn');
+    const mobileActionBtn = document.getElementById('mobileActionBtn');
+    const mobileFireBtn = document.getElementById('mobileFireBtn');
+
+    if (mobileLeftBtn) {
+        mobileLeftBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowLeft'] = true;
+            }
+        });
+
+        mobileLeftBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowLeft'] = false;
+            }
+        });
+
+        mobileLeftBtn.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowLeft'] = true;
+            }
+        });
+
+        mobileLeftBtn.addEventListener('mouseup', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowLeft'] = false;
+            }
+        });
+    }
+
+    if (mobileRightBtn) {
+        mobileRightBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowRight'] = true;
+            }
+        });
+
+        mobileRightBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowRight'] = false;
+            }
+        });
+
+        mobileRightBtn.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowRight'] = true;
+            }
+        });
+
+        mobileRightBtn.addEventListener('mouseup', function(e) {
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowRight'] = false;
+            }
+        });
+    }
+
+    if (mobileActionBtn) {
+        mobileActionBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (window.game && window.game.nearUmbrellaStand && !window.game.hasUmbrella) {
+                window.game.hasUmbrella = true;
+                window.game.updateUI();
+            }
+        });
+
+        mobileActionBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.game && window.game.nearUmbrellaStand && !window.game.hasUmbrella) {
+                window.game.hasUmbrella = true;
+                window.game.updateUI();
+            }
+        });
+    }
+
+    if (mobileFireBtn) {
+        mobileFireBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (window.game && window.game.ball.onCharacter && window.game.hasUmbrella) {
+                window.game.ball.onCharacter = false;
+                window.game.ball.dx = 19 * window.game.scale;
+                window.game.ball.dy = -19 * window.game.scale;
+            }
+        });
+
+        mobileFireBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.game && window.game.ball.onCharacter && window.game.hasUmbrella) {
+                window.game.ball.onCharacter = false;
+                window.game.ball.dx = 19 * window.game.scale;
+                window.game.ball.dy = -19 * window.game.scale;
+            }
+        });
     }
 });
  // 创建音频元素
