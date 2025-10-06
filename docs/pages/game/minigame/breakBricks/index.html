@@ -223,79 +223,101 @@
         @media (max-width: 1024px) and (orientation: landscape), 
                (max-width: 768px) and (orientation: portrait) {
             .mobile-controls {
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
+                position: fixed !important;
+                bottom: 20px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
                 display: flex !important;
-                gap: 15px;
-                z-index: 1000;
+                gap: 15px !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
 
             .mobile-btn {
-                padding: 15px 20px;
-                font-size: 14px;
-                font-family: 'Press Start 2P', monospace;
-                background: rgba(255, 255, 255, 0.9);
-                border: 3px solid #333;
-                border-radius: 10px;
-                color: #333;
-                cursor: pointer;
-                user-select: none;
-                -webkit-user-select: none;
-                transition: all 0.1s ease;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                padding: 15px 20px !important;
+                font-size: 14px !important;
+                font-family: 'Press Start 2P', monospace !important;
+                background: rgba(255, 255, 255, 0.9) !important;
+                border: 3px solid #333 !important;
+                border-radius: 10px !important;
+                color: #333 !important;
+                cursor: pointer !important;
+                user-select: none !important;
+                -webkit-user-select: none !important;
+                transition: all 0.1s ease !important;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+                pointer-events: auto !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                min-width: 60px !important;
+                min-height: 50px !important;
             }
 
             .mobile-btn:active {
-                transform: scale(0.95);
-                background: rgba(200, 200, 200, 0.9);
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                transform: scale(0.95) !important;
+                background: rgba(200, 200, 200, 0.9) !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
             }
 
             .mobile-btn.left-btn {
-                background: rgba(100, 150, 255, 0.9);
-                border-color: #2d5aa2;
-                color: white;
+                background: rgba(100, 150, 255, 0.9) !important;
+                border-color: #2d5aa2 !important;
+                color: white !important;
             }
 
             .mobile-btn.left-btn:active {
-                background: rgba(80, 120, 200, 0.9);
+                background: rgba(80, 120, 200, 0.9) !important;
             }
 
             .mobile-btn.right-btn {
-                background: rgba(100, 150, 255, 0.9);
-                border-color: #2d5aa2;
-                color: white;
+                background: rgba(100, 150, 255, 0.9) !important;
+                border-color: #2d5aa2 !important;
+                color: white !important;
             }
 
             .mobile-btn.right-btn:active {
-                background: rgba(80, 120, 200, 0.9);
+                background: rgba(80, 120, 200, 0.9) !important;
             }
 
             .mobile-btn.action-btn {
-                background: rgba(255, 200, 100, 0.9);
-                border-color: #a65c2d;
-                color: white;
+                background: rgba(255, 200, 100, 0.9) !important;
+                border-color: #a65c2d !important;
+                color: white !important;
             }
 
             .mobile-btn.action-btn:active {
-                background: rgba(200, 160, 80, 0.9);
+                background: rgba(200, 160, 80, 0.9) !important;
             }
 
             .mobile-btn.fire-btn {
-                background: rgba(255, 100, 100, 0.9);
-                border-color: #a52d5c;
-                color: white;
+                background: rgba(255, 100, 100, 0.9) !important;
+                border-color: #a52d5c !important;
+                color: white !important;
             }
 
             .mobile-btn.fire-btn:active {
-                background: rgba(200, 80, 80, 0.9);
+                background: rgba(200, 80, 80, 0.9) !important;
             }
 
             /* 隐藏桌面端控制提示 */
             .dialog {
-                display: none;
+                display: none !important;
+            }
+
+            /* 确保游戏容器不会遮挡控制器 */
+            #game-container {
+                pointer-events: none !important;
+            }
+
+            #game-canvas {
+                pointer-events: none !important;
+            }
+
+            /* 确保控制器能接收事件 */
+            .mobile-controls * {
+                pointer-events: auto !important;
             }
         }
 
@@ -304,6 +326,80 @@
             .mobile-controls {
                 display: none !important;
             }
+        }
+
+        /* 强制显示移动端控制器的备用样式 */
+        .mobile-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .mobile-btn {
+            padding: 15px 20px;
+            font-size: 14px;
+            font-family: 'Press Start 2P', monospace;
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #333;
+            border-radius: 10px;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            min-width: 60px;
+            min-height: 50px;
+        }
+
+        .mobile-btn:active {
+            transform: scale(0.95);
+            background: rgba(200, 200, 200, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-btn.left-btn {
+            background: rgba(100, 150, 255, 0.9);
+            border-color: #2d5aa2;
+            color: white;
+        }
+
+        .mobile-btn.left-btn:active {
+            background: rgba(80, 120, 200, 0.9);
+        }
+
+        .mobile-btn.right-btn {
+            background: rgba(100, 150, 255, 0.9);
+            border-color: #2d5aa2;
+            color: white;
+        }
+
+        .mobile-btn.right-btn:active {
+            background: rgba(80, 120, 200, 0.9);
+        }
+
+        .mobile-btn.action-btn {
+            background: rgba(255, 200, 100, 0.9);
+            border-color: #a65c2d;
+            color: white;
+        }
+
+        .mobile-btn.action-btn:active {
+            background: rgba(200, 160, 80, 0.9);
+        }
+
+        .mobile-btn.fire-btn {
+            background: rgba(255, 100, 100, 0.9);
+            border-color: #a52d5c;
+            color: white;
+        }
+
+        .mobile-btn.fire-btn:active {
+            background: rgba(200, 80, 80, 0.9);
         }
 
         .top-left-image {
