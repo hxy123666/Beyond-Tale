@@ -397,103 +397,222 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileActionBtn = document.getElementById('mobileActionBtn');
     const mobileFireBtn = document.getElementById('mobileFireBtn');
 
+    console.log('初始化打砖块移动端控制器...');
+
+    // 确保按钮能接收触摸事件
+    function setupButton(btn) {
+        if (btn) {
+            btn.style.touchAction = 'manipulation';
+            btn.style.userSelect = 'none';
+            btn.style.webkitUserSelect = 'none';
+        }
+    }
+
+    setupButton(mobileLeftBtn);
+    setupButton(mobileRightBtn);
+    setupButton(mobileActionBtn);
+    setupButton(mobileFireBtn);
+
     if (mobileLeftBtn) {
+        console.log('找到左移按钮');
+        
         mobileLeftBtn.addEventListener('touchstart', function(e) {
+            console.log('左移按钮被触摸');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowLeft'] = true;
+                console.log('设置左移键为 true');
             }
-        });
+        }, { passive: false });
 
         mobileLeftBtn.addEventListener('touchend', function(e) {
+            console.log('左移按钮触摸结束');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowLeft'] = false;
+                console.log('设置左移键为 false');
             }
-        });
+        }, { passive: false });
 
         mobileLeftBtn.addEventListener('mousedown', function(e) {
+            console.log('左移按钮被按下');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowLeft'] = true;
+                console.log('设置左移键为 true');
             }
         });
 
         mobileLeftBtn.addEventListener('mouseup', function(e) {
+            console.log('左移按钮被释放');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowLeft'] = false;
+                console.log('设置左移键为 false');
             }
         });
+    } else {
+        console.error('未找到左移按钮');
     }
 
     if (mobileRightBtn) {
+        console.log('找到右移按钮');
+        
         mobileRightBtn.addEventListener('touchstart', function(e) {
+            console.log('右移按钮被触摸');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowRight'] = true;
+                console.log('设置右移键为 true');
             }
-        });
+        }, { passive: false });
 
         mobileRightBtn.addEventListener('touchend', function(e) {
+            console.log('右移按钮触摸结束');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowRight'] = false;
+                console.log('设置右移键为 false');
             }
-        });
+        }, { passive: false });
 
         mobileRightBtn.addEventListener('mousedown', function(e) {
+            console.log('右移按钮被按下');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowRight'] = true;
+                console.log('设置右移键为 true');
             }
         });
 
         mobileRightBtn.addEventListener('mouseup', function(e) {
+            console.log('右移按钮被释放');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game) {
                 window.game.keys['ArrowRight'] = false;
+                console.log('设置右移键为 false');
             }
         });
+    } else {
+        console.error('未找到右移按钮');
     }
 
     if (mobileActionBtn) {
+        console.log('找到动作按钮');
+        
         mobileActionBtn.addEventListener('touchstart', function(e) {
+            console.log('动作按钮被触摸');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game && window.game.nearUmbrellaStand && !window.game.hasUmbrella) {
                 window.game.hasUmbrella = true;
                 window.game.updateUI();
+                console.log('拾取雨伞');
             }
-        });
+        }, { passive: false });
+
+        mobileActionBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, { passive: false });
 
         mobileActionBtn.addEventListener('click', function(e) {
+            console.log('动作按钮被点击');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game && window.game.nearUmbrellaStand && !window.game.hasUmbrella) {
                 window.game.hasUmbrella = true;
                 window.game.updateUI();
+                console.log('拾取雨伞');
             }
         });
+    } else {
+        console.error('未找到动作按钮');
     }
 
     if (mobileFireBtn) {
+        console.log('找到发射按钮');
+        
         mobileFireBtn.addEventListener('touchstart', function(e) {
+            console.log('发射按钮被触摸');
             e.preventDefault();
+            e.stopPropagation();
             if (window.game && window.game.ball.onCharacter && window.game.hasUmbrella) {
                 window.game.ball.onCharacter = false;
                 window.game.ball.dx = 19 * window.game.scale;
                 window.game.ball.dy = -19 * window.game.scale;
+                console.log('发射球');
             }
-        });
+        }, { passive: false });
+
+        mobileFireBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, { passive: false });
 
         mobileFireBtn.addEventListener('click', function(e) {
+            console.log('发射按钮被点击');
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.game && window.game.ball.onCharacter && window.game.hasUmbrella) {
+                window.game.ball.onCharacter = false;
+                window.game.ball.dx = 19 * window.game.scale;
+                window.game.ball.dy = -19 * window.game.scale;
+                console.log('发射球');
+            }
+        });
+    } else {
+        console.error('未找到发射按钮');
+    }
+
+    // 添加全局触摸事件处理作为备用方案
+    document.addEventListener('touchstart', function(e) {
+        if (e.target === mobileLeftBtn) {
+            console.log('全局触摸事件：左移按钮');
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowLeft'] = true;
+            }
+        } else if (e.target === mobileRightBtn) {
+            console.log('全局触摸事件：右移按钮');
+            e.preventDefault();
+            if (window.game) {
+                window.game.keys['ArrowRight'] = true;
+            }
+        } else if (e.target === mobileActionBtn) {
+            console.log('全局触摸事件：动作按钮');
+            e.preventDefault();
+            if (window.game && window.game.nearUmbrellaStand && !window.game.hasUmbrella) {
+                window.game.hasUmbrella = true;
+                window.game.updateUI();
+            }
+        } else if (e.target === mobileFireBtn) {
+            console.log('全局触摸事件：发射按钮');
             e.preventDefault();
             if (window.game && window.game.ball.onCharacter && window.game.hasUmbrella) {
                 window.game.ball.onCharacter = false;
                 window.game.ball.dx = 19 * window.game.scale;
                 window.game.ball.dy = -19 * window.game.scale;
             }
-        });
-    }
+        }
+    }, { passive: false });
+
+    // 确保游戏对象正确设置
+    setTimeout(function() {
+        if (window.game) {
+            console.log('游戏对象已正确设置');
+        } else {
+            console.error('游戏对象未设置');
+        }
+    }, 1000);
 });
  // 创建音频元素
         const successSound = new Audio();
