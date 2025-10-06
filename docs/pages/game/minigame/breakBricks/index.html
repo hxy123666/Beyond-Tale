@@ -1416,6 +1416,9 @@ class BreakoutGame {
 // 初始化游戏
 window.addEventListener('load', () => {
     const game = new BreakoutGame();
+    // 将游戏对象设置到全局变量，供移动端控制器使用
+    window.game = game;
+    console.log('游戏对象已设置到 window.game');
 });
     </script>
     <!-- Esc菜单功能需要 -->
