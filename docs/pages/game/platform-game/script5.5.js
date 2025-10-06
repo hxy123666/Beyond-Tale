@@ -2127,7 +2127,12 @@ async function init() {
             console.log('死亡统计数据:', gameState.deathStats);
             console.log('是否第一次摔死:', gameState.firstFallDeath);
 
-
+            // 初始化移动端控制器
+            if (typeof MobileController !== 'undefined') {
+                window.mobileController = new MobileController();
+                window.mobileController.setGameState(gameState);
+                console.log('移动端控制器已初始化');
+            }
 
             setInitialCameraPosition();
             setupAudioUnlock();

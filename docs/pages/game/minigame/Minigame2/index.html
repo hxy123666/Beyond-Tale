@@ -6,6 +6,106 @@
     <link rel="Shortcut Icon" href="../../../../assets/ico/ico.webp">
     <title>Beyond Tale</title>
     <style>
+        /* ============ 横屏提示样式 ============ */
+        @media screen and (orientation: portrait) {
+            body::before {
+                content: "请将手机横屏以获得最佳游戏体验";
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                font-family: 'Press Start 2P', monospace;
+                font-size: 16px;
+                z-index: 10000;
+                background: rgba(0, 0, 0, 0.9);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                width: 80%;
+                max-width: 300px;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            
+            /* 只模糊游戏容器，不影响UI元素 */
+            .game-container {
+                filter: blur(5px);
+                pointer-events: none;
+            }
+            
+            /* 确保重要UI元素在竖屏时仍然可见和可交互 */
+            .dialog {
+                filter: none !important;
+                pointer-events: auto !important;
+                z-index: 10001 !important;
+            }
+        }
+
+        /* ============ 移动端控制器样式 ============ */
+        @media (max-width: 768px) {
+            .mobile-controls {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 20px;
+                z-index: 1000;
+            }
+
+            .mobile-btn {
+                padding: 15px 25px;
+                font-size: 18px;
+                font-family: 'Press Start 2P', monospace;
+                background: rgba(255, 255, 255, 0.9);
+                border: 3px solid #333;
+                border-radius: 10px;
+                color: #333;
+                cursor: pointer;
+                user-select: none;
+                -webkit-user-select: none;
+                transition: all 0.1s ease;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .mobile-btn:active {
+                transform: scale(0.95);
+                background: rgba(200, 200, 200, 0.9);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            .mobile-btn.space-btn {
+                background: rgba(100, 200, 100, 0.9);
+                border-color: #2d5a2d;
+                color: white;
+            }
+
+            .mobile-btn.space-btn:active {
+                background: rgba(80, 160, 80, 0.9);
+            }
+
+            .mobile-btn.reset-btn {
+                background: rgba(200, 100, 100, 0.9);
+                border-color: #5a2d2d;
+                color: white;
+            }
+
+            .mobile-btn.reset-btn:active {
+                background: rgba(160, 80, 80, 0.9);
+            }
+
+            /* 隐藏桌面端控制提示 */
+            .controls {
+                display: none;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-controls {
+                display: none;
+            }
+        }
+
         @font-face {
         font-family: "Press Start 2P";
         src: url(../../../../assets/fonts/PressStart2P-1.ttf);
@@ -213,6 +313,12 @@
             <div class="message" id="message">成功！</div>
             <div class="controls">按空格键进行判定 | R键重新开始</div>
         </div>
+    </div>
+
+    <!-- 移动端控制器 -->
+    <div class="mobile-controls">
+        <button class="mobile-btn space-btn" id="mobileSpaceBtn">空格</button>
+        <button class="mobile-btn reset-btn" id="mobileResetBtn">重置</button>
     </div>
 
     <script>
@@ -471,6 +577,34 @@
                 initGame();
             }
         });
+
+        // 移动端控制器事件监听
+        const mobileSpaceBtn = document.getElementById('mobileSpaceBtn');
+        const mobileResetBtn = document.getElementById('mobileResetBtn');
+
+        if (mobileSpaceBtn) {
+            mobileSpaceBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                checkHit();
+            });
+
+            mobileSpaceBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                checkHit();
+            });
+        }
+
+        if (mobileResetBtn) {
+            mobileResetBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                initGame();
+            });
+
+            mobileResetBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                initGame();
+            });
+        }
 
         // 初始化游戏
         initGame();

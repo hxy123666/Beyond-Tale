@@ -382,3 +382,141 @@ canvas {
     padding: 10px 16px;
   }
 }
+
+/* ============ 移动端适配样式 ============ */
+
+/* 横屏提示样式 */
+@media screen and (orientation: portrait) {
+  body::before {
+    content: "请将手机横屏以获得最佳游戏体验";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  
+  /* 只模糊游戏画布，不影响UI元素 */
+  #gameCanvas,
+  #loadingScreen {
+    filter: blur(5px);
+    pointer-events: none;
+  }
+  
+  /* 确保重要UI元素在竖屏时仍然可见和可交互 */
+  #escMenu,
+  #achievementPopup,
+  .achievement-popup,
+  #npcDialog {
+    filter: none !important;
+    pointer-events: auto !important;
+    z-index: 10001 !important;
+  }
+  
+  /* 确保成就弹窗在移动端可见 */
+  .popup-content {
+    background: rgba(50, 50, 50, 0.95) !important;
+    border: 2px solid #FFD700 !important;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8) !important;
+  }
+}
+
+/* 移动端控制器样式 */
+@media (max-width: 768px) {
+  .mobile-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+  }
+
+  .mobile-btn {
+    padding: 15px 20px;
+    font-size: 14px;
+    font-family: 'Press Start 2P', monospace;
+    background: rgba(255, 255, 255, 0.9);
+    border: 3px solid #333;
+    border-radius: 10px;
+    color: #333;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.1s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-btn:active {
+    transform: scale(0.95);
+    background: rgba(200, 200, 200, 0.9);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-btn.left-btn {
+    background: rgba(100, 150, 255, 0.9);
+    border-color: #2d5aa2;
+    color: white;
+  }
+
+  .mobile-btn.left-btn:active {
+    background: rgba(80, 120, 200, 0.9);
+  }
+
+  .mobile-btn.right-btn {
+    background: rgba(100, 150, 255, 0.9);
+    border-color: #2d5aa2;
+    color: white;
+  }
+
+  .mobile-btn.right-btn:active {
+    background: rgba(80, 120, 200, 0.9);
+  }
+
+  .mobile-btn.jump-btn {
+    background: rgba(255, 200, 100, 0.9);
+    border-color: #a65c2d;
+    color: white;
+  }
+
+  .mobile-btn.jump-btn:active {
+    background: rgba(200, 160, 80, 0.9);
+  }
+
+  .mobile-btn.interact-btn {
+    background: rgba(100, 255, 150, 0.9);
+    border-color: #2da65c;
+    color: white;
+  }
+
+  .mobile-btn.interact-btn:active {
+    background: rgba(80, 200, 120, 0.9);
+  }
+
+  .mobile-btn.menu-btn {
+    background: rgba(255, 150, 150, 0.9);
+    border-color: #a52d5c;
+    color: white;
+  }
+
+  .mobile-btn.menu-btn:active {
+    background: rgba(200, 120, 120, 0.9);
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-controls {
+    display: none;
+  }
+}
